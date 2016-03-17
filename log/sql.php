@@ -5,8 +5,12 @@
 		private $db;
 
 		public function __construct() {
+			$host = "localhost";
+			$userName = root;
+			$passWord = "";
+			$dataBase = "ithaax_testdata";
 			//username: ithaax_testdata & pass: test123data
-			$this->db = new mysqli("localhost","root", "", "ithaax_testdata");
+			$this->db = new mysqli($host, $userName, $passWord, $host);
 		}
 
 		public function __destruct() {
