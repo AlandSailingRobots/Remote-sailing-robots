@@ -6,7 +6,7 @@
 
 		public function __construct() {
 			$host = "localhost";
-			$userName = root;
+			$userName = "root";
 			$passWord = "";
 			$dataBase = "ithaax_testdata";
 			//username: ithaax_testdata & pass: test123data
