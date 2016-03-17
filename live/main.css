@@ -1,0 +1,46 @@
+html {
+	background-color: #003469;
+	background: url("images/body.gif") repeat;
+	height: 100%;
+}
+
+body {
+	color: white;
+}
+
+#pingCanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:11;	
+}
+
+#layerCanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;	
+}
+
+#boatData {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: white;
+}
+
+#boatData p {
+	margin: 0;
+	font-size: 12px;
+}
+
+#dataName {
+	float: left;
+	width: 40%;
+}
+
+#dataValue {
+	float: right;
+	width: 60%;
+}

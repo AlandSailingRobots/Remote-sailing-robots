@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<head>
+	<title>HCI</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="jquery/themes/hci.css" />
+  	<link rel="stylesheet" href="jquery/themes/jquery.mobile.icons.min.css" />
+	 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile.structure-1.4.3.min.css" />
+	 <link rel="stylesheet" href="css/style.css" />
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+  <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+</head>
+
+<body>
+	<div id="page-login" data-role="page">
+		
+		 <div id="index-header-menu" data-role="panel" data-theme="e" data-display="overlay" data-position="right">
+	    <div data-role="controlgroup" data-corners="false">
+	    	<a href="#" data-role="button" data-rel="close">Close</a>
+	        <a href="energy.html" data-role="button" data-rel="close">Energy</a>
+	        <a href="temp.html" data-role="button">Temperature</a>
+	        <a href="#" data-role="button">Fans</a>
+	        <a href="#" data-role="button">Water</a>
+	    </div> <!-- /controlgroup -->
+    </div> <!-- /index-header-menu -->
+
+
+		<div data-role="header" data-theme="e" data-position="fixed">
+				<div data-role="navbar" data-position="fixed">
+        <ul>
+          <li></li>
+          <li><a href="#index-header-menu" id=""><img src="css/images/menu.png" style="width:40px;height:40px;border-radius:5px;"></a></li>
+        </ul>
+    </div>
+		</div> <!-- /header-->
+
+		<div><h3 id="today">Today is 21 Sept 2014<h3></div>
+		<div class="ui-icon-alt" data-theme="b" data-iconpos="right" data-role="collapsible-set"  data-inset="true">
+
+	<ul data-role="listview" data-inset="true" data-theme="c" data-divider-theme="a" data-count-theme="a">
+	    <li data-role="list-divider">Alerts<span class="ui-li-count">2</span></li>
+	</ul>
+
+	    <div data-role="collapsible" data-theme="c">
+
+	    	<h3>Leaking water</h3>
+	        
+	        <p class="ui-li-aside">Sent by <a href="#popupMap" data-rel="popup" data-position-to="window" data-transition="fade">Sensor: 6</a></p>
+			<p class="ui-li-aside">21 Sept 2014</p>
+	        <ul data-role="listview" data-inset="true" >
+
+	            <li>
+	            	<p>Potential water leakage in Room <br>Maple Lawn C, this problem hasn't occured before<br> here specifically.</p>
+	            </li>
+
+	           <a data-theme="d" data-role="button" href="#popupMenu" data-rel="popup" data-icon="edit" data-position-to="window" class="" data-transition="pop">Change Status</a>
+	        </ul>
+	    </div>
+
+    	<div data-role="collapsible" data-theme="c">
+
+	    	<h3>Broken window</h3>
+	        
+	        <p class="ui-li-aside">Sent by: <a href="#popupCall1" data-rel="popup" data-position-to="window" data-transition="fade">Bossy Boss</a></p>
+			<p class="ui-li-aside">21 Sept 2014</p>
+	        <ul data-role="listview" data-inset="true" >
+
+	            <li>
+	            	<p>Cracked window in the salons,<br><a href="#popupMap2" data-rel="popup" data-position-to="window" data-transition="fade">here</a></p>
+	            </li>
+
+	            <a data-theme="d" data-role="button" href="#popupMenu" data-rel="popup" data-icon="edit" data-position-to="window" class="" data-transition="pop">Change Status</a>
+	        </ul>
+	    </div>
+
+
+	<ul data-role="listview" data-inset="true" data-theme="c" data-divider-theme="a" data-count-theme="a">
+	    <li data-role="list-divider">Todo<span class="ui-li-count">3</span></li>
+	</ul>
+	
+		<div data-role="collapsible" data-theme="d">
+
+	    	<h3>Call electrician</h3>
+	        <p class="ui-li-aside">14 Sept 2014</p>
+	        <ul data-role="listview" data-inset="true" >
+
+	            <li>
+	            	<p>Call  <a href="#popupCall1" data-rel="popup" data-position-to="window" data-transition="fade">Electric Banana Band</a> about<br>disturbance in the network.</p>
+	            </li>
+
+	           <a data-theme="d" data-role="button" href="#popupMenu" data-rel="popup" data-icon="edit" data-position-to="window" class="" data-transition="pop">Change Status</a>
+	        </ul>
+	    </div>
+		
+		<div data-role="collapsible" data-theme="d">
+
+	    	<h3>Meeting, room 101, 12:00</h3>
+	    	<p class="ui-li-aside">Calendar says:</p>
+	        <p class="ui-li-aside">21 Sept 2014</p>
+	        <ul data-role="listview" data-inset="true" >
+
+	            <li>
+	            	<p>Meeting to attend in <a href="">2h 52min</a>, <br>Bossy Boss will adress safety<br> issues
+	            		in the <a href="">staff's office</a></p>
+	            </li>
+
+	        </ul>
+	    </div>
+
+		<div data-role="collapsible" data-theme="d">
+
+	    	<h3>Buy new lightbulbs</h3>
+	        <p class="ui-li-aside">16 Sept 2014</p>
+	        <ul data-role="listview" data-inset="true" >
+
+	            <li>
+	            	<p>400 of this model: <a href="">FAFA3503</a>, 35W</p>
+	            </li>
+	            <a data-theme="d" data-role="button" href="#popupMenu" data-rel="popup" data-icon="edit" data-position-to="window" class="" data-transition="pop">Change Status</a>
+
+	        </ul>
+	    </div>  
+	    
+	</div> <!-- /collapsible-set -->
+
+<div data-role="popup" id="popupMap" data-overlay-theme="b" data-theme="b" data-corners="false">
+    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="css/images/map.png" style="max-height:312px;">
+</div>
+
+<div data-role="popup" id="popupMap2" data-overlay-theme="b" data-theme="b" data-corners="false">
+    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="css/images/map2.png" style="max-height:312px;">
+</div>
+
+<div data-role="popup" id="popupMenu" data-theme="b">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-theme="a"data-role="list-divider">Status on this?</li>
+            <li data-theme="c" data-icon="back"><a href="index.html">Go back</a></li>
+            <li data-theme="d" data-icon="edit"><a href="index.html">Edit</a></li>
+            <li data-theme="b" data-icon="check"><a href="index.html">Done!</a></li>
+        </ul>
+</div>
+
+<div data-role="popup" id="popupCall1" data-theme="b">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-theme="a"data-role="list-divider">Contact?</li>
+            <li data-theme="d" data-icon="mail"><a href="index.html">Email</a></li>
+            <li data-theme="d" data-icon="comment"><a href="index.html">SMS</a></li>
+            <li data-theme="d" data-icon="phone"><a href="index.html">Call</a></li>
+        </ul>
+</div>
+
+
+		<div data-role="footer" style="overflow:hidden" data-id="footer" data-position="fixed" data-theme="e">
+			<input type="text" name="password" id="search" value="" placeholder="Add task...">
+			<div data-role="navbar" data-position="fixed">
+				<ul>
+					<li><a href="system.html" id=""><img src="css/images/sysOver2.png" style="width:40px;height:40px;border-radius:5px;"></a></li>
+					<li><a href="notifications.html" id=""><img src="css/images/email.png" style="width:40px;height:40px;border-radius:5px;"><span class="ui-li-count">4</span></a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+
+	</div>
+</body>
+</html>

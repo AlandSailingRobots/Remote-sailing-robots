@@ -1,0 +1,81 @@
+
+@font-face {
+    font-family: 'comfortaalight';
+    src: url('comfortaa-light-webfont.eot');
+    src: url('comfortaa-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('comfortaa-light-webfont.woff2') format('woff2'),
+         url('comfortaa-light-webfont.woff') format('woff'),
+         url('comfortaa-light-webfont.ttf') format('truetype'),
+         url('comfortaa-light-webfont.svg#comfortaalight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+.ui-btn-up-a,.ui-btn-hover-a,.ui-btn-down-a,.ui-bar-a,.ui-body-a,.ui-btn-up-a,.ui-btn-hover-a,.ui-btn-down-a,.ui-body-a input,.ui-body-a select,.ui-body-a textarea,.ui-body-a {
+    font-family: "comfortaalight";
+  }
+body * {
+    font-family: "comfortaalight" !important;
+    font-weight: normal !important;
+  }
+/*---RESET ENDS---*/
+
+
+/*---LOGIN PAGE---*/
+
+#page-login {
+  width: 100%;
+  padding: 0em;
+
+}
+#login-container {
+    width:100%;
+    height:100px;
+    margin-top: 30%;
+    position:static;
+}
+
+
+
+
+
+/*---LOGIN PAGE ENDS---*/
+
+
+#message-welcome {
+    margin: 10%;
+}
+
+
+
+/*---NEW POST---*/
+
+#newpost-message {
+    margin-left: 12px;
+}
+#newpost-information-border {
+    border-style: solid;
+    margin: 10px;
+}
+
+#newpost-information {
+    margin: 5px;
+}
+
+
+
+/*---NEW POST ENDS---*/
+.ui-panel-inner {
+    padding:0px; /*make the buttons flush edge to edge*/
+}
+.ui-controlgroup {
+    margin:0; /*make the buttons flush to the top*/
+}
+
+#energy-container {
+  margin-left: 10%;
+}
+
+#myDiv, #energy, #today {
+  margin-left: 13%;
+}

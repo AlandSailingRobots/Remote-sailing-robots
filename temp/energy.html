@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  		<title>HCI</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="jquery/jquery.mobile.structure-1.4.4.min.css" />
+      <link rel="stylesheet" href="jquery/themes/hci.css" />
+      <link rel="stylesheet" href="jquery/themes/jquery.mobile.icons.min.css" />
+      <link rel="stylesheet" href="css/style.css" />
+
+      <script src="jquery/jquery-2.1.1.js"></script> 
+      <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+  </head>
+  <body>
+    	<div id="page" data-role="page">
+
+<!-- /HEADER-->
+	<div id="index-header-menu" data-role="panel" data-theme="e" data-display="overlay" data-position="right">
+      <div data-role="controlgroup" data-corners="false">
+        <a href="#" data-role="button" data-rel="close">Close</a>
+          <a href="energy.html" data-role="button" data-rel="close">Energy</a>
+          <a href="temp.html" data-role="button">Temperature</a>
+          <a href="#" data-role="button">Fans</a>
+          <a href="#" data-role="button">Water</a>
+      </div> <!-- /controlgroup -->
+    </div> <!-- /index-header-menu -->
+
+		<div data-role="header" data-theme="e" data-position="fixed">
+			
+      <div data-role="navbar" data-position="fixed">
+        <ul>
+          <li><a href="system.html" id="" data-transition="slidefade" data-direction="reverse"><img src="css/images/arrow.png" style="width:40px;height:40px;border-radius:5px;"></a></li>
+          <li><a href="#index-header-menu" id=""><img src="css/images/menu.png" style="width:40px;height:40px;border-radius:5px;"></a></li>
+        </ul>
+        <ul><li><input type="button" class="all-or-none-choice-button" id="all-or-alerts" value="Alerts Only" data-theme="d" /></li></ul>
+		</div> <!-- /header-->
+
+  </div>
+<!-- /HEADER-->
+    	
+      <div id="energy-container">
+        <h3 id="energy">Total Energy Efficieny</h3>
+        <div id="myDiv"><img src="css/images/fuckenergybarwhore.PNG"></div>
+      </div>
+      <ul data-role="listview" data-inset="true" data-divider-theme="a">
+        <li data-role="list-divider">Offices</li>
+        
+    <ul id="listviewChange" data-role="listview">
+    <li data-theme="a" data-icon="check"><a href="#">Office 1 2 kWh<span class="ui-li-count">2 kWh</span></a></li>
+    <li data-theme="a" data-icon="check"><a href="#">Office 2 8 kWh<span class="ui-li-count">8 kWh</span></a></li>
+    <li data-theme="a" data-icon="check"><a href="#">Office 3 3 kWh<span class="ui-li-count">3 kWh</span></a></li>
+    <li data-theme="c" data-icon="alert"><a href="#">Office 4 89 kWh<span class="ui-li-count">89 kWh</span></a></li>
+    <li data-theme="a" data-icon="check"><a href="#">Office 5 10 kWh<span class="ui-li-count">4 kWh</span></a></li>
+
+</ul>
+      </ul>
+   
+     <!-- /FOOTER-->
+ <div data-role="footer" style="overflow:hidden" data-id="footer" data-position="fixed" data-theme="e">
+      <input type="text" name="password" id="search" value="" placeholder="Add task...">
+      <div data-role="navbar" data-position="fixed">
+        <ul>
+          <li><a href="index.html" id=""><img src="css/images/todo1.png" style="width:40px;height:40px;border-radius:5px;"></a></li>
+          <li><a href="notifications.html" id=""><img src="css/images/email.png" style="width:40px;height:40px;border-radius:5px;"><span class="ui-li-count">4</span></a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+
+<!-- /FOOTER-->
+   
+    
+         <script type="text/javascript">
+        
+
+
+        $("#all-or-alerts").on('click', function() {
+
+        if ($(this).val() === "Alerts Only") {
+         displayAlerts();
+            $(".checkbox").prop('checked', true);
+            $(this).val("Show All");
+            $(":input:checkbox").checkboxradio('refresh');
+            $(this).button("refresh");
+        } else {
+         displayAll();
+            $(".checkbox").prop('checked', false);
+            $(this).val("Alerts Only");
+            $(":input:checkbox").checkboxradio('refresh');
+            $(this).button("refresh");
+        }
+
+
+    });
+
+          function displayAlerts() {
+            var htmlz = '<ul id="listviewChangse" data-role="listview"><li data-theme="c" data-icon="alert"><a href="#">89 kWh<span class="ui-li-count">Office 4</span></a></li></ul>';
+            $("#listviewChange").html(htmlz).trigger("create");
+          }
+         function displayAll() {
+           var htmlze = '<ul id="listviewChangses" data-role="listview"><li data-theme="a" data-icon="check"><a href="#">Office 1 2 kWh<span class="ui-li-count">2 kWh</span></a></li><li data-theme="a" data-icon="check"><a href="#">Office 2 8 kWh<span class="ui-li-count">8 kWh</span></a></li><li data-theme="a" data-icon="check"><a href="#">Office 3 3 kWh<span class="ui-li-count">3 kWh</span></a></li><li data-theme="c" data-icon="alert"><a href="#">Office 4 89 kWh<span class="ui-li-count">89 kWh</span></a></li><li data-theme="a" data-icon="check"><a href="#">Office 5 10 kWh<span class="ui-li-count">4 kWh</span></a></li></ul>';
+             $("#listviewChange").html(htmlze).trigger("create");
+          }
+      </script>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<?php
+	/*
+	* PHP SOAP - How to create a SOAP Server and a SOAP Client
+	*/
+	if(isset($_GET["id"]) && isset($_GET["pwd"])) {
+
+		$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
+		//create an instante of the SOAPClient (the API will be available)
+		$service = new SoapClient(NULL, $options);
+		//call an API method
+
+		if(!($service->getUser($_GET["id"], $_GET["pwd"]) === 1)) {
+			return;
+		}
+
+		if(isset($_GET["serv"])) {
+			try {
+				switch($_GET["serv"]) {
+					case "getSetup":
+						print_r($service->getSetup($_GET["id"]));
+						break;
+					case "getConfig":
+						print_r($service->getConfig($_GET["id"]));
+						break;
+					case "getRoute":
+						print_r($service->getRoute($_GET["id"]));
+						break;
+					case "pushLogs":
+						print_r($service->pushLogs($_GET["id"], $_GET["data"]));
+						break;
+					default:
+						break;
+				}
+			} catch(Exception $e) {
+				//print_r("ERROR: ".$e->getMessage());	
+			}
+		}
+	} else {
+		echo "CONNY";
+	}
+?>
