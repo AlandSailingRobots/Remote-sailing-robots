@@ -10,6 +10,6 @@
 	require_once "renders.php";
 
 	$view = new View($model);
-	$view->render();
+	$view->render();  
 
 ?>

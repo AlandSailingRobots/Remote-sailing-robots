@@ -10,7 +10,7 @@
 			$passWord = "";
 			$dataBase = "ithaax_testdata";
 			//username: ithaax_testdata & pass: test123data
-			$this->db = new mysqli($host, $userName, $passWord, $host);
+			$this->db = new mysqli($host, $userName, $passWord, $dataBase);
 		}
 
 		public function __destruct() {
