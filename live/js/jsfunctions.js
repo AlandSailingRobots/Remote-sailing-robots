@@ -10,6 +10,8 @@ var mainsail = null;
 var jib = null;
 var rudder = null;
 var wind = null;
+var trueWindArrow = null;
+var gpsHeading = null;
 var compass = null;
 var heading = null;
 var waypoint = null;
@@ -23,6 +25,8 @@ var vRUDDER = 0;
 var vWAYPOINT = 0;
 var vCTS = 0;
 var vTACKING = 0;
+var vTWD = 0;
+var vGpsHeading = 0;
 
 var latestId = -1;
 var currentId = -1;
@@ -32,7 +36,7 @@ $(document).ready(function(){
 	initBoat();
 	resizeDiv();
 	drawBoat();
-	setUpdateTimer(10000);
+	setUpdateTimer(3000);
 });
 
 $(window).resize(function() {
@@ -128,6 +132,12 @@ function initBoat() {
 	rudder.src = "images/rudder.png";
 	wind = new Image();
 	wind.src = "images/windArrow.png";
+	gpsHeading = new Image();
+	gpsHeading.src = "images/GpsHeading.png";
+
+	trueWindArrow = new Image();
+	trueWindArrow.src = "images/trueWindDirection.png";
+
 	compass = new Image();
 	compass.src = "images/compass.png";
 	heading = new Image();
@@ -148,6 +158,9 @@ function updateBoat(data) {
 	vWAYPOINT = parseFloat(data.cc_btw);
 	vCTS = parseFloat(data.cc_cts);
 	vTACKING = parseFloat(data.cc_tack);
+	vTWD = parseFloat(data.twd);
+	vGpsHeading = parseFloat(data.heading);
+
 
 	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
 	vRUDDER = ((((vRUDDER-4352)/(7616-4352))*90)-45)*-1;
@@ -186,26 +199,48 @@ function drawBoat() {
 	if(vTACKING === 1) {
 		layerCanvasctx.drawImage(tacking,0,0);
 	}
+	
+
 	layerCanvasctx.drawImage(compass,0,0);
 	layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
 	layerCanvasctx.rotate(vCTS*Math.PI/180);
 	layerCanvasctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
-	layerCanvasctx.rotate((vWAYPOINT-vCTS)*Math.PI/180);
+
+	//true wind direction
+	layerCanvasctx.rotate((vTWD - vCTS)*Math.PI/180);
+	layerCanvasctx.drawImage(trueWindArrow,-layerCanvas.width/2,-layerCanvas.width/2);
+	
+	layerCanvasctx.rotate((vWAYPOINT-vTWD)*Math.PI/180);
 	layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
-	layerCanvasctx.rotate((vHEADING-vWAYPOINT)*Math.PI/180);
+
+
+	// GPS heading
+	layerCanvasctx.rotate((vGpsHeading-vWAYPOINT)*Math.PI/180);
+	layerCanvasctx.drawImage(gpsHeading,-layerCanvas.width/2,-layerCanvas.width/2);
+
+	
+	layerCanvasctx.rotate((vHEADING-vGpsHeading)*Math.PI/180);
 	layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
+	
 	layerCanvasctx.rotate((vWIND)*Math.PI/180);
 	layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
+	
 	layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
 	layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
+	
 	layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
 	layerCanvasctx.translate(0,-layerCanvas.height/6);
 	layerCanvasctx.rotate(jibdir*vSAIL*Math.PI/180);
 	layerCanvasctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
+
+
+	// roder 
 	layerCanvasctx.rotate(-jibdir*vSAIL*Math.PI/180);
 	layerCanvasctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
 	layerCanvasctx.rotate(vRUDDER*Math.PI/180);
 	layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
+
+
 	layerCanvasctx.restore();
 
 	$("#pingCanvas").hide().fadeIn(50, function() {
