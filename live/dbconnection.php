@@ -3,12 +3,14 @@
 class DBConnection {
 
 	private $dbconn;
-	
+
 	function __construct() {
 
 		$host = 'localhost';
-		$user = 'ithaax_testdata';
-		$pass = 'test123data';
+	//	$user = 'ithaax_testdata';
+		$user = 'root';
+		//$pass = 'test123data';
+		$pass = '';
 		$dbname = 'ithaax_testdata';
 
 		try {
@@ -25,8 +27,8 @@ class DBConnection {
 
 		try {
 			$sql = "SELECT id
-					FROM datalogs 
-					ORDER BY id 
+					FROM datalogs
+					ORDER BY id
 					DESC LIMIT 1;"
 					;
 			$result = $this->query($sql);

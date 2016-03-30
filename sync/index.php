@@ -4,7 +4,9 @@
 	*/
 	if(isset($_GET["id"]) && isset($_GET["pwd"])) {
 
-		$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
+		// $options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
+		//this is for local usage of httpSync
+		 $options = array('location' => 'http://localhost/Remote-sailing-robots/sync/server.php', 'uri' => 'http://localhost/');
 		//create an instante of the SOAPClient (the API will be available)
 		$service = new SoapClient(NULL, $options);
 		//call an API method
@@ -32,7 +34,7 @@
 						break;
 				}
 			} catch(Exception $e) {
-				//print_r("ERROR: ".$e->getMessage());	
+				//print_r("ERROR: ".$e->getMessage());
 			}
 		}
 	} else {

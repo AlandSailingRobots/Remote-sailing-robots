@@ -1,7 +1,7 @@
 <?php
 
 	class queryHandler {
-  
+
 		private $db;
 
 		public function __construct() {

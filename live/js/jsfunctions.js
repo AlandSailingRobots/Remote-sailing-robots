@@ -85,7 +85,7 @@ function checkLatestId() {
 			var obj = jQuery.parseJSON(data);
 			latestId = parseInt(obj.id);
 			$("#pingCanvas").hide().fadeIn(50, function() {
-				$("#pingCanvas").fadeOut(350);	
+				$("#pingCanvas").fadeOut(350);
 			});
 		},
 		error: function(errorThrown) {
@@ -128,7 +128,7 @@ function initBoat() {
 	rudder.src = "images/rudder.png";
 	wind = new Image();
 	wind.src = "images/windArrow.png";
-	compass = new Image();	
+	compass = new Image();
 	compass.src = "images/compass.png";
 	heading = new Image();
 	heading.src = "images/headingArrow.png";
@@ -152,7 +152,7 @@ function updateBoat(data) {
 	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
 	vRUDDER = ((((vRUDDER-4352)/(7616-4352))*90)-45)*-1;
 	vWIND = vWIND+180;
-	if(vWIND > 360) { 
+	if(vWIND > 360) {
 		vWIND = vWIND -360;
 	}
 
@@ -170,20 +170,20 @@ function updateBoat(data) {
 
 function drawBoat() {
 	var jibdir = 1;
-	if (vWIND > 180 && vWIND < 210) { 
+	if (vWIND > 180 && vWIND < 210) {
 		jibdir = -1;
 	}
 	if (vWIND >= 0 && vWIND < 150) {
 		jibdir = -1;
 	}
 	var maindir = 1;
-	if (vWIND < 180) { 
+	if (vWIND < 180) {
 		maindir = -1;
 	}
 
 	layerCanvasctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
 	layerCanvasctx.save();
-	if(vTACKING === 1) { 
+	if(vTACKING === 1) {
 		layerCanvasctx.drawImage(tacking,0,0);
 	}
 	layerCanvasctx.drawImage(compass,0,0);
@@ -196,7 +196,7 @@ function drawBoat() {
 	layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
 	layerCanvasctx.rotate((vWIND)*Math.PI/180);
 	layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
-	layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180); 
+	layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
 	layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
 	layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
 	layerCanvasctx.translate(0,-layerCanvas.height/6);
@@ -209,7 +209,7 @@ function drawBoat() {
 	layerCanvasctx.restore();
 
 	$("#pingCanvas").hide().fadeIn(50, function() {
-		$("#pingCanvas").fadeOut(350);	
+		$("#pingCanvas").fadeOut(350);
 	});
-	
+
 }
