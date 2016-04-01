@@ -215,7 +215,7 @@ function drawBoat() {
 	layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
 
 
-	// GPS heading
+	// compas heading
 	layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
 	layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
 
