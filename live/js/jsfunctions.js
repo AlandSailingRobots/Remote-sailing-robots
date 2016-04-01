@@ -11,7 +11,7 @@ var jib = null;
 var rudder = null;
 var wind = null;
 var trueWindArrow = null;
-var gpsHeading = null;
+var compasHeading = null;
 var compass = null;
 var heading = null;
 var waypoint = null;
@@ -26,7 +26,8 @@ var vWAYPOINT = 0;
 var vCTS = 0;
 var vTACKING = 0;
 var vTWD = 0;
-var vGpsHeading = 0;
+var vCompasHeading = 0;
+
 
 var latestId = -1;
 var currentId = -1;
@@ -132,8 +133,8 @@ function initBoat() {
 	rudder.src = "images/rudder.png";
 	wind = new Image();
 	wind.src = "images/windArrow.png";
-	gpsHeading = new Image();
-	gpsHeading.src = "images/GpsHeading.png";
+	compasHeading = new Image();
+	compasHeading.src = "images/compasHeading.png";
 
 	trueWindArrow = new Image();
 	trueWindArrow.src = "images/trueWindDirection.png";
@@ -159,7 +160,7 @@ function updateBoat(data) {
 	vCTS = parseFloat(data.cc_cts);
 	vTACKING = parseFloat(data.cc_tack);
 	vTWD = parseFloat(data.twd);
-	vGpsHeading = parseFloat(data.heading);
+	vCompasHeading = parseFloat(data.heading);
 
 
 	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
@@ -215,11 +216,11 @@ function drawBoat() {
 
 
 	// GPS heading
-	layerCanvasctx.rotate((vGpsHeading-vWAYPOINT)*Math.PI/180);
-	layerCanvasctx.drawImage(gpsHeading,-layerCanvas.width/2,-layerCanvas.width/2);
+	layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
+	layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
 
 	
-	layerCanvasctx.rotate((vHEADING-vGpsHeading)*Math.PI/180);
+	layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
 	layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
 	
 	layerCanvasctx.rotate((vWIND)*Math.PI/180);

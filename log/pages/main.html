@@ -38,6 +38,9 @@
      var waypoint = null;
      var tacking = null;
      var ping = null;
+     var compasHeading = null;
+     var trueWindDirection = null;
+
 
      var vHEADING = 0;
      var vWIND = 0;
@@ -46,6 +49,8 @@
      var vWAYPOINT = 0;
      var vCTS = 0;
      var vTACKING = 0;
+     var vCompasHeading = 0;
+     var vTWD = 0;
 
      layerCanvas = document.getElementById("layerCanvas");
      layerCanvasctx = layerCanvas.getContext("2d");
@@ -72,6 +77,10 @@
      waypoint.src = "images/waypointArrow.png";
      tacking = new Image();
      tacking.src = "images/tacking.png";
+     compasHeading = new Image();
+     compasHeading.src = "images/compasHeading.png";
+     trueWindDirection = new Image();
+     trueWindDirection.src = "images/trueWindDirection.png";
 
      pingCanvasctx.drawImage(ping,0,0);
 
@@ -84,9 +93,14 @@
           vWAYPOINT = parseFloat(data.cc_btw);
           vCTS = parseFloat(data.cc_cts);
           vTACKING = parseFloat(data.cc_tack);
+          vCompasHeading = parseFloat(data.heading);
+          vTWD = parseFloat(data.twd);
 
           vSAIL = (((vSAIL-3968)/(8000-3968))*60)-60;
           vRUDDER = ((((vRUDDER-3968)/(6912-3968))*90)-45)*-1;
+          // testade detta
+          vWIND = vWIND+180;
+          //
           if(vWIND > 360) { 
                vWIND = vWIND -360;
           }
@@ -116,12 +130,15 @@
                maindir = -1;
           }
 
+
           layerCanvasctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
           layerCanvasctx.save();
           if(vTACKING === 1) { 
                layerCanvasctx.drawImage(tacking,0,0);
           }
-          layerCanvasctx.drawImage(compass,0,0);
+          
+
+   /*       layerCanvasctx.drawImage(compass,0,0);
           layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
           layerCanvasctx.rotate(vCTS*Math.PI/180);
           layerCanvasctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
@@ -142,6 +159,50 @@
           layerCanvasctx.rotate(vRUDDER*Math.PI/180);
           layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
           layerCanvasctx.restore();
+
+*/
+
+
+          layerCanvasctx.drawImage(compass,0,0);
+          layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
+          layerCanvasctx.rotate(vCTS*Math.PI/180);
+          layerCanvasctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
+          
+          //true wind direction
+          layerCanvasctx.rotate((vTWD - vCTS)*Math.PI/180);
+          layerCanvasctx.drawImage(trueWindDirection,-layerCanvas.width/2,-layerCanvas.width/2);
+
+          layerCanvasctx.rotate((vWAYPOINT-vTWD)*Math.PI/180);
+          layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
+
+          // GPS heading
+          layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
+          layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
+
+
+          layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
+          layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
+
+          layerCanvasctx.rotate((vWIND)*Math.PI/180);
+          layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
+
+          layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180); 
+          layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
+          layerCanvasctx.translate(0,-layerCanvas.height/6);
+          layerCanvasctx.rotate(jibdir*vSAIL*Math.PI/180);
+          layerCanvasctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerCanvasctx.rotate(-jibdir*vSAIL*Math.PI/180);
+          layerCanvasctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
+          layerCanvasctx.rotate(vRUDDER*Math.PI/180);
+          layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerCanvasctx.restore();
+
+
+
+
+
+
 
           layerCanvas.style.width = 500 + 'px';
           layerCanvas.style.height = 500 + 'px';
@@ -185,7 +246,11 @@
                               cfg_rev_boat:row.getElementsByTagName("td")[20].innerHTML,
                               rte_id:row.getElementsByTagName("td")[21].innerHTML,
                               rte_rev_srv:row.getElementsByTagName("td")[22].innerHTML,
-                              rte_rev_boat:row.getElementsByTagName("td")[23].innerHTML
+                              rte_rev_boat:row.getElementsByTagName("td")[23].innerHTML,
+                              twd:row.getElementsByTagName("td")[24].innerHTML,
+                              heading:row.getElementsByTagName("td")[25].innerHTML,
+                              pitch:row.getElementsByTagName("td")[26].innerHTML,
+                              roll:row.getElementsByTagName("td")[27].innerHTML
                          }
                          updateBoat(data);
                          drawBoat();

@@ -82,6 +82,10 @@
 					<td>".$row["rte_id"]."</td>
 					<td>".$row["rte_rev_srv"]."</td>
 					<td>".$row["rte_rev_boat"]."</td>
+					<td>".$row["twd"]."</td>
+					<td>".$row["heading"]."</td>
+					<td>".$row["pitch"]."</td>
+					<td>".$row["roll"]."</td>
 					</tr>";
 			}
 			return "<div id='boatCanvas'>
@@ -120,6 +124,10 @@
 							<th>rte_id</th>
 							<th>rte_rev_srv</th>
 							<th>rte_rev_boat</th>
+							<th>twd</th>
+							<th>heading</th>
+							<th>pitch</th>
+							<th>roll</th>
 			            </tr>
 			        </thead>
 			        <tbody>".$table."</tr>
