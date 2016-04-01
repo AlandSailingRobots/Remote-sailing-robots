@@ -38,9 +38,6 @@
      var waypoint = null;
      var tacking = null;
      var ping = null;
-     var compasHeading = null;
-     var trueWindDirection = null;
-
 
      var vHEADING = 0;
      var vWIND = 0;
@@ -49,8 +46,6 @@
      var vWAYPOINT = 0;
      var vCTS = 0;
      var vTACKING = 0;
-     var vCompasHeading = 0;
-     var vTWD = 0;
 
      layerCanvas = document.getElementById("layerCanvas");
      layerCanvasctx = layerCanvas.getContext("2d");
@@ -69,7 +64,7 @@
      rudder.src = "images/rudder.png";
      wind = new Image();
      wind.src = "images/windArrow.png";
-     compass = new Image();
+     compass = new Image();   
      compass.src = "images/compass.png";
      heading = new Image();
      heading.src = "images/headingArrow.png";
@@ -77,10 +72,6 @@
      waypoint.src = "images/waypointArrow.png";
      tacking = new Image();
      tacking.src = "images/tacking.png";
-     compasHeading = new Image();
-     compasHeading.src = "images/compasHeading.png";
-     trueWindDirection = new Image();
-     trueWindDirection.src = "images/trueWindDirection.png";
 
      pingCanvasctx.drawImage(ping,0,0);
 
@@ -93,13 +84,10 @@
           vWAYPOINT = parseFloat(data.cc_btw);
           vCTS = parseFloat(data.cc_cts);
           vTACKING = parseFloat(data.cc_tack);
-          vCompasHeading = parseFloat(data.heading);
-          vTWD = parseFloat(data.twd);
 
           vSAIL = (((vSAIL-3968)/(8000-3968))*60)-60;
           vRUDDER = ((((vRUDDER-3968)/(6912-3968))*90)-45)*-1;
-          vWIND = vWIND+180;
-          if(vWIND > 360) {
+          if(vWIND > 360) { 
                vWIND = vWIND -360;
           }
 
@@ -117,49 +105,33 @@
 
      function drawBoat() {
           var jibdir = 1;
-          if (vWIND > 180 && vWIND < 210) {
+          if (vWIND > 180 && vWIND < 210) { 
                jibdir = -1;
           }
           if (vWIND >= 0 && vWIND < 150) {
                jibdir = -1;
           }
           var maindir = 1;
-          if (vWIND < 180) {
+          if (vWIND < 180) { 
                maindir = -1;
           }
 
-
           layerCanvasctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
           layerCanvasctx.save();
-          if(vTACKING === 1) {
+          if(vTACKING === 1) { 
                layerCanvasctx.drawImage(tacking,0,0);
           }
-
-
           layerCanvasctx.drawImage(compass,0,0);
           layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
           layerCanvasctx.rotate(vCTS*Math.PI/180);
           layerCanvasctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
-
-          //true wind direction
-          layerCanvasctx.rotate((vTWD - vCTS)*Math.PI/180);
-          layerCanvasctx.drawImage(trueWindDirection,-layerCanvas.width/2,-layerCanvas.width/2);
-
-          layerCanvasctx.rotate((vWAYPOINT-vTWD)*Math.PI/180);
+          layerCanvasctx.rotate((vWAYPOINT-vCTS)*Math.PI/180);
           layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
-
-          // GPS heading
-          layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
-          layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
-
-
-          layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
+          layerCanvasctx.rotate((vHEADING-vWAYPOINT)*Math.PI/180);
           layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
-
           layerCanvasctx.rotate((vWIND)*Math.PI/180);
           layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
-
-          layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
+          layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180); 
           layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
           layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
           layerCanvasctx.translate(0,-layerCanvas.height/6);
@@ -171,58 +143,61 @@
           layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
           layerCanvasctx.restore();
 
-
           layerCanvas.style.width = 500 + 'px';
           layerCanvas.style.height = 500 + 'px';
           pingCanvas.style.width = 500 + 'px';
           pingCanvas.style.height = 500 + 'px';
 
           $("#pingCanvas").hide().fadeIn(50, function() {
-               $("#pingCanvas").fadeOut(350);
+               $("#pingCanvas").fadeOut(350);     
           });
-
+          
      }
 
      $(function addRowHandlers() {
           var table = document.getElementById("datalog");
           var rows = table.getElementsByTagName("tr");
+
           for (i = 0; i < rows.length; i++) {
                var currentRow = table.rows[i];
                var createClickHandler = function(row) {
                     return function() {
                          var data = {
                               id:row.getElementsByTagName("td")[0].innerHTML,
-                              gps_time:row.getElementsByTagName("td")[1].innerHTML,
-                              gps_lat:row.getElementsByTagName("td")[2].innerHTML,
-                              gps_long:row.getElementsByTagName("td")[3].innerHTML,
-                              gps_speed:row.getElementsByTagName("td")[4].innerHTML,
-                              gps_head:row.getElementsByTagName("td")[5].innerHTML,
-                              gps_sat:row.getElementsByTagName("td")[6].innerHTML,
-                              sc_cmd:row.getElementsByTagName("td")[7].innerHTML,
-                              rc_cmd:row.getElementsByTagName("td")[8].innerHTML,
-                              ss_pos:row.getElementsByTagName("td")[9].innerHTML,
-                              rs_pos:row.getElementsByTagName("td")[10].innerHTML,
-                              cc_dtw:row.getElementsByTagName("td")[11].innerHTML,
-                              cc_btw:row.getElementsByTagName("td")[12].innerHTML,
-                              cc_cts:row.getElementsByTagName("td")[13].innerHTML,
-                              cc_tack:row.getElementsByTagName("td")[14].innerHTML,
-                              ws_dir:row.getElementsByTagName("td")[15].innerHTML,
-                              ws_spd:row.getElementsByTagName("td")[16].innerHTML,
-                              ws_tmp:row.getElementsByTagName("td")[17].innerHTML,
-                              cfg_id:row.getElementsByTagName("td")[18].innerHTML,
-                              cfg_rev_srv:row.getElementsByTagName("td")[19].innerHTML,
-                              cfg_rev_boat:row.getElementsByTagName("td")[20].innerHTML,
-                              rte_id:row.getElementsByTagName("td")[21].innerHTML,
-                              rte_rev_srv:row.getElementsByTagName("td")[22].innerHTML,
-                              rte_rev_boat:row.getElementsByTagName("td")[23].innerHTML,
-                              twd:row.getElementsByTagName("td")[24].innerHTML,
-                              heading:row.getElementsByTagName("td")[25].innerHTML,
-                              pitch:row.getElementsByTagName("td")[26].innerHTML,
-                              roll:row.getElementsByTagName("td")[27].innerHTML
+                              sc_cmd_clse:row.getElementsByTagName("td")[1].innerHTML,
+                              sc_cmd_beam:row.getElementsByTagName("td")[2].innerHTML,
+                              sc_cmd_brd:row.getElementsByTagName("td")[3].innerHTML,
+                              sc_cmd_run:row.getElementsByTagName("td")[4].innerHTML,
+                              sc_ang_beam:row.getElementsByTagName("td")[5].innerHTML,
+                              sc_ang_brd:row.getElementsByTagName("td")[6].innerHTML,
+                              sc_ang_run:row.getElementsByTagName("td")[7].innerHTML,
+                              rc_cmd_xtrm:row.getElementsByTagName("td")[8].innerHTML,
+                              rc_cmd_med:row.getElementsByTagName("td")[9].innerHTML,
+                              rc_cmd_sml:row.getElementsByTagName("td")[10].innerHTML,
+                              rc_cmd_mid:row.getElementsByTagName("td")[11].innerHTML,
+                              rc_ang_med:row.getElementsByTagName("td")[12].innerHTML,
+                              rc_ang_sml:row.getElementsByTagName("td")[13].innerHTML,
+                              rc_ang_mid:row.getElementsByTagName("td")[14].innerHTML,
+                              cc_ang_tack:row.getElementsByTagName("td")[15].innerHTML,
+                              cc_ang_sect:row.getElementsByTagName("td")[16].innerHTML,
+                              ws_modl:row.getElementsByTagName("td")[17].innerHTML,
+                              ws_chan:row.getElementsByTagName("td")[18].innerHTML,
+                              ws_port:row.getElementsByTagName("td")[19].innerHTML,
+                              ws_baud:row.getElementsByTagName("td")[20].innerHTML,
+                              ws_buff:row.getElementsByTagName("td")[21].innerHTML,
+                              mc_port:row.getElementsByTagName("td")[22].innerHTML,
+                              rs_chan:row.getElementsByTagName("td")[23].innerHTML,
+                              rs_spd:row.getElementsByTagName("td")[24].innerHTML,
+                              rs_acc:row.getElementsByTagName("td")[25].innerHTML,
+                              ss_chan:row.getElementsByTagName("td")[26].innerHTML,
+                              ss_spd:row.getElementsByTagName("td")[27].innerHTML,
+                              ss_acc:row.getElementsByTagName("td")[28].innerHTML
+
+
                          }
                          updateBoat(data);
                          drawBoat();
-                    };
+                    };   
                };
 
                currentRow.onclick = createClickHandler(currentRow);
@@ -235,10 +210,10 @@
                "scrollY":          "200px",
                "scrollCollapse":   true,
                "paging":           false,
-               "bFilter":           false,
+               "bFilter":           false, 
           });
 
           $("#loglist").show();
      });
-</script>
+</script> 
 </html>

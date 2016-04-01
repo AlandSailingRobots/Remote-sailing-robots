@@ -59,33 +59,34 @@
 			foreach($data as $row) {
 				$table = $table."<tr>
 					<td>".$row["id"]."</td>
-					<td>".$row["gps_time"]."</td>
-					<td>".$row["gps_lat"]."</td>
-					<td>".$row["gps_lon"]."</td>
-					<td>".$row["gps_spd"]."</td>
-					<td>".$row["gps_head"]."</td>
-					<td>".$row["gps_sat"]."</td>
-					<td>".$row["sc_cmd"]."</td>
-					<td>".$row["rc_cmd"]."</td>
-					<td>".$row["ss_pos"]."</td>
-					<td>".$row["rs_pos"]."</td>
-					<td>".$row["cc_dtw"]."</td>
-					<td>".$row["cc_btw"]."</td>
-					<td>".$row["cc_cts"]."</td>
-					<td>".$row["cc_tack"]."</td>
-					<td>".$row["ws_dir"]."</td>
-					<td>".$row["ws_spd"]."</td>
-					<td>".$row["ws_tmp"]."</td>
-					<td>".$row["cfg_id"]."</td>
-					<td>".$row["cfg_rev_srv"]."</td>
-					<td>".$row["cfg_rev_boat"]."</td>
-					<td>".$row["rte_id"]."</td>
-					<td>".$row["rte_rev_srv"]."</td>
-					<td>".$row["rte_rev_boat"]."</td>
-					<td>".$row["twd"]."</td>
-					<td>".$row["heading"]."</td>
-					<td>".$row["pitch"]."</td>
-					<td>".$row["roll"]."</td>
+					<td>".$row["sc_cmd_clse"]."</td>
+					<td>".$row["sc_cmd_beam"]."</td>
+					<td>".$row["sc_cmd_brd"]."</td>
+					<td>".$row["sc_cmd_run"]."</td>
+					<td>".$row["sc_ang_beam"]."</td>
+					<td>".$row["sc_ang_brd"]."</td>
+					<td>".$row["sc_ang_run"]."</td>
+					<td>".$row["rc_cmd_xtrm"]."</td>
+					<td>".$row["rc_cmd_med"]."</td>
+					<td>".$row["rc_cmd_sml"]."</td>
+					<td>".$row["rc_cmd_mid"]."</td>
+					<td>".$row["rc_ang_med"]."</td>
+					<td>".$row["rc_ang_sml"]."</td>
+					<td>".$row["rc_ang_mid"]."</td>
+					<td>".$row["cc_ang_tack"]."</td>
+					<td>".$row["cc_ang_sect"]."</td>
+					<td>".$row["ws_modl"]."</td>
+					<td>".$row["ws_chan"]."</td>
+					<td>".$row["ws_port"]."</td>
+					<td>".$row["ws_baud"]."</td>
+					<td>".$row["ws_buff"]."</td>
+					<td>".$row["mc_port"]."</td>
+					<td>".$row["rs_chan"]."</td>
+					<td>".$row["rs_spd"]."</td>	
+					<td>".$row["rs_acc"]."</td>
+					<td>".$row["ss_chan"]."</td>
+					<td>".$row["ss_spd"]."</td>
+					<td>".$row["ss_acc"]."</td>
 					</tr>";
 			}
 			return "<div id='boatCanvas'>
@@ -101,33 +102,34 @@
 			        <thead>
 			            <tr>
 			                <th>id</th>
-							<th>gps_time</th>
-							<th>gps_lat</th>
-							<th>gps_long</th>
-							<th>gps_speed</th>
-							<th>gps_head</th>
-							<th>gps_sat</th>
-							<th>sc_com</th>
-							<th>rc_com</th>
-							<th>ss_pos</th>
-							<th>rs_pos</th>
-							<th>cc_dtw</th>
-							<th>cc_btw</th>
-							<th>cc_cts</th>
-							<th>cc_tack</th>
-							<th>ws_dir</th>
-							<th>ws_spd</th>
-							<th>ws_tmp</th>
-							<th>cfg_id</th>
-							<th>cfg_rev_srv</th>
-							<th>cfg_rev_boat</th>
-							<th>rte_id</th>
-							<th>rte_rev_srv</th>
-							<th>rte_rev_boat</th>
-							<th>twd</th>
-							<th>heading</th>
-							<th>pitch</th>
-							<th>roll</th>
+							<th>sc_cmd_clse</th>
+							<th>sc_cmd_beam</th>
+							<th>sc_cmd_brd</th>
+							<th>sc_cmd_run</th>
+							<th>sc_ang_beam</th>
+							<th>sc_ang_brd</th>
+							<th>sc_ang_run</th>
+							<th>rc_cmd_xtrm</th>
+							<th>rc_cmd_med</th>
+							<th>rc_cmd_sml</th>
+							<th>rc_cmd_mid</th>
+							<th>rc_ang_med</th>
+							<th>rc_ang_sml</th>
+							<th>rc_ang_mid</th>
+							<th>cc_ang_tack</th>
+							<th>cc_ang_sect</th>
+							<th>ws_modl</th>
+							<th>ws_chan</th>
+							<th>ws_port</th>
+							<th>ws_baud</th>
+							<th>ws_buff</th>
+							<th>mc_port</th>
+							<th>rs_chan</th>
+							<th>rs_spd</th>
+							<th>rs_acc</th>
+							<th>ss_chan</th>
+							<th>ss_spd</th>
+							<th>ss_acc</th>
 			            </tr>
 			        </thead>
 			        <tbody>".$table."</tr>
