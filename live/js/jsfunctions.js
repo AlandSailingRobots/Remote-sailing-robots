@@ -77,6 +77,7 @@ function run() {
 	checkLatestId();
 	if(!isNaN(latestId) && latestId !== currentId) {
 		getLatestData();
+		getLatestGpsData();
 		currentId = latestId;
 	}
 }
@@ -103,10 +104,30 @@ function getLatestData() {
 
 	$.ajax({
 		url: 'dbapi.php',
-		data: {'action': "getdata"},
+		data: {'action': "getData"},
+
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
 			updateBoat(dataObj);
+			drawBoat();
+			//window.alert("hej");
+		},
+		error: function(errorThrown) {
+			console.log(errorThrown);
+		}
+	});
+}
+
+function getLatestGpsData() {
+
+	$.ajax({
+		url: 'dbapi.php',
+		data: {'action': "getGpsData"},
+
+		success: function(data) {
+			//window.alert(dataGps);
+			var dataObj = jQuery.parseJSON(data);
+			updateGpsData(dataObj);
 			drawBoat();
 		},
 		error: function(errorThrown) {
@@ -162,7 +183,6 @@ function updateBoat(data) {
 	vTWD = parseFloat(data.twd);
 	vCompasHeading = parseFloat(data.heading);
 
-
 	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
 	vRUDDER = ((((vRUDDER-4352)/(7616-4352))*90)-45)*-1;
 	vWIND = vWIND+180;
@@ -172,14 +192,32 @@ function updateBoat(data) {
 
 	var dataNames = "";
 	var dataValues = "";
+
 	Object.keys(data).forEach(function(key) {
 		if(isNaN(key)) {
 			dataNames +="<p>"+key+"</p>";
 			dataValues += "<p>"+data[key]+"</p>";
+
 		}
 	});
+
 	$("#dataName").html(dataNames);
 	$("#dataValue").html(dataValues);
+}
+
+function updateGpsData(dataGps) {
+
+	var dataValuesGps = "";
+	var dataNamesGps = "";
+	Object.keys(dataGps).forEach(function(key) {
+		if(isNaN(key)) {
+			dataNamesGps +="<p>"+key+"</p>";
+			dataValuesGps += "<p>"+dataGps[key]+"</p>";
+		}
+	});
+
+	$("#dataNameGps").html(dataNamesGps);
+	$("#dataValueGps").html(dataValuesGps);
 }
 
 function drawBoat() {
@@ -200,7 +238,7 @@ function drawBoat() {
 	if(vTACKING === 1) {
 		layerCanvasctx.drawImage(tacking,0,0);
 	}
-	
+
 
 	layerCanvasctx.drawImage(compass,0,0);
 	layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
@@ -210,7 +248,7 @@ function drawBoat() {
 	//true wind direction
 	layerCanvasctx.rotate((vTWD - vCTS)*Math.PI/180);
 	layerCanvasctx.drawImage(trueWindArrow,-layerCanvas.width/2,-layerCanvas.width/2);
-	
+
 	layerCanvasctx.rotate((vWAYPOINT-vTWD)*Math.PI/180);
 	layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
 
@@ -219,23 +257,28 @@ function drawBoat() {
 	layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
 	layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
 
+<<<<<<< HEAD
+
+	layerCanvasctx.rotate((vHEADING-vGpsHeading)*Math.PI/180);
+=======
 	
 	layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
+>>>>>>> 46b2c4734016cd5a2b0ae9aff9c3bc85396c6ffd
 	layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
-	
+
 	layerCanvasctx.rotate((vWIND)*Math.PI/180);
 	layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
-	
+
 	layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
 	layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
-	
+
 	layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
 	layerCanvasctx.translate(0,-layerCanvas.height/6);
 	layerCanvasctx.rotate(jibdir*vSAIL*Math.PI/180);
 	layerCanvasctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
 
 
-	// roder 
+	// roder
 	layerCanvasctx.rotate(-jibdir*vSAIL*Math.PI/180);
 	layerCanvasctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
 	layerCanvasctx.rotate(vRUDDER*Math.PI/180);

@@ -5,7 +5,7 @@
 		private $db;
 
 		function __construct() {
-			//$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+		//	$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
 			$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 
@@ -13,17 +13,32 @@
 			$this->db->close();
 		}
 
-	    function getDatalog($boat) {
+	  function getDatalog($boat) {
 			$sq = "SELECT * FROM datalogs";
 			if($result = $this->db->query($sq, MYSQLI_USE_RESULT)) {
 				$rows;
 				while($row = $result->fetch_assoc()) {
 					$rows[] = $row;
 				}
-				$result->close();	
+				$result->close();
 				return $rows;
 			} else {
-				return new SoapFault("Server","Something went wrong");	
+				return new SoapFault("Server","Something went wrong");
+			}
+		}
+
+		function getDatalogGps($boat) {
+			$sq = "SELECT gps_time, gps_lat, gps_lon, gps_spd, gps_head, gps_sat
+					FROM datalogs";
+			if($result = $this->db->query($sq, MYSQLI_USE_RESULT)) {
+				$rows;
+				while($row = $result->fetch_assoc()) {
+					$rows[] = $row;
+				}
+				$result->close();
+				return $rows;
+			} else {
+				return new SoapFault("Server","Something went wrong");
 			}
 		}
 
@@ -188,7 +203,7 @@
 					$row["rte_rev"]
 				);
 				$stmt->execute();
-				
+
 				if($stmt->affected_rows === 1) {
 					$foreignKey[$row["id"]] = $stmt->insert_id;
 					$result[] = array("tab" => "datalogs", "id" => $row["id"]);

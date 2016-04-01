@@ -7,5 +7,11 @@
 		<div id='dataName'></div>
 		<div id='dataValue'></div>
 	</div>
+</br>
+	<div id='boatDataGps'>
+		<h2>Gps Data</h2>
+		<div id='dataNameGps'></div>
+		<div id='dataValueGps'></div>
+	</div>
 </body>
 </html>

@@ -6,16 +6,20 @@ $options = array('location' => 'http://localhost/Remote-sailing-robots/live/dbco
 $service = new SoapClient(NULL, $options);
 //call an API method
 
-
+//echo "hej";
 switch ($_REQUEST['action']) {
 	case 'idcheck':
 		$id = $service->getLatestID();
 		//$data = $service->getLatestData(end($id));
 		echo json_encode($id);
 		break;
-	case 'getdata':
+	case 'getData':
 		$data = $service->getLatestData();
 		echo json_encode($data);
+		break;
+	case 'getGpsData':
+		$dataGps = $service->getLatestGpsData();
+		echo json_encode($dataGps);
 		break;
 	default:
 		echo "!!! CONNY W T F !!!";
