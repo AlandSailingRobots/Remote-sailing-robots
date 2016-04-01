@@ -98,9 +98,7 @@
 
           vSAIL = (((vSAIL-3968)/(8000-3968))*60)-60;
           vRUDDER = ((((vRUDDER-3968)/(6912-3968))*90)-45)*-1;
-          // testade detta
           vWIND = vWIND+180;
-          //
           if(vWIND > 360) { 
                vWIND = vWIND -360;
           }
@@ -138,31 +136,6 @@
           }
           
 
-   /*       layerCanvasctx.drawImage(compass,0,0);
-          layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-          layerCanvasctx.rotate(vCTS*Math.PI/180);
-          layerCanvasctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerCanvasctx.rotate((vWAYPOINT-vCTS)*Math.PI/180);
-          layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerCanvasctx.rotate((vHEADING-vWAYPOINT)*Math.PI/180);
-          layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
-          layerCanvasctx.rotate((vWIND)*Math.PI/180);
-          layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180); 
-          layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
-          layerCanvasctx.translate(0,-layerCanvas.height/6);
-          layerCanvasctx.rotate(jibdir*vSAIL*Math.PI/180);
-          layerCanvasctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerCanvasctx.rotate(-jibdir*vSAIL*Math.PI/180);
-          layerCanvasctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
-          layerCanvasctx.rotate(vRUDDER*Math.PI/180);
-          layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerCanvasctx.restore();
-
-*/
-
-
           layerCanvasctx.drawImage(compass,0,0);
           layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
           layerCanvasctx.rotate(vCTS*Math.PI/180);
@@ -197,11 +170,6 @@
           layerCanvasctx.rotate(vRUDDER*Math.PI/180);
           layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
           layerCanvasctx.restore();
-
-
-
-
-
 
 
           layerCanvas.style.width = 500 + 'px';
