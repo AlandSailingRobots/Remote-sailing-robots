@@ -53,6 +53,62 @@ class DBConnection {
 		return $result;
 	}
 
+	public function getLatestGpsData() {
+
+		try {
+			$sql = "SELECT gps_time, gps_lat, gps_lon, gps_spd, gps_head, gps_sat
+					FROM datalogs
+					ORDER BY id
+					DESC LIMIT 1;";
+			$result = $this->query($sql);
+		} catch (PDOException $e) {
+			die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		}
+		return $result;
+	}
+
+	public function getLatestCourseCalculationData() {
+
+		try {
+			$sql = "SELECT cc_dtw, cc_btw, cc_cts, cc_tack
+					FROM datalogs
+					ORDER BY id
+					DESC LIMIT 1;";
+			$result = $this->query($sql);
+		} catch (PDOException $e) {
+			die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		}
+		return $result;
+	}
+
+	public function getLatestWindSensorData() {
+
+		try {
+			$sql = "SELECT ws_dir, ws_spd, ws_tmp
+					FROM datalogs
+					ORDER BY id
+					DESC LIMIT 1;";
+			$result = $this->query($sql);
+		} catch (PDOException $e) {
+			die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		}
+		return $result;
+	}
+
+	public function getLatestSystemData() {
+
+		try {
+			$sql = "SELECT sc_cmd, rc_cmd, ss_pos, rs_pos, wpt_cur
+					FROM datalogs
+					ORDER BY id
+					DESC LIMIT 1;";
+			$result = $this->query($sql);
+		} catch (PDOException $e) {
+			die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		}
+		return $result;
+	}
+
 	private function query($sql) {
 		$sth = $this->dbconn->prepare($sql);
 		$sth->execute();
