@@ -6,14 +6,13 @@ $options = array('location' => 'http://localhost/Remote-sailing-robots/live/dbco
 $service = new SoapClient(NULL, $options);
 //call an API method
 
-//echo "hej";
 switch ($_REQUEST['action']) {
 	case 'idcheck':
 		$id = $service->getLatestID();
 		//$data = $service->getLatestData(end($id));
 		echo json_encode($id);
 		break;
-	case 'getData':
+	case 'getdata':
 		$data = $service->getLatestData();
 		echo json_encode($data);
 		break;
