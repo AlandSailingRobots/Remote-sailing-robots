@@ -67,16 +67,6 @@ class DBConnection {
 		return $result;
 	}
 
-
-
-
-
-
-
-
-
-
-
 public function getLatestCourseCalculationData() {
 
 	try {
@@ -108,7 +98,7 @@ public function getLatestCourseCalculationData() {
 	public function getLatestSystemData() {
 
 	try {
-	$sql = "SELECT sc_cmd, rc_cmd, ss_pos, rs_pos, wpt_cur
+	$sql = "SELECT sc_cmd, rc_cmd, ss_pos, rs_pos, wpt_cur,twd
 	FROM datalogs
 	ORDER BY id
 	DESC LIMIT 1;";
@@ -119,24 +109,19 @@ public function getLatestCourseCalculationData() {
 	return $result;
 	}
 
+	public function getLatestCompassData() {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	try {
+	$sql = "SELECT heading, pitch, roll
+	FROM datalogs
+	ORDER BY id
+	DESC LIMIT 1;";
+	$result = $this->query($sql);
+	} catch (PDOException $e) {
+	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+	}
+	return $result;
+	}
 
 	private function query($sql) {
 		$sth = $this->dbconn->prepare($sql);
