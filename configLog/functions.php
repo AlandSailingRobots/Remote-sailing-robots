@@ -13,14 +13,14 @@
 		}
 
 		public function notify($var) {
-			$this->data = $this->db->getDatalog();
+			$this->data = $this->db->getConfigs();
 		}
 
 		public function getTemplate() {
 			return $this->tpl;
 		}
 
-		public function getDatalog() {
+		public function getConfigs() {
 			return $this->data;
 		}
 	}

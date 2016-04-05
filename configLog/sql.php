@@ -17,7 +17,7 @@
 			$this->db->close();
 		}
 
-		public function getDatalog() {
+		public function getConfigs() {
 			$sq = "SELECT * FROM configs";
 
 			$result = $this->db->query($sq);
