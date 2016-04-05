@@ -20,6 +20,22 @@ switch ($_REQUEST['action']) {
 		$dataGps = $service->getLatestGpsData();
 		echo json_encode($dataGps);
 		break;
+	case 'getCourseCalculationData':
+		$dataCourse = $service->getLatestCourseCalculationData();
+		echo json_encode($dataCourse);
+		break;
+	case 'getWindSensorData':
+		$dataWindSensor = $service->getLatestWindSensorData();
+		echo json_encode($dataWindSensor);
+		break;
+	case 'getSystemData':
+		$dataSystem = $service->getLatestSystemData();
+		echo json_encode($dataSystem);
+		break;
+	case 'getCompassData':
+		$dataCompass = $service->getLatestCompassData();
+		echo json_encode($dataCompass);
+		break;
 	default:
 		echo "!!! CONNY W T F !!!";
 		break;

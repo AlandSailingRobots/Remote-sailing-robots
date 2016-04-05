@@ -57,13 +57,48 @@ body {
 	float: left;
 	width: 40%;
 }
+#dataNamesCourse {
+	float: left;
+	width: 40%;
+}
+#dataNamesWindSensor {
+	float: left;
+	width: 40%;
+}
+#dataNamesWindSensor {
+	float: left;
+	width: 40%;
+}
+#dataNamesSystem {
+	float: left;
+	width: 40%;
+}
+#dataNamesCompass {
+	float: left;
+	width: 40%;
+}
 
 #dataValue {
 	float: right;
 	width: 60%;
 }
-
 #dataValueGps {
+	float: right;
+	width: 60%;
+}
+#dataValuesCourse {
+	float: right;
+	width: 60%;
+}
+#dataValuesWindSensor {
+	float: right;
+	width: 60%;
+}
+#dataValuesSystem{
+	float: right;
+	width: 60%;
+}
+#dataValuesCompass{
 	float: right;
 	width: 60%;
 }
