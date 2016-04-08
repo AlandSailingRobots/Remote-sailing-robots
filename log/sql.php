@@ -6,8 +6,8 @@
 
 		public function __construct() {
 			$host = "localhost";
-			$userName = "root";
-			$passWord = "";
+			$userName = "ithaax_testdata";
+			$passWord = "test123data";
 			$dataBase = "ithaax_testdata";
 			//username: ithaax_testdata & pass: test123data
 			$this->db = new mysqli($host, $userName, $passWord, $dataBase);

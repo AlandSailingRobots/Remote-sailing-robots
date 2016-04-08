@@ -39,7 +39,7 @@ $(document).ready(function(){
 	initBoat();
 	resizeDiv();
 	drawBoat();
-	setUpdateTimer(3000);
+	setUpdateTimer(10000);
 });
 
 $(window).resize(function() {
@@ -111,7 +111,6 @@ function getLatestData() {
 		url: 'dbapi.php',
 		data: {'action': "getdata"},
 		success: function(data) {
-			//window.alert(data);
 			var dataObj = jQuery.parseJSON(data);
 			updateBoat(dataObj);
 			drawBoat();

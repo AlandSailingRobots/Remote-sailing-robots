@@ -3,8 +3,8 @@
 
 
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
+	$username = "ithaax_testdata";
+	$password = "test123data";
 	$dbname = "ithaax_testdata";
 
 	// Create connection
@@ -15,8 +15,8 @@
 	    die("Connection failed: " . $conn->connect_error);
 	}
 
-	
-	
+
+
 	$selectedConfig = $_POST['configInput'];
 	$inputValue = $_POST['configs'];
 

@@ -1,4 +1,8 @@
+
+
+<html>
 <body>
+
 	<div id='boatCanvas'>
 		<canvas width='900px' height='900px' id='pingCanvas'></canvas>
 		<canvas width='900px' height='900px' id='layerCanvas'></canvas>
@@ -19,6 +23,10 @@
 		<h2>CompassData</h2>
 		<div id='dataNamesCompass'></div>
 		<div id='dataValuesCompass'></div>
+		<form method="post" action="dbapi.php">
+			<input type="submit" name="map" value="Maps">
+		</form>
 	</div>
+
 </body>
 </html>
