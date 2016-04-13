@@ -57,6 +57,7 @@
      pingCanvas = document.getElementById("pingCanvas");
      pingCanvasctx = pingCanvas.getContext("2d");
 
+
      ping = new Image();
      ping.src = "images/ping.png";
      boat = new Image();
@@ -151,8 +152,7 @@
           // compas heading
           layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
           layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
-
-
+          
           layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
           layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
 

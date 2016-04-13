@@ -134,14 +134,15 @@
 				    <option value='ss_chan'>ss_chan</option>
 				    <option value='ss_spd'>ss_spd</option>
 				    <option value='ss_acc' >ss_acc</option>
+
 				  </select>
 				  <br>
-				  <input type='text' name='configInput'><br>
-				  <br>
+				  New value for config: <input type='text' name='configInput'><br>
+				  Password: <input type='password' name='password'><br><br>
 				  <input type='submit' value='Update' name='configSubmit'>
 				</form>
-				</div>
 
+				</div>
 
 			</div>
 

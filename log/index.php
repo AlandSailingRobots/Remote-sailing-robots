@@ -11,5 +11,4 @@
 
 	$view = new View($model);
 	$view->render();  
-
 ?>
