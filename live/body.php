@@ -1,12 +1,12 @@
-
-
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <html>
 <body>
 
 	<div id='boatCanvas'>
-		<canvas width='900px' height='900px' id='pingCanvas'></canvas>
+		<canvas width='900px' height='900px' id='pingCanvas' ></canvas>
 		<canvas width='900px' height='900px' id='layerCanvas'></canvas>
 	</div>
+
 	<div id='boatDataGps'>
 		<h2>Gps Data</h2>
 		<div id='dataNameGps'></div>
@@ -23,10 +23,7 @@
 		<h2>CompassData</h2>
 		<div id='dataNamesCompass'></div>
 		<div id='dataValuesCompass'></div>
-		<form method="post" action="dbapi.php">
-			<input type="submit" name="map" value="Maps">
-		</form>
+		<div id='map'></div>
 	</div>
-
 </body>
 </html>

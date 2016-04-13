@@ -5,7 +5,6 @@ $options = array('location' => 'http://localhost/Remote-sailing-robots/live/dbco
 //create an instante of the SOAPClient (the API will be available)
 $service = new SoapClient(NULL, $options);
 //call an API method
-
 switch ($_REQUEST['action']) {
 	case 'idcheck':
 		$id = $service->getLatestID();
@@ -36,10 +35,12 @@ switch ($_REQUEST['action']) {
 		$dataCompass = $service->getLatestCompassData();
 		echo json_encode($dataCompass);
 		break;
+	case 'getLongitudeLatitudeData':
+		$dataLatitudeLongitude = $service->getLatestLatitudeLongitudeData();
+		echo json_encode($dataLatitudeLongitude);
+		break;
 	default:
 		echo "!!! CONNY W T F !!!";
 		break;
 }
-
-
 ?>

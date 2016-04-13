@@ -8,6 +8,8 @@ body {
 	color: white;
 }
 
+
+
 #pingCanvas {
 	position: absolute;
 	left: 0;
@@ -100,4 +102,9 @@ body {
 #dataValuesCompass{
 	float: right;
 	width: 60%;
+}
+#map{
+	width: 500px;
+	height: 400px;
+	background-color: #CCC;
 }

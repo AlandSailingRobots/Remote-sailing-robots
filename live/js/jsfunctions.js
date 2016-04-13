@@ -1,3 +1,4 @@
+
 $("#boatCanvas").hide();
 $("#pingCanvas").hide();
 
@@ -30,15 +31,16 @@ var vTWD = 0;
 var vGpsHeading = 0;
 var vCompasHeading = 0;
 
-
 var latestId = -1;
 var currentId = -1;
+
+var hideShit =0;
 
 
 $(document).ready(function(){
 	initBoat();
-	resizeDiv();
 	drawBoat();
+	resizeDiv();
 	setUpdateTimer(3000);
 });
 
@@ -84,6 +86,7 @@ function run() {
 		getLatestWindSensorData();
 		getLatestSystemData();
 		getLatestCompassData();
+		getLatestLatitudeLongitudeData();
 		currentId = latestId;
 	}
 }
@@ -198,6 +201,47 @@ function getLatestCompassData() {
 	});
 }
 
+function getLatestLatitudeLongitudeData() {
+
+	$.ajax({
+		url: 'dbapi.php',
+		data: {'action': "getLongitudeLatitudeData"},
+		success: function(data) {
+			var dataObj = jQuery.parseJSON(data);
+			map(dataObj);
+		},
+		error: function(errorThrown) {
+			console.log(errorThrown);
+		}
+	});
+
+}
+
+function map(dataObj) {
+
+	var lati = "";
+	var long = "";
+	Object.keys(dataObj).forEach(function(key) {
+		if(isNaN(key)) {
+			long = dataObj[0];
+			lati = dataObj[1];
+		}
+	});
+
+	var latLong = {lat: Number(lati), lng: Number(long)}
+	var mapDiv = document.getElementById("map");
+	var map = new google.maps.Map(mapDiv, {
+		center: latLong,
+		zoom: 14
+	});
+	var marker = new google.maps.Marker({
+		position: latLong,
+		map: map,
+		title: 'sailingrobots'
+	});
+}
+
+
 function initBoat() {
 	layerCanvas = document.getElementById("layerCanvas");
 	layerCanvasctx = layerCanvas.getContext("2d");
@@ -223,8 +267,6 @@ function initBoat() {
 	trueWindArrow = new Image();
 	trueWindArrow.src = "images/trueWindDirection.png";
 
-
-
 	compass = new Image();
 	compass.src = "images/compass.png";
 	heading = new Image();
@@ -235,6 +277,7 @@ function initBoat() {
 	tacking.src = "images/tacking.png";
 
 	pingCanvasctx.drawImage(ping,0,0);
+
 }
 
 function updateBoat(data) {

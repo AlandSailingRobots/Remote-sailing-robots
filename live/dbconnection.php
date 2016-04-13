@@ -123,6 +123,20 @@ public function getLatestCourseCalculationData() {
 	return $result;
 	}
 
+	public function getLatestLatitudeLongitudeData() {
+
+	try {
+	$sql = "SELECT gps_lon, gps_lat
+	FROM datalogs
+	ORDER BY id
+	DESC LIMIT 1;";
+	$result = $this->query($sql);
+	} catch (PDOException $e) {
+	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+	}
+	return $result;
+	}
+
 	private function query($sql) {
 		$sth = $this->dbconn->prepare($sql);
 		$sth->execute();
