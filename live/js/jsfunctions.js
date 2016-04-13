@@ -39,7 +39,7 @@ $(document).ready(function(){
 	initBoat();
 	resizeDiv();
 	drawBoat();
-	setUpdateTimer(10000);
+	setUpdateTimer(3000);
 });
 
 $(window).resize(function() {

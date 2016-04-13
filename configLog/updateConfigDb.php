@@ -24,7 +24,8 @@
 	$sql = "UPDATE configs SET $inputValue = $selectedConfig where id=1";
 
 	if ($conn->query($sql) === TRUE) {
-	    header('Location: http://localhost/Remote-sailing-robots/configLog/');
+	    //header('Location: http://localhost/Remote-sailing-robots/configLog/');
+			header('Location: http://www.sailingrobots.com/testdata/configLog/');
 	} else {
 	    echo "Error updating record: " . $conn->error;
 	}
