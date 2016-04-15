@@ -3,10 +3,10 @@
 
 
 	$servername = "localhost";
-	$username = "ithaax_testdata";
-	$password = "test123data";
+	$username = "root";
+	$password = "";
 	$dbname = "ithaax_testdata";
-
+	// username = ithaax_testdata , pass = test123data
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -16,22 +16,31 @@
 	}
 
 
-
 	$selectedConfig = $_POST['configInput'];
 	$inputValue = $_POST['configs'];
+	$pw = $_POST['password'];
+	if($pw == "pophaax"){
 
+		$sql = "UPDATE configs SET $inputValue = $selectedConfig where id=1";
 
-	$sql = "UPDATE configs SET $inputValue = $selectedConfig where id=1";
+		if ($conn->query($sql) === TRUE) {
+		    header('Location: http://localhost/Remote-sailing-robots/configLog/?msg=success');
+		} else {
+		    echo "Error updating record: " . $conn->error;
+		}
 
 	if ($conn->query($sql) === TRUE) {
 	    //header('Location: http://localhost/Remote-sailing-robots/configLog/');
 			header('Location: http://www.sailingrobots.com/testdata/configLog/');
 	} else {
 	    echo "Error updating record: " . $conn->error;
+
+		$conn->close();
 	}
+	else {
+		header("location:http://localhost/Remote-sailing-robots/configLog/?msg=failed");
 
-	$conn->close();
-
+	}
 
 
 ?>

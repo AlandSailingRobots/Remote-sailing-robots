@@ -18,6 +18,18 @@
           </div>
           <div id="content">
                <?php echo $this->tpl['content']?>
+               
+               <?php 
+               if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+                    echo '<script type="text/javascript">alert("Wrong password");</script>';
+               }
+
+               if (isset($_GET["msg"]) && $_GET["msg"] == 'success') {
+                    echo '<script type="text/javascript">alert("Config updated");</script>';
+               }
+
+               ?>
+
           </div>
      </div>
 </body>
