@@ -1,10 +1,15 @@
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <html>
 <body>
-
-	<div id='boatCanvas'>
+	
+	<div id='boatCanvas'>	 
 		<canvas width='900px' height='900px' id='pingCanvas' ></canvas>
 		<canvas width='900px' height='900px' id='layerCanvas'></canvas>
+		<canvas width='900px' height='900px' id='layerHeading'></canvas>
+		<canvas width='900px' height='900px' id='layerTWD'></canvas>
+		<canvas width='900px' height='900px' id='layerWaypoint'></canvas>
+		<canvas width='900px' height='900px' id='layerCompasHeading'></canvas>
+		<canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
 	</div>
 
 	<div id='boatDataGps'>
