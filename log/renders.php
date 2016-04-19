@@ -92,7 +92,7 @@
 			<div id='boatData'>
 				<div id='dataName'></div>
 				<div id='dataValue'></div>
-				<input type='button' value='maps' onclick='hideShowMapBoat()' />
+				<input type='button' value='maps/boat' onclick='hideShowMapBoat()' />
 			</div>
 			<div id='loglist'>
 				<table id='datalog' class='display' cellspacing='0' width='100%'>
