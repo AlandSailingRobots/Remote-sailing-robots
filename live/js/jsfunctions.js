@@ -260,17 +260,7 @@ function hideShowMapBoat() {
 }
 
 function map(dataObj) {
-		console.log("test");
-		var lati = "";
-		var long = "";
-		Object.keys(dataObj).forEach(function(key) {
-			if(isNaN(key)) {
-				long = dataObj[0];
-				lati = dataObj[1];
-			}
-		});
-
-		var latLong = {lat: Number(lati), lng: Number(long)}
+		var latLong = {lat: Number(dataObj.gps_lat), lng: Number(dataObj.gps_lon)}
 		var mapDiv = document.getElementById("map");
 		var map = new google.maps.Map(mapDiv, {
 			center: latLong,

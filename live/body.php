@@ -28,7 +28,7 @@
 		<h2>CompassData</h2>
 		<div id='dataNamesCompass'></div>
 		<div id='dataValuesCompass'></div>
-		<input type="button" value="maps" onclick="hideShowMapBoat()" />
+		<input type="button" value="maps/boat" onclick="hideShowMapBoat()" />
 
 	</div>
 </body>
