@@ -1,7 +1,8 @@
 
 $("#boatCanvas").hide();
 $("#pingCanvas").hide();
-
+$("#map").hide();
+var showMap = false;
 var layerBoatHeading = null;
 var layerBoatHeadingctx = null;
 var layerCompasHeading = null;
@@ -16,9 +17,6 @@ var layerCanvasctx = null;
 var pingCanvasctx = null;
 var layerCanvas = null;
 var pingCanvas = null;
-
-
-
 
 var boat = null;
 var mainsail = null;
@@ -48,10 +46,11 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
-var hideShit =0;
-
 
 $(document).ready(function(){
+
+		document.getElementById("map").disabled = true;
+		document.getElementById("map").style.visibility = "hidden";
 	initBoat();
 	drawBoat();
 	resizeDiv();
@@ -75,7 +74,6 @@ function resizeDiv() {
 }
 
 function setCanvasSize(size) {
-
 	layerBoatHeading.style.width = size + 'px';
 	layerBoatHeading.style.height = size + 'px';
 
@@ -244,33 +242,49 @@ function getLatestLatitudeLongitudeData() {
 
 }
 
+function hideShowMapBoat() {
+	if(showMap == true) {
+		document.getElementById("map").disabled = true;
+		document.getElementById("map").style.visibility = "hidden";
+		document.getElementById("boatCanvas").disabled = false;
+		document.getElementById("boatCanvas").style.visibility = "visible";
+		showMap = false;
+	}
+	else{
+		document.getElementById("map").disabled = false;
+		document.getElementById("map").style.visibility = "visible";
+		document.getElementById("boatCanvas").disabled = true;
+		document.getElementById("boatCanvas").style.visibility = "hidden";
+		showMap = true;
+	}
+}
+
 function map(dataObj) {
+		console.log("test");
+		var lati = "";
+		var long = "";
+		Object.keys(dataObj).forEach(function(key) {
+			if(isNaN(key)) {
+				long = dataObj[0];
+				lati = dataObj[1];
+			}
+		});
 
-	var lati = "";
-	var long = "";
-	Object.keys(dataObj).forEach(function(key) {
-		if(isNaN(key)) {
-			long = dataObj[0];
-			lati = dataObj[1];
-		}
-	});
-
-	var latLong = {lat: Number(lati), lng: Number(long)}
-	var mapDiv = document.getElementById("map");
-	var map = new google.maps.Map(mapDiv, {
-		center: latLong,
-		zoom: 14
-	});
-	var marker = new google.maps.Marker({
-		position: latLong,
-		map: map,
-		title: 'sailingrobots'
-	});
+		var latLong = {lat: Number(lati), lng: Number(long)}
+		var mapDiv = document.getElementById("map");
+		var map = new google.maps.Map(mapDiv, {
+			center: latLong,
+			zoom: 14
+		});
+		var marker = new google.maps.Marker({
+			position: latLong,
+			map: map,
+			title: 'sailingrobots'
+		});
 }
 
 
 function initBoat() {
-
 	layerBoatHeading = document.getElementById("layerBoatHeading");
 	layerBoatHeadingctx = layerBoatHeading.getContext("2d");
 
@@ -419,8 +433,10 @@ function updateCompassData(dataCompass){
 	$("#dataValuesCompass").html(dataValuesCompass);
 }
 
-
 function drawBoat() {
+/*	if(test() == true){
+		window.alert("boo");
+	}*/
 	var jibdir = 1;
 	if (vWIND > 180 && vWIND < 210) {
 		jibdir = -1;
@@ -463,7 +479,7 @@ function drawBoat() {
 
 	layerCanvasctx.drawImage(compass,0,0);
 	layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	
+
 
 	layerTWDctx.drawImage(compass,0,0);
 	layerTWDctx.translate(layerCanvas.width/2, layerCanvas.height/2);
@@ -512,7 +528,7 @@ function drawBoat() {
 	layerBoatHeadingctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
 	layerBoatHeadingctx.rotate(vRUDDER*Math.PI/180);
 	layerBoatHeadingctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
-	
+
 
 	layerBoatHeadingctx.restore();
 	layerCompasHeadingctx.restore();

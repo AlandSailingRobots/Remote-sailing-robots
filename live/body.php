@@ -1,8 +1,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <html>
 <body>
-	
-	<div id='boatCanvas'>	 
+	<div id='map'></div>
+	<div id='boatCanvas'>
 		<canvas width='900px' height='900px' id='pingCanvas' ></canvas>
 		<canvas width='900px' height='900px' id='layerCanvas'></canvas>
 		<canvas width='900px' height='900px' id='layerHeading'></canvas>
@@ -28,7 +28,8 @@
 		<h2>CompassData</h2>
 		<div id='dataNamesCompass'></div>
 		<div id='dataValuesCompass'></div>
-		<div id='map'></div>
+		<input type="button" value="maps" onclick="hideShowMapBoat()" />
+
 	</div>
 </body>
 </html>
