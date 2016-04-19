@@ -82,19 +82,17 @@
 					<td>".$row["rte_id"]."</td>
 					<td>".$row["rte_rev_srv"]."</td>
 					<td>".$row["rte_rev_boat"]."</td>
-					<td>".$row["twd"]."</td>
-					<td>".$row["heading"]."</td>
-					<td>".$row["pitch"]."</td>
-					<td>".$row["roll"]."</td>
 					</tr>";
 			}
 			return "<div id='boatCanvas'>
 				<canvas width='900px' height='900px' id='pingCanvas'></canvas>
 				<canvas width='900px' height='900px' id='layerCanvas'></canvas>
+				<div id='map'></div>
 			</div>
 			<div id='boatData'>
 				<div id='dataName'></div>
 				<div id='dataValue'></div>
+				<input type='button' value='maps' onclick='hideShowMapBoat()' />
 			</div>
 			<div id='loglist'>
 				<table id='datalog' class='display' cellspacing='0' width='100%'>
@@ -124,10 +122,6 @@
 							<th>rte_id</th>
 							<th>rte_rev_srv</th>
 							<th>rte_rev_boat</th>
-							<th>twd</th>
-							<th>heading</th>
-							<th>pitch</th>
-							<th>roll</th>
 			            </tr>
 			        </thead>
 			        <tbody>".$table."</tr>

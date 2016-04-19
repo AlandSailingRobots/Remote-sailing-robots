@@ -7,6 +7,7 @@
      <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon" />
      <script src="../libs/jquery/jquery-1.11.1.min.js"></script>
      <script src="../libs/DataTables-1.10.0/media/js/jquery.dataTables.min.js"></script>
+     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
      <?php echo $this->tpl['css']?>
 </head>
@@ -23,7 +24,7 @@
 </body>
 <script>
      $("#loglist").hide();
-
+     var showMap = false;
      var layerCanvasctx = null;
      var pingCanvasctx = null;
      var layerCanvas = null;
@@ -117,6 +118,7 @@
      }
 
      function drawBoat() {
+      //  map();
           var jibdir = 1;
           if (vWIND > 180 && vWIND < 210) {
                jibdir = -1;
@@ -152,7 +154,7 @@
           // compas heading
           layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
           layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
-          
+
           layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
           layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
 
@@ -181,6 +183,38 @@
                $("#pingCanvas").fadeOut(350);
           });
 
+     }
+
+     function hideShowMapBoat() {
+     	if(showMap == true) {
+     		document.getElementById("map").disabled = true;
+     		document.getElementById("map").style.visibility = "hidden";
+     		document.getElementById("boatCanvas").disabled = false;
+     		document.getElementById("boatCanvas").style.visibility = "visible";
+     		showMap = false;
+     	}
+     	else{
+     		document.getElementById("map").disabled = false;
+     		document.getElementById("map").style.visibility = "visible";
+     		document.getElementById("boatCanvas").disabled = true;
+     		document.getElementById("boatCanvas").style.visibility = "hidden";
+      //  map();
+     		showMap = true;
+     	}
+     }
+
+     function map(lonlat) {
+     		var latLong = {lat: Number(lonlat.gps_lat), lng: Number(lonlat.gps_long)}
+     		var mapDiv = document.getElementById("map");
+     		var map = new google.maps.Map(mapDiv, {
+     			center: latLong,
+     			zoom: 14
+     		});
+     		var marker = new google.maps.Marker({
+     			position: latLong,
+     			map: map,
+     			title: 'sailingrobots'
+     		});
      }
 
      $(function addRowHandlers() {
@@ -215,13 +249,11 @@
                               rte_id:row.getElementsByTagName("td")[21].innerHTML,
                               rte_rev_srv:row.getElementsByTagName("td")[22].innerHTML,
                               rte_rev_boat:row.getElementsByTagName("td")[23].innerHTML,
-                              twd:row.getElementsByTagName("td")[24].innerHTML,
-                              heading:row.getElementsByTagName("td")[25].innerHTML,
-                              pitch:row.getElementsByTagName("td")[26].innerHTML,
-                              roll:row.getElementsByTagName("td")[27].innerHTML
+
                          }
                          updateBoat(data);
                          drawBoat();
+                         map(data);
                     };
                };
 
@@ -230,7 +262,10 @@
           }
      });
 
+
      $(document).ready(function() {
+       document.getElementById("map").disabled = true;
+       document.getElementById("map").style.visibility = "hidden";
           var table = $('#datalog').dataTable( {
                "scrollY":          "200px",
                "scrollCollapse":   true,
