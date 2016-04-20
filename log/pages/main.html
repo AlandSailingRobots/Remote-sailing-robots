@@ -23,6 +23,8 @@
 </body>
 <script>
      $("#loglist").hide();
+     var layerHeading = null;
+     var layerHeadingctx = null;
 
      var layerCanvasctx = null;
      var pingCanvasctx = null;
@@ -52,6 +54,8 @@
      var vCompasHeading = 0;
      var vTWD = 0;
 
+     layerHeading = document.getElementById("layerHeading");
+     layerHeadingctx = layerHeading.getContext("2d");
      layerCanvas = document.getElementById("layerCanvas");
      layerCanvasctx = layerCanvas.getContext("2d");
      pingCanvas = document.getElementById("pingCanvas");
@@ -129,18 +133,24 @@
                maindir = -1;
           }
 
-
+          layerHeadingctx.clearRect(0,0,layerHeading.width,layerHeading.height);
+          layerHeadingctx.save();
           layerCanvasctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
           layerCanvasctx.save();
           if(vTACKING === 1) {
                layerCanvasctx.drawImage(tacking,0,0);
+               layerHeadingctx.drawImage(tacking,0,0);
           }
 
-
+          layerHeadingctx.drawImage(compass,0,0);
+          layerHeadingctx.translate(layerHeading.width/2, layerHeading.height/2);
           layerCanvasctx.drawImage(compass,0,0);
           layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-          layerCanvasctx.rotate(vCTS*Math.PI/180);
-          layerCanvasctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
+
+
+          
+          layerHeadingctx.rotate(vCTS*Math.PI/180);
+          layerHeadingctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
 
           //true wind direction
           layerCanvasctx.rotate((vTWD - vCTS)*Math.PI/180);
@@ -169,9 +179,13 @@
           layerCanvasctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
           layerCanvasctx.rotate(vRUDDER*Math.PI/180);
           layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
+          
+
           layerCanvasctx.restore();
+          layerHeadingctx.restore();
 
-
+          layerHeading.style.width = 500 + 'px';
+          layerHeading.style.height = 500 + 'px';
           layerCanvas.style.width = 500 + 'px';
           layerCanvas.style.height = 500 + 'px';
           pingCanvas.style.width = 500 + 'px';
@@ -215,10 +229,7 @@
                               rte_id:row.getElementsByTagName("td")[21].innerHTML,
                               rte_rev_srv:row.getElementsByTagName("td")[22].innerHTML,
                               rte_rev_boat:row.getElementsByTagName("td")[23].innerHTML,
-                              twd:row.getElementsByTagName("td")[24].innerHTML,
-                              heading:row.getElementsByTagName("td")[25].innerHTML,
-                              pitch:row.getElementsByTagName("td")[26].innerHTML,
-                              roll:row.getElementsByTagName("td")[27].innerHTML
+                              
                          }
                          updateBoat(data);
                          drawBoat();
