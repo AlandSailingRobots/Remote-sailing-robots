@@ -202,6 +202,13 @@
 					$setup["rte_rev"],
 					$row["rte_rev"]
 				);
+				/*
+					<message>{"datalogs":[{"id":"laiva","gps_time":"0000-00-00 00:00:00","gps_lat":"1.0","gps_lon":"1.0","gps_spd":"1.0","gps_head":"1.0",
+					"gps_sat":"1","sc_cmd":"1","rc_cmd":"1","ss_pos":"1","rs_pos":"1","cc_dtw":"1.0","cc_btw":"1.0","cc_cts":"1.0","cc_tack":"1",
+					"ws_dir":"1","ws_spd":"1.0","ws_tmp":"1","wpt_cur":"1","cfg_rev":"1","rte_rev":"1"}]}</message>
+				*/
+
+
 				$stmt->execute();
 
 				if($stmt->affected_rows === 1) {
