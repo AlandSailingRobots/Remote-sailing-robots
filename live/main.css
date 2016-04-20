@@ -7,6 +7,17 @@ html {
 body {
 	color: white;
 }
+[draggable=true] {
+    cursor: move;
+}
+
+p {
+	padding-right: 15px;
+	margin: 10px;
+}
+#boatCanvas{
+	position: relative
+}
 
 #map{
 	position: absolute;
@@ -63,19 +74,6 @@ body {
 	z-index:12;
 }
 
-#boatData {
-	float: right;
-	padding: 16px;
-	width: 30%;
-	height: 100%;
-	color: white;
-}
-
-#boatData p {
-	margin: 0;
-	font-size: 12px;
-}
-
 #dataName {
 	float: left;
 	width: 40%;
@@ -84,21 +82,20 @@ body {
 	float: left;
 	width: 40%;
 }
+
 #dataNamesCourse {
 	float: left;
-	width: 40%;
+	width: 50%;
 }
 #dataNamesWindSensor {
 	float: left;
 	width: 40%;
 }
-#dataNamesWindSensor {
-	float: left;
-	width: 40%;
-}
+
 #dataNamesSystem {
 	float: left;
-	width: 40%;
+	width: 50%;
+
 }
 #dataNamesCompass {
 	float: left;
@@ -114,7 +111,7 @@ body {
 }
 #dataValuesCourse {
 	float: right;
-	width: 60%;
+	width: 48%;
 }
 #dataValuesWindSensor {
 	float: right;
@@ -122,9 +119,74 @@ body {
 }
 #dataValuesSystem{
 	float: right;
-	width: 60%;
+	width: 30%;
 }
 #dataValuesCompass{
 	float: right;
-	width: 60%;
+	width: 40%;
+}
+
+#boatData {
+	float: right;
+	padding: 16px;
+	width: 45%;
+	height: 100%;
+	color: white;
+}
+
+#boatData p {
+	margin: 0;
+	font-size: 14px;
+}
+
+#boatDataGps {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+
+#boatDataCourse {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+#boatDataWindSensor {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+#boatDataSystem{
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+#boatDataCompass {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
 }
