@@ -30,6 +30,35 @@
 					case "getCourseCalculationConfig":
 						print_r($service->getCourseCalculationConfig($_GET["id"]));
 						break;
+					case "getMaestroControllerConfig":
+						print_r($service->getMaestroControllerConfig($_GET["id"]));
+						break;
+					case "getRudderCommandConfig":
+						print_r($service->getRudderCommandConfig($_GET["id"]));
+						break;
+					case "getRudderServoConfig":
+						print_r($service->getRudderServoConfig($_GET["id"]));
+						break;
+					case "getSailingRobotConfig":
+						print_r($service->getSailingRobotConfig($_GET["id"]));
+						break;
+					case "getSailCommandConfig":
+						print_r($service->getSailCommandConfig($_GET["id"]));
+						break;
+					case "getSailServoConfig":
+						print_r($service->getSailServoConfig($_GET["id"]));
+						break;
+					case "getWaypointRoutingConfig":
+						print_r($service->getWaypointRoutingConfig($_GET["id"]));
+						break;
+					case "getWindSensorConfig":
+						print_r($service->getWindSensorConfig($_GET["id"]));
+						break;
+					case "getWindVaneConfig":
+						print_r($service->getWindVaneConfig($_GET["id"]));
+						break;
+
+
 
 
 					case "pushLogs":

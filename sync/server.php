@@ -13,6 +13,8 @@
 			$this->db->close();
 		}
 
+		
+
 	  function getDatalog($boat) {
 			$sq = "SELECT * FROM datalogs";
 			if($result = $this->db->query($sq, MYSQLI_USE_RESULT)) {
@@ -116,6 +118,7 @@
 			return json_encode($config);
 		}
 
+		
 		function getCourseCalculationConfig($boat) {
 			$setup = $this->getFleetData($boat);
 			$stmt = $this->db->stmt_init();
@@ -140,6 +143,206 @@
 			$stmt->close();
 			return json_encode($config);
 		}
+
+		function getMaestroControllerConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM maestro_controller_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$port
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"port" => $port
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getRudderCommandConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM rudder_command_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$extreme_command,
+				$midship_command
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"extreme_command" => $extreme_command,
+				"midship_command" => $midship_command
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getRudderServoConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM rudder_servo_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$channel,
+				$speed,
+				$acceleration
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"channel" => $channel,
+				"speed" => $speed,
+				"acceleration" => $acceleration
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getSailingRobotConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM sailing_robot_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$flag_heading_compass,
+				$loop_time,
+				$scanning
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"flag_heading_compass" => $flag_heading_compass,
+				"loop_time" => $loop_time,
+				"scanning" => $scanning
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getSailCommandConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM sail_command_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$close_reach_command,
+				$run_command
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"close_reach_command" => $close_reach_command,
+				"run_command" => $run_command
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getSailServoConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM sail_servo_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$channel,
+				$speed,
+				$acceleration
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"channel" => $channel,
+				"speed" => $speed,
+				"acceleration" => $acceleration
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getWaypointRoutingConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM waypoint_routing_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$radius_ratio,
+				$sail_adjust_time,
+				$adjust_degree_limit
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"radius_ratio" => $radius_ratio,
+				"sail_adjust_time" => $sail_adjust_time,
+				"adjust_degree_limit" => $adjust_degree_limit
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getWindSensorConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM windsensor_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$port,
+				$baud_rate
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"port" => $port,
+				"baud_rate" => $baud_rate
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		function getWindVaneConfig($boat) {
+			$setup = $this->getFleetData($boat);
+			$stmt = $this->db->stmt_init();
+			$stmt->prepare("SELECT * FROM wind_vane_config WHERE id = ?;");
+			$stmt->bind_param("i", $setup["cfg_id"]);
+			$stmt->execute();
+			$stmt->bind_result(
+				$id,
+				$use_self_steering,
+				$wind_sensor_self_steering,
+				$self_steering_intervall
+			);
+			$stmt->fetch();
+			$config[] = array(
+				"id" => 1,
+				"use_self_steering" => $use_self_steering,
+				"wind_sensor_self_steering" => $wind_sensor_self_steering,
+				"self_steering_intervall" => $self_steering_intervall
+			);
+			$stmt->close();
+			return json_encode($config);
+		}
+
+		
+
 
 		function getRoute($boat) {
 			$setup = $this->getFleetData($boat);
@@ -262,7 +465,7 @@
 			
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?);");
+			$stmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
 			$result;
 			$foreignKey;
 			foreach($data["GPSDatalogs"] as $row) {
@@ -292,7 +495,7 @@
 			
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?);");
+			$stmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
 			$result;
 			$foreignKey;
 			foreach($data["compassDatalogs"] as $row) {
@@ -320,7 +523,7 @@
 			
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?);");
+			$stmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
 			$result;
 			$foreignKey;
 			foreach($data["courseCalculationDatalogs"] as $row) {
@@ -349,7 +552,7 @@
 			
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?);");
+			$stmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
 			$result;
 			$foreignKey;
 			foreach($data["systemDatalogs"] as $row) {
@@ -381,7 +584,7 @@
 			
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?);");
+			$stmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
 			$result;
 			$foreignKey;
 			foreach($data["windSensorDatalogs"] as $row) {
