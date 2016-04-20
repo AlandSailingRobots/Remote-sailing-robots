@@ -12,7 +12,7 @@
 		<canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
 	</div>
 
-	<div id='boatDataGps'>
+	<div id='boatData'>
 		<h2>Gps Data</h2>
 		<div id='dataNameGps'></div>
 		<div id='dataValueGps'></div>
@@ -29,7 +29,6 @@
 		<div id='dataNamesCompass'></div>
 		<div id='dataValuesCompass'></div>
 		<input type="button" value="maps/boat" onclick="hideShowMapBoat()" />
-
 	</div>
 </body>
 </html>

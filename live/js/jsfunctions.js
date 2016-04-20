@@ -49,8 +49,8 @@ var currentId = -1;
 
 $(document).ready(function(){
 
-		document.getElementById("map").disabled = true;
-		document.getElementById("map").style.visibility = "hidden";
+	document.getElementById("map").disabled = true;
+	document.getElementById("map").style.visibility = "hidden";
 	initBoat();
 	drawBoat();
 	resizeDiv();
@@ -139,7 +139,9 @@ function getLatestData() {
 		url: 'dbapi.php',
 		data: {'action': "getdata"},
 		success: function(data) {
+
 			var dataObj = jQuery.parseJSON(data);
+			console.log(dataObj);
 			updateBoat(dataObj);
 			drawBoat();
 
@@ -329,15 +331,15 @@ function initBoat() {
 }
 
 function updateBoat(data) {
-	vHEADING = parseFloat(data.gps_head);
-	vWIND = parseFloat(data.ws_dir);
-	vSAIL = parseFloat(data.sc_cmd);
-	vRUDDER = parseFloat(data.rc_cmd);
-	vWAYPOINT = parseFloat(data.cc_btw);
-	vCTS = parseFloat(data.cc_cts);
-	vTACKING = parseFloat(data.cc_tack);
-	vTWD = parseFloat(data.twd);
-	vGpsHeading = parseFloat(data.gps_head);
+	vHEADING = parseFloat(data.heading);
+	vWIND = parseFloat(data.direction);
+	vSAIL = parseFloat(data.sail_command_sail);
+	vRUDDER = parseFloat(data.rudder_command_rudder);
+	vWAYPOINT = parseFloat(data.bearing_to_waypoint);
+	vCTS = parseFloat(data.course_to_steer);
+	vTACKING = parseFloat(data.tack);
+	vTWD = parseFloat(data.true_wind_direction_calc);
+	vGpsHeading = parseFloat(data.heading);
 	vCompasHeading = parseFloat(data.heading);
 
 	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
