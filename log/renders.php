@@ -82,12 +82,16 @@
 					<td>".$row["rte_id"]."</td>
 					<td>".$row["rte_rev_srv"]."</td>
 					<td>".$row["rte_rev_boat"]."</td>
+
 					</tr>";
 			}
 			return "<div id='boatCanvas'>
 				<canvas width='900px' height='900px' id='pingCanvas'></canvas>
 				<canvas width='900px' height='900px' id='layerCanvas'></canvas>
+				<canvas width='900px' height='900px' id='layerHeading'></canvas>
+
 				<div id='map'></div>
+
 			</div>
 			<div id='boatData'>
 				<div id='dataName'></div>
