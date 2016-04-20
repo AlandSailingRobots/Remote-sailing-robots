@@ -46,6 +46,13 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
+$(function() {
+	$( "#boatDataGps" ).draggable();
+	$( "#boatDataCourse" ).draggable();
+	$( "#boatDataWindSensor" ).draggable();
+	$( "#boatDataSystem" ).draggable();
+	$( "#boatDataCompass" ).draggable();
+});
 
 $(document).ready(function(){
 
