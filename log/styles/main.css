@@ -2,7 +2,7 @@ html {
   background-color: #003469;
   background: url(../images/body.gif) repeat scroll;
   height: 100%;
-  
+
 }
 
 body {
@@ -10,6 +10,15 @@ body {
   padding: 0;
   color: white;
   height: 100%;
+}
+
+#map{
+	position: absolute;
+	width: 500px;
+	height: 500px;
+	left: 0px;
+	top: 0px;
+
 }
 
 #container {
@@ -51,14 +60,14 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  z-index:11; 
+  z-index:11;
 }
 
 #layerCanvas {
   position: absolute;
   left: 0;
   top: 0;
-  z-index:12; 
+  z-index:12;
 }
 #layerHeading {
   position: absolute;

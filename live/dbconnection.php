@@ -42,8 +42,8 @@ class DBConnection {
 
 		try {
 			$sql = "SELECT *
-					FROM datalogs
-					ORDER BY id
+					FROM gps_dataLogs, course_calculation_dataLogs, windsensor_dataLogs, system_dataLogs, compass_dataLogs
+					ORDER BY id_gps
 					DESC LIMIT 1;"
 					;
 			$result = $this->query($sql);
@@ -56,9 +56,9 @@ class DBConnection {
 	public function getLatestGpsData() {
 
 		try {
-			$sql = "SELECT gps_time, gps_lat, gps_lon, gps_spd, gps_head, gps_sat
-					FROM datalogs
-					ORDER BY id
+			$sql = "SELECT *
+					FROM gps_dataLogs
+					ORDER BY id_gps
 					DESC LIMIT 1;";
 			$result = $this->query($sql);
 		} catch (PDOException $e) {
@@ -70,9 +70,9 @@ class DBConnection {
 public function getLatestCourseCalculationData() {
 
 	try {
-	$sql = "SELECT cc_dtw, cc_btw, cc_cts, cc_tack
-	FROM datalogs
-	ORDER BY id
+	$sql = "SELECT *
+	FROM course_calculation_dataLogs
+	ORDER BY id_course_calculation
 	DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
@@ -84,9 +84,9 @@ public function getLatestCourseCalculationData() {
 	public function getLatestWindSensorData() {
 
 	try {
-	$sql = "SELECT ws_dir, ws_spd, ws_tmp
-	FROM datalogs
-	ORDER BY id
+	$sql = "SELECT *
+	FROM windsensor_dataLogs
+	ORDER BY id_windsensor
 	DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
@@ -98,9 +98,9 @@ public function getLatestCourseCalculationData() {
 	public function getLatestSystemData() {
 
 	try {
-	$sql = "SELECT sc_cmd, rc_cmd, ss_pos, rs_pos, wpt_cur,twd
-	FROM datalogs
-	ORDER BY id
+	$sql = "SELECT *
+	FROM system_dataLogs
+	ORDER BY id_system
 	DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
@@ -112,9 +112,9 @@ public function getLatestCourseCalculationData() {
 	public function getLatestCompassData() {
 
 	try {
-	$sql = "SELECT heading, pitch, roll
-	FROM datalogs
-	ORDER BY id
+	$sql = "SELECT *
+	FROM compass_dataLogs
+	ORDER BY id_compass_model
 	DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {

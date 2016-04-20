@@ -1,7 +1,8 @@
 
 $("#boatCanvas").hide();
 $("#pingCanvas").hide();
-
+$("#map").hide();
+var showMap = false;
 var layerBoatHeading = null;
 var layerBoatHeadingctx = null;
 var layerCompasHeading = null;
@@ -16,9 +17,6 @@ var layerCanvasctx = null;
 var pingCanvasctx = null;
 var layerCanvas = null;
 var pingCanvas = null;
-
-
-
 
 var boat = null;
 var mainsail = null;
@@ -48,10 +46,18 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
-var hideShit =0;
-
+$(function() {
+	$( "#boatDataGps" ).draggable();
+	$( "#boatDataCourse" ).draggable();
+	$( "#boatDataWindSensor" ).draggable();
+	$( "#boatDataSystem" ).draggable();
+	$( "#boatDataCompass" ).draggable();
+});
 
 $(document).ready(function(){
+
+	document.getElementById("map").disabled = true;
+	document.getElementById("map").style.visibility = "hidden";
 	initBoat();
 	drawBoat();
 	resizeDiv();
@@ -75,7 +81,6 @@ function resizeDiv() {
 }
 
 function setCanvasSize(size) {
-
 	layerBoatHeading.style.width = size + 'px';
 	layerBoatHeading.style.height = size + 'px';
 
@@ -141,7 +146,9 @@ function getLatestData() {
 		url: 'dbapi.php',
 		data: {'action': "getdata"},
 		success: function(data) {
+
 			var dataObj = jQuery.parseJSON(data);
+			console.log(dataObj);
 			updateBoat(dataObj);
 			drawBoat();
 
@@ -244,33 +251,39 @@ function getLatestLatitudeLongitudeData() {
 
 }
 
+function hideShowMapBoat() {
+	if(showMap == true) {
+		document.getElementById("map").disabled = true;
+		document.getElementById("map").style.visibility = "hidden";
+		document.getElementById("boatCanvas").disabled = false;
+		document.getElementById("boatCanvas").style.visibility = "visible";
+		showMap = false;
+	}
+	else{
+		document.getElementById("map").disabled = false;
+		document.getElementById("map").style.visibility = "visible";
+		document.getElementById("boatCanvas").disabled = true;
+		document.getElementById("boatCanvas").style.visibility = "hidden";
+		showMap = true;
+	}
+}
+
 function map(dataObj) {
-
-	var lati = "";
-	var long = "";
-	Object.keys(dataObj).forEach(function(key) {
-		if(isNaN(key)) {
-			long = dataObj[0];
-			lati = dataObj[1];
-		}
-	});
-
-	var latLong = {lat: Number(lati), lng: Number(long)}
-	var mapDiv = document.getElementById("map");
-	var map = new google.maps.Map(mapDiv, {
-		center: latLong,
-		zoom: 14
-	});
-	var marker = new google.maps.Marker({
-		position: latLong,
-		map: map,
-		title: 'sailingrobots'
-	});
+		var latLong = {lat: Number(dataObj.gps_lat), lng: Number(dataObj.gps_lon)}
+		var mapDiv = document.getElementById("map");
+		var map = new google.maps.Map(mapDiv, {
+			center: latLong,
+			zoom: 14
+		});
+		var marker = new google.maps.Marker({
+			position: latLong,
+			map: map,
+			title: 'sailingrobots'
+		});
 }
 
 
 function initBoat() {
-
 	layerBoatHeading = document.getElementById("layerBoatHeading");
 	layerBoatHeadingctx = layerBoatHeading.getContext("2d");
 
@@ -325,15 +338,15 @@ function initBoat() {
 }
 
 function updateBoat(data) {
-	vHEADING = parseFloat(data.gps_head);
-	vWIND = parseFloat(data.ws_dir);
-	vSAIL = parseFloat(data.sc_cmd);
-	vRUDDER = parseFloat(data.rc_cmd);
-	vWAYPOINT = parseFloat(data.cc_btw);
-	vCTS = parseFloat(data.cc_cts);
-	vTACKING = parseFloat(data.cc_tack);
-	vTWD = parseFloat(data.twd);
-	vGpsHeading = parseFloat(data.gps_head);
+	vHEADING = parseFloat(data.heading);
+	vWIND = parseFloat(data.direction);
+	vSAIL = parseFloat(data.sail_command_sail);
+	vRUDDER = parseFloat(data.rudder_command_rudder);
+	vWAYPOINT = parseFloat(data.bearing_to_waypoint);
+	vCTS = parseFloat(data.course_to_steer);
+	vTACKING = parseFloat(data.tack);
+	vTWD = parseFloat(data.true_wind_direction_calc);
+	vGpsHeading = parseFloat(data.heading);
 	vCompasHeading = parseFloat(data.heading);
 
 	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
@@ -419,8 +432,10 @@ function updateCompassData(dataCompass){
 	$("#dataValuesCompass").html(dataValuesCompass);
 }
 
-
 function drawBoat() {
+/*	if(test() == true){
+		window.alert("boo");
+	}*/
 	var jibdir = 1;
 	if (vWIND > 180 && vWIND < 210) {
 		jibdir = -1;
@@ -463,7 +478,7 @@ function drawBoat() {
 
 	layerCanvasctx.drawImage(compass,0,0);
 	layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	
+
 
 	layerTWDctx.drawImage(compass,0,0);
 	layerTWDctx.translate(layerCanvas.width/2, layerCanvas.height/2);
@@ -512,7 +527,7 @@ function drawBoat() {
 	layerBoatHeadingctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
 	layerBoatHeadingctx.rotate(vRUDDER*Math.PI/180);
 	layerBoatHeadingctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
-	
+
 
 	layerBoatHeadingctx.restore();
 	layerCompasHeadingctx.restore();
