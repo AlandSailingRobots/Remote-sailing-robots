@@ -89,6 +89,10 @@
 				<canvas width='900px' height='900px' id='pingCanvas'></canvas>
 				<canvas width='900px' height='900px' id='layerCanvas'></canvas>
 				<canvas width='900px' height='900px' id='layerHeading'></canvas>
+				<canvas width='900px' height='900px' id='layerTWD'></canvas>
+				<canvas width='900px' height='900px' id='layerWaypoint'></canvas>
+				<canvas width='900px' height='900px' id='layerCompasheading'></canvas>
+				<canvas width='900px' height='900px' id='layerBoat'></canvas>
 
 				<div id='map'></div>
 
