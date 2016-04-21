@@ -29,6 +29,20 @@
 
 			return $rows;
 		}
+
+		public function getGpsData() {
+			$sq = "SELECT * FROM gps_dataLogs";
+
+			$result = $this->db->query($sq);
+			$rows = array();
+
+			while($row = $result->fetch_assoc()) {
+				$rows[] = $row;
+			}
+
+			return $rows;
+		}
+
 	}
 
 ?>

@@ -94,6 +94,7 @@
 
 			</div>
 			<div id='boatData'>
+				<h2>GpsData</h2>
 				<div id='dataName'></div>
 				<div id='dataValue'></div>
 				<input type='button' value='maps/boat' onclick='hideShowMapBoat()' />
