@@ -24,6 +24,14 @@
 </body>
 <script>
      $("#loglist").hide();
+     var layerBoat = null;
+     var layerBoatctx = null;
+     var layerCompasheading = null;
+     var layerCompasheadingctx = null;
+     var layerWaypoint = null;
+     var layerWaypointctx = null;
+     var layerTWD = null;
+     var layerTWDctx = null;
      var layerHeading = null;
      var layerHeadingctx = null;
 
@@ -55,6 +63,16 @@
      var vTACKING = 0;
      var vCompasHeading = 0;
      var vTWD = 0;
+
+
+     layerBoat = document.getElementById("layerBoat");
+     layerBoatctx = layerBoat.getContext("2d");
+     layerCompasheading = document.getElementById("layerCompasheading");
+     layerCompasheadingctx = layerCompasheading.getContext("2d");
+     layerWaypoint = document.getElementById("layerWaypoint");
+     layerWaypointctx = layerWaypoint.getContext("2d");
+     layerTWD = document.getElementById("layerTWD");
+     layerTWDctx = layerTWD.getContext("2d");
 
      layerHeading = document.getElementById("layerHeading");
      layerHeadingctx = layerHeading.getContext("2d");
@@ -136,6 +154,14 @@
                maindir = -1;
           }
 
+          layerBoatctx.clearRect(0,0,layerBoat.width,layerBoat.height);
+          layerBoatctx.save();
+          layerCompasheadingctx.clearRect(0,0,layerCompasheading.width,layerCompasheading.height);
+          layerCompasheadingctx.save();
+          layerWaypointctx.clearRect(0,0,layerWaypoint.width,layerWaypoint.height);
+          layerWaypointctx.save();
+          layerTWDctx.clearRect(0,0,layerTWD.width,layerTWD.height);
+          layerTWDctx.save();
           layerHeadingctx.clearRect(0,0,layerHeading.width,layerHeading.height);
           layerHeadingctx.save();
           layerCanvasctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
@@ -143,8 +169,20 @@
           if(vTACKING === 1) {
                layerCanvasctx.drawImage(tacking,0,0);
                layerHeadingctx.drawImage(tacking,0,0);
+               layerTWD.drawImage(tacking,0,0);
+               layerWaypointctx.drawImage(tacking,0,0);
+               layerCompasheadingctx.drawImage(tacking,0,0);
+               layerBoatctx.drawImage(tacking,0,0);
           }
 
+          layerBoatctx.drawImage(compass,0,0);
+          layerBoatctx.translate(layerBoat.width/2, layerBoat.height/2);
+          layerCompasheadingctx.drawImage(compass,0,0);
+          layerCompasheadingctx.translate(layerTWD.width/2, layerTWD.height/2);
+          layerWaypointctx.drawImage(compass,0,0);
+          layerWaypointctx.translate(layerTWD.width/2, layerTWD.height/2);
+          layerTWDctx.drawImage(compass,0,0);
+          layerTWDctx.translate(layerTWD.width/2, layerTWD.height/2);
           layerHeadingctx.drawImage(compass,0,0);
           layerHeadingctx.translate(layerHeading.width/2, layerHeading.height/2);
           layerCanvasctx.drawImage(compass,0,0);
@@ -156,11 +194,11 @@
           layerHeadingctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
 
           //true wind direction
-          layerCanvasctx.rotate((vTWD - vCTS)*Math.PI/180);
-          layerCanvasctx.drawImage(trueWindDirection,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerTWDctx.rotate(vTWD*Math.PI/180);
+          layerTWDctx.drawImage(trueWindDirection,-layerCanvas.width/2,-layerCanvas.width/2);
 
-          layerCanvasctx.rotate((vWAYPOINT-vTWD)*Math.PI/180);
-          layerCanvasctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerWaypointctx.rotate(vWAYPOINT*Math.PI/180);
+          layerWaypointctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
 
           // compas heading
           layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
@@ -183,10 +221,41 @@
           layerCanvasctx.rotate(vRUDDER*Math.PI/180);
           layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
 
+          layerCompasheadingctx.rotate(vCompasHeading*Math.PI/180);
+          layerCompasheadingctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
 
+          layerBoatctx.rotate(vHEADING*Math.PI/180);
+          layerBoatctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
+
+          layerBoatctx.rotate((vWIND)*Math.PI/180);
+          layerBoatctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
+
+          layerBoatctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
+          layerBoatctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerBoatctx.rotate((-maindir*vSAIL)*Math.PI/180);
+          layerBoatctx.translate(0,-layerCanvas.height/6);
+          layerBoatctx.rotate(jibdir*vSAIL*Math.PI/180);
+          layerBoatctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
+          layerBoatctx.rotate(-jibdir*vSAIL*Math.PI/180);
+          layerBoatctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
+          layerBoatctx.rotate(vRUDDER*Math.PI/180);
+          layerBoatctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
+
+          layerBoatctx.restore();
+          layerCompasheadingctx.restore();
+          layerWaypointctx.restore();
           layerCanvasctx.restore();
           layerHeadingctx.restore();
+          layerTWDctx.restore();
 
+          layerBoat.style.width = 500 + 'px';
+          layerBoat.style.height = 500 + 'px';
+          layerCompasheading.style.width = 500 + 'px';
+          layerCompasheading.style.height = 500 + 'px';
+          layerWaypoint.style.width = 500 + 'px';
+          layerWaypoint.style.height = 500 + 'px';
+          layerTWD.style.width = 500 + 'px';
+          layerTWD.style.height = 500 + 'px';
           layerHeading.style.width = 500 + 'px';
           layerHeading.style.height = 500 + 'px';
           layerCanvas.style.width = 500 + 'px';

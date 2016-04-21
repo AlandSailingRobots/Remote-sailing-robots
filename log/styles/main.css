@@ -75,6 +75,30 @@ body {
   top: 0;
   z-index:12; 
 }
+#layerTWD {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index:12; 
+}
+#layerWaypoint {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index:12; 
+}
+#layerCompasheading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index:12; 
+}
+#layerBoat {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index:12; 
+}
 
 #boatData {
   float: right;
