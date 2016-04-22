@@ -58,34 +58,41 @@
 			$table="";
 			foreach($data as $row) {
 				$table = $table."<tr>
-					<td>".$row["id"]."</td>
-					<td>".$row["gps_time"]."</td>
-					<td>".$row["gps_lat"]."</td>
-					<td>".$row["gps_lon"]."</td>
-					<td>".$row["gps_spd"]."</td>
-					<td>".$row["gps_head"]."</td>
-					<td>".$row["gps_sat"]."</td>
-					<td>".$row["sc_cmd"]."</td>
-					<td>".$row["rc_cmd"]."</td>
-					<td>".$row["ss_pos"]."</td>
-					<td>".$row["rs_pos"]."</td>
-					<td>".$row["cc_dtw"]."</td>
-					<td>".$row["cc_btw"]."</td>
-					<td>".$row["cc_cts"]."</td>
-					<td>".$row["cc_tack"]."</td>
-					<td>".$row["ws_dir"]."</td>
-					<td>".$row["ws_spd"]."</td>
-					<td>".$row["ws_tmp"]."</td>
-					<td>".$row["cfg_id"]."</td>
-					<td>".$row["cfg_rev_srv"]."</td>
-					<td>".$row["cfg_rev_boat"]."</td>
-					<td>".$row["rte_id"]."</td>
-					<td>".$row["rte_rev_srv"]."</td>
-					<td>".$row["rte_rev_boat"]."</td>
-
+						<td>".$row["id_system"]."</td>
+						<td>".$row["boat_id"]."</td>
+						<td>".$row["sail_command_sail"]."</td>
+						<td>".$row["rudder_command_rudder"]."</td>
+						<td>".$row["sail_servo_position"]."</td>
+						<td>".$row["rudder_servo_position"]."</td>
+						<td>".$row["waypoint_id"]."</td>
+						<td>".$row["true_wind_direction_calc"]."</td>
+						<td>".$row["id_gps"]."</td>
+						<td>".$row["time"]."</td>
+						<td>".$row["latitude"]."</td>
+						<td>".$row["speed"]."</td>
+						<td>".$row["heading"]."</td>
+						<td>".$row["satellites_used"]."</td>
+						<td>".$row["longitude"]."</td>
+						<td>".$row["id_course_calculation"]."</td>
+						<td>".$row["distance_to_waypoint"]."</td>
+						<td>".$row["bearing_to_waypoint"]."</td>
+						<td>".$row["course_to_steer"]."</td>
+						<td>".$row["tack"]."</td>
+						<td>".$row["going_starboard"]."</td>
+						<td>".$row["id_windsensor"]."</td>
+						<td>".$row["direction"]."</td>
+						<td>".$row["speed"]."</td>
+						<td>".$row["temperature"]."</td>
+						<td>".$row["id_compass_model"]."</td>
+						<td>".$row["heading"]."</td>
+						<td>".$row["pitch"]."</td>
+						<td>".$row["roll"]."</td>
 					</tr>";
 			}
-			return "<div id='boatCanvas'>
+			return "<div id='mapBtn'>
+					<input type='button' value='maps/boat' onclick='hideShowMapBoat()' />
+			</div>
+			<div id='boatCanvas'>
 				<canvas width='900px' height='900px' id='pingCanvas'></canvas>
 				<canvas width='900px' height='900px' id='layerCanvas'></canvas>
 				<canvas width='900px' height='900px' id='layerHeading'></canvas>
@@ -98,39 +105,67 @@
 
 			</div>
 			<div id='boatData'>
-				<h2>GpsData</h2>
-				<div id='dataName'></div>
-				<div id='dataValue'></div>
-				<input type='button' value='maps/boat' onclick='hideShowMapBoat()' />
-			</div>
+					<div id='boatDataGps' draggable=true>
+						<h2>Gps Data</h2>
+						<div id='dataNameGps' ></div>
+						<div id='dataValueGps'></div>
+					</div>
+					<div id='boatDataCourse' draggable=true>
+						<h2>CourseData</h2>
+						<div id='dataNamesCourse'></div>
+						<div id='dataValuesCourse'></div>
+					</div>
+					<div id='boatDataWindSensor' draggable=true>
+						<h2>WindSensorData</h2>
+						<div id='dataNamesWindSensor'></div>
+						<div id='dataValuesWindSensor'></div>
+					</div>
+					<div id='boatDataSystem' draggable=true>
+						<h2>SystemDataLogs</h2>
+						<div id='dataNamesSystem'></div>
+						<div id='dataValuesSystem'></div>
+					</div>
+					<div id='boatDataCompass' draggable=true>
+						<h2>CompassData</h2>
+						<div id='dataNamesCompass'></div>
+						<div id='dataValuesCompass'></div>
+					</div>
+				</div>
+
 			<div id='loglist'>
 				<table id='datalog' class='display' cellspacing='0' width='100%'>
 			        <thead>
 			            <tr>
-			                <th>id</th>
-							<th>gps_time</th>
-							<th>gps_lat</th>
-							<th>gps_long</th>
-							<th>gps_speed</th>
-							<th>gps_head</th>
-							<th>gps_sat</th>
-							<th>sc_com</th>
-							<th>rc_com</th>
-							<th>ss_pos</th>
-							<th>rs_pos</th>
-							<th>cc_dtw</th>
-							<th>cc_btw</th>
-							<th>cc_cts</th>
-							<th>cc_tack</th>
-							<th>ws_dir</th>
-							<th>ws_spd</th>
-							<th>ws_tmp</th>
-							<th>cfg_id</th>
-							<th>cfg_rev_srv</th>
-							<th>cfg_rev_boat</th>
-							<th>rte_id</th>
-							<th>rte_rev_srv</th>
-							<th>rte_rev_boat</th>
+										<th>id_system</th>
+										<th>boat_id</th>
+										<th>sail_command_sail</th>
+										<th>rudder_command_rudder</th>
+										<th>sail_servo_position</th>
+										<th>rudder_servo_position</th>
+										<th>waypoint_id</th>
+										<th>true_wind_direction_calc</th>
+										<th>id_gps</th>
+										<th>time</th>
+										<th>latitude</th>
+										<th>speed</th>
+										<th>heading</th>
+										<th>satellites_used</th>
+										<th>longitude</th>
+										<th>id_course_calculation</th>
+										<th>distance_to_waypoint</th>
+										<th>bearing_to_waypoint</th>
+										<th>course_to_steer</th>
+										<th>tack</th>
+										<th>going_starboard</th>
+										<th>id_windsensor</th>
+										<th>direction</th>
+										<th>speed</th>
+										<th>temperature</th>
+										<th>id_compass_model</th>
+										<th>heading</th>
+										<th>pitch</th>
+										<th>roll</th>
+
 			            </tr>
 			        </thead>
 			        <tbody>".$table."</tr>

@@ -16,32 +16,27 @@
 		public function __destruct() {
 			$this->db->close();
 		}
-
+		// SELECT *FROM gps_dataLogs, course_calculation_dataLogs, windsensor_dataLogs, system_dataLogs, compass_dataLogs
 		public function getDatalog() {
-			$sq = "SELECT * FROM datalogs";
-
+			$sq = "SELECT * FROM system_dataLogs
+							JOIN gps_dataLogs
+							ON system_dataLogs.id_system=gps_dataLogs.id_gps
+							JOIN course_calculation_dataLogs
+							ON system_dataLogs.id_system=course_calculation_dataLogs.id_course_calculation
+							JOIN windsensor_dataLogs
+							ON system_dataLogs.id_system=windsensor_dataLogs.id_windsensor
+							JOIN compass_dataLogs
+							ON system_dataLogs.id_system=compass_dataLogs.id_compass_model;";
 			$result = $this->db->query($sq);
 			$rows = array();
 
 			while($row = $result->fetch_assoc()) {
 				$rows[] = $row;
 			}
-
+			//print_r($rows);
 			return $rows;
 		}
 
-		public function getGpsData() {
-			$sq = "SELECT * FROM gps_dataLogs";
-
-			$result = $this->db->query($sq);
-			$rows = array();
-
-			while($row = $result->fetch_assoc()) {
-				$rows[] = $row;
-			}
-
-			return $rows;
-		}
 
 	}
 

@@ -23,5 +23,7 @@
 		public function getDatalog() {
 			return $this->data;
 		}
+
+
 	}
 ?>

@@ -5,9 +5,10 @@
 <head>
      <title>Åland Sailing Robots</title>
      <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon" />
+     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
      <script src="../libs/jquery/jquery-1.11.1.min.js"></script>
      <script src="../libs/DataTables-1.10.0/media/js/jquery.dataTables.min.js"></script>
-     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
      <?php echo $this->tpl['css']?>
 </head>
@@ -23,6 +24,9 @@
      </div>
 </body>
 <script>
+
+
+
      $("#loglist").hide();
      var layerBoat = null;
      var layerBoatctx = null;
@@ -46,7 +50,13 @@
      var rudder = null;
      var wind = null;
      var compass = null;
-     var heading = null;
+     var heading = null;$(function() {
+     $( "#boatDataGps" ).draggable();
+     $( "#boatDataCourse" ).draggable();
+     $( "#boatDataWindSensor" ).draggable();
+     $( "#boatDataSystem" ).draggable();
+     $( "#boatDataCompass" ).draggable();
+   });
      var waypoint = null;
      var tacking = null;
      var ping = null;
@@ -111,15 +121,15 @@
 
 
      function updateBoat(data) {
-          vHEADING = parseFloat(data.gps_head);
-          vWIND = parseFloat(data.ws_dir);
-          vSAIL = parseFloat(data.sc_cmd);
-          vRUDDER = parseFloat(data.rc_cmd);
-          vWAYPOINT = parseFloat(data.cc_btw);
-          vCTS = parseFloat(data.cc_cts);
-          vTACKING = parseFloat(data.cc_tack);
-          vCompasHeading = parseFloat(data.heading);
-          vTWD = parseFloat(data.twd);
+           vHEADING = parseFloat(data.heading);
+           vWIND = parseFloat(data.direction);
+           vSAIL = parseFloat(data.sail_command_sail);
+           vRUDDER = parseFloat(data.rudder_command_rudder);
+           vWAYPOINT = parseFloat(data.bearing_to_waypoint);
+           vCTS = parseFloat(data.course_to_steer);
+           vTACKING = parseFloat(data.cc_tack);
+           vCompasHeading = parseFloat(data.heading);
+           vTWD = parseFloat(data.true_wind_direction_calc);
 
           vSAIL = (((vSAIL-3968)/(8000-3968))*60)-60;
           vRUDDER = ((((vRUDDER-3968)/(6912-3968))*90)-45)*-1;
@@ -128,20 +138,9 @@
                vWIND = vWIND -360;
           }
 
-          var dataNames = "";
-          var dataValues = "";
-          Object.keys(data).forEach(function(key) {
-               if(isNaN(key)) {
-                    dataNames +="<p>"+key+"</p>";
-                    dataValues += "<p>"+data[key]+"</p>";
-               }
-          });
-          $("#dataName").html(dataNames);
-          $("#dataValue").html(dataValues);
      }
 
      function drawBoat() {
-      //  map();
           var jibdir = 1;
           if (vWIND > 180 && vWIND < 210) {
                jibdir = -1;
@@ -169,7 +168,7 @@
           if(vTACKING === 1) {
                layerCanvasctx.drawImage(tacking,0,0);
                layerHeadingctx.drawImage(tacking,0,0);
-               layerTWD.drawImage(tacking,0,0);
+               layerTWDctx.drawImage(tacking,0,0);
                layerWaypointctx.drawImage(tacking,0,0);
                layerCompasheadingctx.drawImage(tacking,0,0);
                layerBoatctx.drawImage(tacking,0,0);
@@ -221,26 +220,6 @@
           layerCanvasctx.rotate(vRUDDER*Math.PI/180);
           layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
 
-          layerCompasheadingctx.rotate(vCompasHeading*Math.PI/180);
-          layerCompasheadingctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
-
-          layerBoatctx.rotate(vHEADING*Math.PI/180);
-          layerBoatctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
-
-          layerBoatctx.rotate((vWIND)*Math.PI/180);
-          layerBoatctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
-
-          layerBoatctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
-          layerBoatctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerBoatctx.rotate((-maindir*vSAIL)*Math.PI/180);
-          layerBoatctx.translate(0,-layerCanvas.height/6);
-          layerBoatctx.rotate(jibdir*vSAIL*Math.PI/180);
-          layerBoatctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
-          layerBoatctx.rotate(-jibdir*vSAIL*Math.PI/180);
-          layerBoatctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
-          layerBoatctx.rotate(vRUDDER*Math.PI/180);
-          layerBoatctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
-
           layerBoatctx.restore();
           layerCompasheadingctx.restore();
           layerWaypointctx.restore();
@@ -282,13 +261,14 @@
      		document.getElementById("map").style.visibility = "visible";
      		document.getElementById("boatCanvas").disabled = true;
      		document.getElementById("boatCanvas").style.visibility = "hidden";
-      //  map();
      		showMap = true;
      	}
      }
 
-     function map(lonlat) {
-     		var latLong = {lat: Number(lonlat.gps_lat), lng: Number(lonlat.gps_long)}
+     function map(lati, lon) {
+       console.log(lati);
+       console.log(lon);
+     		var latLong = {lat: Number(lati), lng: Number(lon)}
      		var mapDiv = document.getElementById("map");
      		var map = new google.maps.Map(mapDiv, {
      			center: latLong,
@@ -301,6 +281,69 @@
      		});
      }
 
+    function getGpsData(data) {
+            var dataNames = "";
+            var dataValues = "";
+            Object.keys(data).forEach(function(key) {
+                 if(isNaN(key)) {
+                      dataNames +="<p>"+key+"</p>";
+                      dataValues += "<p>"+data[key]+"</p>";
+                 }
+            });
+            $("#dataNameGps").html(dataNames);
+            $("#dataValueGps").html(dataValues);
+       }
+
+     function getCourse(data) {
+             var dataNames = "";
+             var dataValues = "";
+             Object.keys(data).forEach(function(key) {
+                  if(isNaN(key)) {
+                       dataNames +="<p>"+key+"</p>";
+                       dataValues += "<p>"+data[key]+"</p>";
+                  }
+             });
+             $("#dataNamesCourse").html(dataNames);
+             $("#dataValuesCourse").html(dataValues);
+        }
+
+      function getWindsensor(data) {
+              var dataNames = "";
+              var dataValues = "";
+              Object.keys(data).forEach(function(key) {
+                   if(isNaN(key)) {
+                        dataNames +="<p>"+key+"</p>";
+                        dataValues += "<p>"+data[key]+"</p>";
+                   }
+              });
+              $("#dataNamesWindSensor").html(dataNames);
+              $("#dataValuesWindSensor").html(dataValues);
+         }
+       function getSystem(data) {
+               var dataNames = "";
+               var dataValues = "";
+               Object.keys(data).forEach(function(key) {
+                    if(isNaN(key)) {
+                         dataNames +="<p>"+key+"</p>";
+                         dataValues += "<p>"+data[key]+"</p>";
+                    }
+               });
+               $("#dataNamesSystem").html(dataNames);
+               $("#dataValuesSystem").html(dataValues);
+          }
+      function getCompas(data) {
+              var dataNames = "";
+              var dataValues = "";
+              Object.keys(data).forEach(function(key) {
+                   if(isNaN(key)) {
+                        dataNames +="<p>"+key+"</p>";
+                        dataValues += "<p>"+data[key]+"</p>";
+                   }
+              });
+              $("#dataNamesCompass").html(dataNames);
+              $("#dataValuesCompass").html(dataValues);
+         }
+
      $(function addRowHandlers() {
           var table = document.getElementById("datalog");
           var rows = table.getElementsByTagName("tr");
@@ -308,35 +351,63 @@
                var currentRow = table.rows[i];
                var createClickHandler = function(row) {
                     return function() {
+
                          var data = {
-                              id:row.getElementsByTagName("td")[0].innerHTML,
-                              gps_time:row.getElementsByTagName("td")[1].innerHTML,
-                              gps_lat:row.getElementsByTagName("td")[2].innerHTML,
-                              gps_long:row.getElementsByTagName("td")[3].innerHTML,
-                              gps_speed:row.getElementsByTagName("td")[4].innerHTML,
-                              gps_head:row.getElementsByTagName("td")[5].innerHTML,
-                              gps_sat:row.getElementsByTagName("td")[6].innerHTML,
-                              sc_cmd:row.getElementsByTagName("td")[7].innerHTML,
-                              rc_cmd:row.getElementsByTagName("td")[8].innerHTML,
-                              ss_pos:row.getElementsByTagName("td")[9].innerHTML,
-                              rs_pos:row.getElementsByTagName("td")[10].innerHTML,
-                              cc_dtw:row.getElementsByTagName("td")[11].innerHTML,
-                              cc_btw:row.getElementsByTagName("td")[12].innerHTML,
-                              cc_cts:row.getElementsByTagName("td")[13].innerHTML,
-                              cc_tack:row.getElementsByTagName("td")[14].innerHTML,
-                              ws_dir:row.getElementsByTagName("td")[15].innerHTML,
-                              ws_spd:row.getElementsByTagName("td")[16].innerHTML,
-                              ws_tmp:row.getElementsByTagName("td")[17].innerHTML,
-                              cfg_id:row.getElementsByTagName("td")[18].innerHTML,
-                              cfg_rev_srv:row.getElementsByTagName("td")[19].innerHTML,
-                              cfg_rev_boat:row.getElementsByTagName("td")[20].innerHTML,
-                              rte_id:row.getElementsByTagName("td")[21].innerHTML,
-                              rte_rev_srv:row.getElementsByTagName("td")[22].innerHTML,
-                              rte_rev_boat:row.getElementsByTagName("td")[23].innerHTML,
+                           sail_command_sail:row.getElementsByTagName("td")[2].innerHTML,
+                           rudder_command_rudder:row.getElementsByTagName("td")[3].innerHTML,
+                           true_wind_direction_calc:row.getElementsByTagName("td")[7].innerHTML,
+                           bearing_to_waypoint:row.getElementsByTagName("td")[17].innerHTML,
+                           course_to_steer:row.getElementsByTagName("td")[18].innerHTML,
+                           tack:row.getElementsByTagName("td")[19].innerHTML,
+                           direction:row.getElementsByTagName("td")[22].innerHTML,
+                           heading:row.getElementsByTagName("td")[26].innerHTML,
                          }
+                          var gps = {
+                              id_gps:row.getElementsByTagName("td")[8].innerHTML,
+                              time:row.getElementsByTagName("td")[9].innerHTML,
+                              latitude:row.getElementsByTagName("td")[10].innerHTML,
+                              speed:row.getElementsByTagName("td")[11].innerHTML,
+                              heading:row.getElementsByTagName("td")[12].innerHTML,
+                              satellites_used:row.getElementsByTagName("td")[13].innerHTML,
+                              longitude:row.getElementsByTagName("td")[14].innerHTML,
+                          }
+                          var course = {
+                            id_course_calculation:row.getElementsByTagName("td")[15].innerHTML,
+                            distance_to_waypoint:row.getElementsByTagName("td")[16].innerHTML,
+                            bearing_to_waypoint:row.getElementsByTagName("td")[17].innerHTML,
+                            course_to_steer:row.getElementsByTagName("td")[18].innerHTML,
+                            tack:row.getElementsByTagName("td")[19].innerHTML,
+                            going_starboard:row.getElementsByTagName("td")[20].innerHTML,
+                          }
+                          var windSensor = {
+                            id_windsensor:row.getElementsByTagName("td")[21].innerHTML,
+                            direction:row.getElementsByTagName("td")[22].innerHTML,
+                            speed:row.getElementsByTagName("td")[23].innerHTML,
+                            temperature:row.getElementsByTagName("td")[24].innerHTML,
+                          }
+
+                          var system = {
+                            id_system:row.getElementsByTagName("td")[0].innerHTML,
+                            boat_id:row.getElementsByTagName("td")[1].innerHTML,
+                            sail_command_sail:row.getElementsByTagName("td")[2].innerHTML,
+                            rudder_command_rudder:row.getElementsByTagName("td")[3].innerHTML,
+                            sail_servo_position:row.getElementsByTagName("td")[4].innerHTML,
+                            rudder_servo_position:row.getElementsByTagName("td")[5].innerHTML,
+                          }
+                          var compass = {
+                            id_compass_model:row.getElementsByTagName("td")[25].innerHTML,
+                            heading:row.getElementsByTagName("td")[26].innerHTML,
+                            pitch:row.getElementsByTagName("td")[27].innerHTML,
+                            roll:row.getElementsByTagName("td")[28].innerHTML,
+                          }
                          updateBoat(data);
                          drawBoat();
-                         map(data);
+                         getGpsData(gps);
+                         getCourse(course);
+                         getWindsensor(windSensor);
+                         getSystem(system);
+                         getCompas(compass);
+                         map(gps.latitude, gps.longitude);
                     };
                };
 
@@ -344,6 +415,14 @@
                $("td:first", this).click();
           }
      });
+
+     $(function() {
+      $( "#boatDataGps" ).draggable();
+      $( "#boatDataCourse" ).draggable();
+      $( "#boatDataWindSensor" ).draggable();
+      $( "#boatDataSystem" ).draggable();
+      $( "#boatDataCompass" ).draggable();
+    });
 
 
      $(document).ready(function() {
