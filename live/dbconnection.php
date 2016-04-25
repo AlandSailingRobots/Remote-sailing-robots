@@ -10,7 +10,7 @@ class DBConnection {
 		//$user = 'ithaax_testdata';
 		$user = 'root';
 		//$pass = 'test123data';
-		$pass = ''; 
+		$pass = '';
 		$dbname = 'ithaax_testdata';
 
 		try {
@@ -41,11 +41,17 @@ class DBConnection {
 	public function getLatestData() {
 
 		try {
-			$sql = "SELECT *
-					FROM gps_dataLogs, course_calculation_dataLogs, windsensor_dataLogs, system_dataLogs, compass_dataLogs
-					ORDER BY id_gps
-					DESC LIMIT 1;"
-					;
+			$sql = "SELECT * FROM system_dataLogs
+							JOIN gps_dataLogs
+							ON system_dataLogs.id_system=gps_dataLogs.id_gps
+							JOIN course_calculation_dataLogs
+							ON system_dataLogs.id_system=course_calculation_dataLogs.id_course_calculation
+							JOIN windsensor_dataLogs
+							ON system_dataLogs.id_system=windsensor_dataLogs.id_windsensor
+							JOIN compass_dataLogs
+							ON system_dataLogs.id_system=compass_dataLogs.id_compass_model
+            	ORDER BY system_dataLogs.id_system
+              DESC LIMIT 1;";
 			$result = $this->query($sql);
 		} catch (PDOException $e) {
 			die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());

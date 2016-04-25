@@ -145,7 +145,7 @@ function getLatestData() {
 		url: 'dbapi.php',
 		data: {'action': "getdata"},
 		success: function(data) {
-
+			console.log(data);
 			var dataObj = jQuery.parseJSON(data);
 			console.log(dataObj);
 			updateBoat(dataObj);
