@@ -89,7 +89,8 @@
 						<td>".$row["roll"]."</td>
 					</tr>";
 			}
-			return "<div id='mapBtn'>
+			return "
+			<div id='mapBtn'>
 					<input type='button' value='maps/boat' onclick='hideShowMapBoat()' />
 			</div>
 			<div id='boatCanvas'>
@@ -165,7 +166,6 @@
 										<th>heading</th>
 										<th>pitch</th>
 										<th>roll</th>
-
 			            </tr>
 			        </thead>
 			        <tbody>".$table."</tr>
