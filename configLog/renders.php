@@ -10,7 +10,7 @@
 			$this->tpl = Array('sidebar' => "", 'content' => "", 'css' => "");
 			$this->css = Array('main' => "styles/main.css", 'table' => "styles/table.css");
 			$this->model = $model;
-
+			
 			$sidebar = new Sidebar();
 			$content = new Content();
 			$this->tpl['sidebar'] = $sidebar->render();
@@ -145,11 +145,6 @@
 				</div>
 
 			</div>
-
-
-
-			
-
 
 
 			<div id='loglist'>

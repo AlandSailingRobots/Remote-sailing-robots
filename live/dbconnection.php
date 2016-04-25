@@ -10,7 +10,7 @@ class DBConnection {
 		//$user = 'ithaax_testdata';
 		$user = 'root';
 		//$pass = 'test123data';
-		$pass = '';
+		$pass = ''; 
 		$dbname = 'ithaax_testdata';
 
 		try {
@@ -81,7 +81,7 @@ public function getLatestCourseCalculationData() {
 	return $result;
 	}
 
-	public function getLatestWindSensorData() {
+		public function getLatestWindSensorData() {
 
 	try {
 	$sql = "SELECT *

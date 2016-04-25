@@ -13,7 +13,17 @@
 			$this->db->close();
 		}
 
-		
+		function checkIfNewConfigs() {
+			$sql = "SELECT updated FROM config_updated";
+			$result = $this->db->query($sql)->fetch_assoc();
+			return $result['updated'];
+		}
+
+		function setConfigsUpdated() {
+			$sql = "UPDATE config_updated SET updated = 0 where id=1";
+			$result = $this->db->query($sql);
+			$result->close();
+		}
 
 	  function getDatalog($boat) {
 			$sq = "SELECT * FROM datalogs";
@@ -28,7 +38,6 @@
 				return new SoapFault("Server","Something went wrong");
 			}
 		}
-
 
 		function getDatalogGps($boat) {
 			$sq = "SELECT gps_time, gps_lat, gps_lon, gps_spd, gps_head, gps_sat
@@ -118,7 +127,13 @@
 			return json_encode($config);
 		}
 
-		
+		function getAllConfigs($boat) {
+			return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
+			. $this->getRudderCommandConfig($boat). $this->getRudderServoConfig($boat) . $this->getSailingRobotConfig($boat)
+			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat) 
+			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);
+		}
+
 		function getCourseCalculationConfig($boat) {
 			$setup = $this->getFleetData($boat);
 			$stmt = $this->db->stmt_init();
@@ -467,6 +482,14 @@
 			return json_encode($result);
 		}
 	
+
+	function pushAllLogs($data) {
+			echo "prince dead";
+			echo $data;
+		//	$data = json_decode($data,true);
+			
+			return $data;
+		}
 
 	function pushGPSLogs($data) {
 			

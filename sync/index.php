@@ -26,6 +26,10 @@
 					case "getConfig":
 						print_r($service->getConfig($_GET["id"]));
 						break;
+						
+					case "getAllConfigs":
+						print_r($service->getAllConfigs($_GET["id"]));
+						break;
 					case "getRoute":
 						print_r($service->getRoute($_GET["id"]));
 						break;
@@ -61,8 +65,15 @@
 						break;
 
 
-
-
+					case "checkIfNewConfigs":
+						echo $service->checkIfNewConfigs();
+						break;
+					case "setConfigsUpdated":
+						print_r($service->setConfigsUpdated());
+						break;
+					case "pushAllLogs":
+						print_r($service->pushAllLogs($_GET["data"]));
+						break;
 					case "pushLogs":
 						print_r($service->pushLogs($_GET["id"], $_GET["data"]));
 						break;

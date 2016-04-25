@@ -23,6 +23,9 @@
 
 		$sql = "UPDATE configs SET $inputValue = $selectedConfig where id=1";
 
+		$sqlquery = "UPDATE config_updated SET updated = 1 where id=1";
+		$conn->query($sqlquery);
+
 		if ($conn->query($sql) === TRUE) {
 		    header('Location: http://localhost/Remote-sailing-robots/configLog/?msg=success');
 				//header('Location: http://www.sailingrobots.com/testdata/configLog/');
@@ -31,11 +34,12 @@
 
 			$conn->close();
 		}
+
+
 	}
 	else {
 		header("location:http://localhost/Remote-sailing-robots/configLog/?msg=failed");
 
 	}
-
 
 ?>
