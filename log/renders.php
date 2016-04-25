@@ -50,10 +50,6 @@
 
 	class Content {
 
-		public function __construct() {
-
-		}
-
 		public function render($data) {
 			$table="";
 			foreach($data as $row) {
@@ -89,89 +85,7 @@
 						<td>".$row["roll"]."</td>
 					</tr>";
 			}
-			return "
-			<div id='mapBtn'>
-					<input type='button' value='maps/boat' onclick='hideShowMapBoat()' />
-			</div>
-			<div id='boatCanvas'>
-				<canvas width='900px' height='900px' id='pingCanvas'></canvas>
-				<canvas width='900px' height='900px' id='layerCanvas'></canvas>
-				<canvas width='900px' height='900px' id='layerHeading'></canvas>
-				<canvas width='900px' height='900px' id='layerTWD'></canvas>
-				<canvas width='900px' height='900px' id='layerWaypoint'></canvas>
-				<canvas width='900px' height='900px' id='layerCompasheading'></canvas>
-				<canvas width='900px' height='900px' id='layerBoat'></canvas>
-
-				<div id='map'></div>
-
-			</div>
-			<div id='boatData'>
-					<div id='boatDataGps' draggable=true>
-						<h2>Gps Data</h2>
-						<div id='dataNameGps' ></div>
-						<div id='dataValueGps'></div>
-					</div>
-					<div id='boatDataCourse' draggable=true>
-						<h2>CourseData</h2>
-						<div id='dataNamesCourse'></div>
-						<div id='dataValuesCourse'></div>
-					</div>
-					<div id='boatDataWindSensor' draggable=true>
-						<h2>WindSensorData</h2>
-						<div id='dataNamesWindSensor'></div>
-						<div id='dataValuesWindSensor'></div>
-					</div>
-					<div id='boatDataSystem' draggable=true>
-						<h2>SystemDataLogs</h2>
-						<div id='dataNamesSystem'></div>
-						<div id='dataValuesSystem'></div>
-					</div>
-					<div id='boatDataCompass' draggable=true>
-						<h2>CompassData</h2>
-						<div id='dataNamesCompass'></div>
-						<div id='dataValuesCompass'></div>
-					</div>
-				</div>
-
-			<div id='loglist'>
-				<table id='datalog' class='display' cellspacing='0' width='100%'>
-			        <thead>
-			            <tr>
-										<th>id_system</th>
-										<th>boat_id</th>
-										<th>sail_command_sail</th>
-										<th>rudder_command_rudder</th>
-										<th>sail_servo_position</th>
-										<th>rudder_servo_position</th>
-										<th>waypoint_id</th>
-										<th>true_wind_direction_calc</th>
-										<th>id_gps</th>
-										<th>time</th>
-										<th>latitude</th>
-										<th>speed</th>
-										<th>heading</th>
-										<th>satellites_used</th>
-										<th>longitude</th>
-										<th>id_course_calculation</th>
-										<th>distance_to_waypoint</th>
-										<th>bearing_to_waypoint</th>
-										<th>course_to_steer</th>
-										<th>tack</th>
-										<th>going_starboard</th>
-										<th>id_windsensor</th>
-										<th>direction</th>
-										<th>speed</th>
-										<th>temperature</th>
-										<th>id_compass_model</th>
-										<th>heading</th>
-										<th>pitch</th>
-										<th>roll</th>
-			            </tr>
-			        </thead>
-			        <tbody>".$table."</tr>
-			        </tbody>
-			    </table>
-			</div>";
+			return $table;
 		}
 	}
 ?>
