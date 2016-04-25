@@ -55,7 +55,6 @@ $(function() {
 });
 
 $(document).ready(function(){
-
 	document.getElementById("map").disabled = true;
 	document.getElementById("map").style.visibility = "hidden";
 	initBoat();
