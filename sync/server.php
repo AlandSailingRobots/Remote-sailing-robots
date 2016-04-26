@@ -5,8 +5,8 @@
 		private $db;
 
 		function __construct() {
-		//	$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-			$this->db = new mysqli("localhost","root","","ithaax_testdata");
+			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 
 		function __destruct() {
@@ -130,7 +130,7 @@
 		function getAllConfigs($boat) {
 			return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
 			. $this->getRudderCommandConfig($boat). $this->getRudderServoConfig($boat) . $this->getSailingRobotConfig($boat)
-			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat) 
+			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat)
 			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);
 		}
 
@@ -356,7 +356,7 @@
 			return json_encode($config);
 		}
 
-		
+
 
 
 		function getRoute($boat) {
@@ -481,18 +481,18 @@
 			$stmt->close();
 			return json_encode($result);
 		}
-	
+
 
 	function pushAllLogs($data) {
 			echo "prince dead";
 			echo $data;
 		//	$data = json_decode($data,true);
-			
+
 			return $data;
 		}
 
 	function pushGPSLogs($data) {
-			
+
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
 			$stmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
@@ -517,12 +517,12 @@
 				}
 			}
 			$stmt->close();
-			
+
 			return json_encode($result);
 		}
 
 		function pushCompassLogs($data) {
-			
+
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
 			$stmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
@@ -544,13 +544,13 @@
 				}
 			}
 			$stmt->close();
-			
+
 			return json_encode($result);
 		}
 
 
 		function pushCourseCalculationLogs($data) {
-			
+
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
 			$stmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
@@ -574,12 +574,12 @@
 				}
 			}
 			$stmt->close();
-			
+
 			return json_encode($result);
 		}
 
 		function pushSystemLogs($boat, $data) {
-			
+
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
 			$stmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
@@ -594,7 +594,7 @@
 					$row["rudder_servo_position"],
 					$row["waypoint_id"],
 					$row["true_wind_direction_calc"]
-					
+
 				);
 				$stmt->execute();
 
@@ -606,12 +606,12 @@
 				}
 			}
 			$stmt->close();
-			
+
 			return json_encode($result);
 		}
 
 		function pushWindSensorLogs($data) {
-			
+
 			$data = json_decode($data,true);
 			$stmt = $this->db->stmt_init();
 			$stmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
@@ -633,7 +633,7 @@
 				}
 			}
 			$stmt->close();
-			
+
 			return json_encode($result);
 		}
 	}
