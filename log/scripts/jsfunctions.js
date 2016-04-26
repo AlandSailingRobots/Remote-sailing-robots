@@ -98,12 +98,13 @@ $(document).ready(function() {
      var table = $('#datalog').dataTable( {
           "scrollY":          "200px",
           "scrollCollapse":   true,
-          "paging":           false,
+          "paging":           true,
           "bFilter":           false,
      });
 
      $("#loglist").show();
 });
+
 
 function hideShowMapBoat() {
  if(showMap == true) {
