@@ -9,7 +9,7 @@
 			$userName = "root";
 			$passWord = "";
 			$dataBase = "ithaax_testdata";
-			//username: ithaax_testdata & pass: test123data
+		//	username: ithaax_testdata & pass: test123data
 			$this->db = new mysqli($host, $userName, $passWord, $dataBase);
 		}
 
