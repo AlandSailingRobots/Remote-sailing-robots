@@ -26,7 +26,6 @@
 					case "getConfig":
 						print_r($service->getConfig($_GET["id"]));
 						break;
-						
 					case "getAllConfigs":
 						print_r($service->getAllConfigs($_GET["id"]));
 						break;
@@ -64,33 +63,18 @@
 						print_r($service->getWindVaneConfig($_GET["id"]));
 						break;
 
-
 					case "checkIfNewConfigs":
 						echo $service->checkIfNewConfigs();
 						break;
 					case "setConfigsUpdated":
 						print_r($service->setConfigsUpdated());
 						break;
+
 					case "pushAllLogs":
-						print_r($service->pushAllLogs($_GET["data"]));
+						print_r($service->pushAllLogs($_GET["id"], $_GET["data"]));
 						break;
 					case "pushLogs":
 						print_r($service->pushLogs($_GET["id"], $_GET["data"]));
-						break;
-					case "pushGPSLogs":
-						print_r($service->pushGPSLogs($_GET["data"]));
-						break;
-					case "pushCompassLogs":
-						print_r($service->pushCompassLogs($_GET["data"]));
-						break;
-					case "pushCourseCalculationLogs":
-						print_r($service->pushCourseCalculationLogs($_GET["data"]));
-						break;
-					case "pushSystemLogs":
-						print_r($service->pushSystemLogs($_GET["id"], $_GET["data"]));
-						break;
-					case "pushWindSensorLogs":
-						print_r($service->pushWindSensorLogs($_GET["data"]));
 						break;
 					default:
 						break;

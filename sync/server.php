@@ -483,23 +483,25 @@
 		}
 	
 
-	function pushAllLogs($data) {
-			echo "prince dead";
-			echo $data;
-		//	$data = json_decode($data,true);
-			
-			return $data;
-		}
-
-	function pushGPSLogs($data) {
+	function pushAllLogs($boat, $data) {
 			
 			$data = json_decode($data,true);
-			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
-			$result;
-			$foreignKey;
-			foreach($data["GPSDatalogs"] as $row) {
-				$stmt->bind_param("sdddid",
+
+			$compassStmt = $this->db->stmt_init();
+			$courseCalculationStmt = $this->db->stmt_init();
+			$gpsStmt = $this->db->stmt_init();
+			$systemStmt = $this->db->stmt_init();
+			$windSensorStmt = $this->db->stmt_init();
+
+			$compassStmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
+			$courseCalculationStmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
+			$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
+			$systemStmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
+			$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
+
+			
+			foreach($data["gps_datalogs"] as $row) {
+				$gpsStmt->bind_param("sdddid",
 					$row["time"],
 					$row["latitude"],
 					$row["speed"],
@@ -507,86 +509,36 @@
 					$row["satellites_used"],
 					$row["longitude"]
 				);
-				$stmt->execute();
-
-				if($stmt->affected_rows === 1) {
-					$foreignKey[$row["id"]] = $stmt->insert_id;
-					$result[] = array("tab" => "gps_dataLogs", "id_gps" => $row["id"]);
-				} else {
-					$foreignKey[$row["id"]] = NULL;
+					$gpsStmt->execute();
 				}
-			}
-			$stmt->close();
-			
-			return json_encode($result);
-		}
-
-		function pushCompassLogs($data) {
-			
-			$data = json_decode($data,true);
-			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
-			$result;
-			$foreignKey;
-			foreach($data["compassDatalogs"] as $row) {
-				$stmt->bind_param("iii",
-					$row["heading"],
-					$row["pitch"],
-					$row["roll"]
-				);
-				$stmt->execute();
-
-				if($stmt->affected_rows === 1) {
-					$foreignKey[$row["id"]] = $stmt->insert_id;
-					$result[] = array("tab" => "compass_dataLogs", "id_compass_model" => $row["id"]);
-				} else {
-					$foreignKey[$row["id"]] = NULL;
-				}
-			}
-			$stmt->close();
-			
-			return json_encode($result);
-		}
-
-
-		function pushCourseCalculationLogs($data) {
-			
-			$data = json_decode($data,true);
-			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
-			$result;
-			$foreignKey;
-			foreach($data["courseCalculationDatalogs"] as $row) {
-				$stmt->bind_param("dddii",
+			foreach($data["course_calculation_datalogs"] as $row) {
+				$courseCalculationStmt->bind_param("dddii",
 					$row["distance_to_waypoint"],
 					$row["bearing_to_waypoint"],
 					$row["course_to_steer"],
 					$row["tack"],
 					$row["going_starboard"]
 				);
-				$stmt->execute();
-
-				if($stmt->affected_rows === 1) {
-					$foreignKey[$row["id"]] = $stmt->insert_id;
-					$result[] = array("tab" => "course_calculation_dataLogs", "id_course_calculation" => $row["id"]);
-				} else {
-					$foreignKey[$row["id"]] = NULL;
+					$courseCalculationStmt->execute();
 				}
-			}
-			$stmt->close();
-			
-			return json_encode($result);
-		}
-
-		function pushSystemLogs($boat, $data) {
-			
-			$data = json_decode($data,true);
-			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
-			$result;
-			$foreignKey;
-			foreach($data["systemDatalogs"] as $row) {
-				$stmt->bind_param("siiiiid",
+			foreach($data["compass_datalogs"] as $row) {
+				$compassStmt->bind_param("iii",
+					$row["heading"],
+					$row["pitch"],
+					$row["roll"]
+				);
+					$compassStmt->execute();
+				}
+			foreach($data["windsensor_datalogs"] as $row) {
+				$windSensorStmt->bind_param("idd",
+					$row["direction"],
+					$row["speed"],
+					$row["temperature"]
+				);
+					$windSensorStmt->execute();
+				}
+			foreach($data["system_datalogs"] as $row) {
+				$systemStmt->bind_param("siiiiid",
 					$boat,
 					$row["sail_command_sail_state"],
 					$row["rudder_command_rudder_state"],
@@ -596,43 +548,21 @@
 					$row["true_wind_direction_calc"]
 					
 				);
-				$stmt->execute();
+					$systemStmt->execute();
 
-				if($stmt->affected_rows === 1) {
-					$foreignKey[$row["id"]] = $stmt->insert_id;
+				if($systemStmt->affected_rows === 1) {
+					$foreignKey[$row["id"]] = $systemStmt->insert_id;
 					$result[] = array("tab" => "system_dataLogs", "id_system" => $row["id"]);
 				} else {
 					$foreignKey[$row["id"]] = NULL;
 				}
 			}
-			$stmt->close();
-			
-			return json_encode($result);
-		}
 
-		function pushWindSensorLogs($data) {
-			
-			$data = json_decode($data,true);
-			$stmt = $this->db->stmt_init();
-			$stmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
-			$result;
-			$foreignKey;
-			foreach($data["windSensorDatalogs"] as $row) {
-				$stmt->bind_param("idd",
-					$row["direction"],
-					$row["speed"],
-					$row["temperature"]
-				);
-				$stmt->execute();
-
-				if($stmt->affected_rows === 1) {
-					$foreignKey[$row["id"]] = $stmt->insert_id;
-					$result[] = array("tab" => "windsensor_dataLogs", "id_windsensor" => $row["id"]);
-				} else {
-					$foreignKey[$row["id"]] = NULL;
-				}
-			}
-			$stmt->close();
+			$systemStmt->close();
+			$windSensorStmt->close();
+			$compassStmt->close();
+			$courseCalculationStmt->close();
+			$gpsStmt->close();
 			
 			return json_encode($result);
 		}
