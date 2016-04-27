@@ -6,7 +6,7 @@
 
 		function __construct() {
 			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-	//		$this->db = new mysqli("localhost","root","","ithaax_testdata");
+			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 
 		function __destruct() {
@@ -484,20 +484,25 @@
 
 		function pushWaypoint($data){
 			$data = json_decode($data,true);
+			$size = count($data);
+
 			$waypoint = $this->db->stmt_init();
+			$waypoint->prepare("DELETE FROM waypoints");
+			$waypoint->execute();
 			$waypoint->prepare("INSERT INTO waypoints VALUES(NULL,?,?,?,NULL);");
-
-			foreach($data["waypoints"] as $row) {
-				$waypoint->bind_param("ddi",
-
-					$row["latitude"],
-					$row["longitude"],
-					$row["radius"]
-				);
-					$waypoint->execute();
-				}
+			for($i=1; $i <= $size; $i++) {
+				$waypoints = "waypoints_".$i;
+				foreach($data[$waypoints] as $row) {
+						$waypoint->bind_param("ddi",
+							$row["latitude"],
+							$row["longitude"],
+							$row["radius"]
+						);
+							$waypoint->execute();
+						}
+					}
 				$waypoint->close();
-				return json_decode($data);
+				return $waypoints;
 		}
 
 	function pushAllLogs($boat, $data) {
