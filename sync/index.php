@@ -70,7 +70,9 @@
 					case "setConfigsUpdated":
 						print_r($service->setConfigsUpdated());
 						break;
-
+					case "pushWaypoints":
+						print_r($service->pushWaypoint($_GET["data"]));
+						break;
 					case "pushAllLogs":
 						print_r($service->pushAllLogs($_GET["id"], $_GET["data"]));
 						break;

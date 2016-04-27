@@ -5,8 +5,8 @@
 		private $db;
 
 		function __construct() {
-		//	$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-			$this->db = new mysqli("localhost","root","","ithaax_testdata");
+			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+	//		$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 
 		function __destruct() {
@@ -130,7 +130,7 @@
 		function getAllConfigs($boat) {
 			return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
 			. $this->getRudderCommandConfig($boat). $this->getRudderServoConfig($boat) . $this->getSailingRobotConfig($boat)
-			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat) 
+			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat)
 			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);
 		}
 
@@ -356,7 +356,7 @@
 			return json_encode($config);
 		}
 
-		
+
 
 
 		function getRoute($boat) {
@@ -481,10 +481,27 @@
 			$stmt->close();
 			return json_encode($result);
 		}
-	
+
+		function pushWaypoint($data){
+			$data = json_decode($data,true);
+			$waypoint = $this->db->stmt_init();
+			$waypoint->prepare("INSERT INTO waypoints VALUES(NULL,?,?,?,NULL);");
+
+			foreach($data["waypoints"] as $row) {
+				$waypoint->bind_param("ddi",
+
+					$row["latitude"],
+					$row["longitude"],
+					$row["radius"]
+				);
+					$waypoint->execute();
+				}
+				$waypoint->close();
+				return json_decode($data);
+		}
 
 	function pushAllLogs($boat, $data) {
-			
+
 			$data = json_decode($data,true);
 
 			$compassStmt = $this->db->stmt_init();
@@ -493,13 +510,14 @@
 			$systemStmt = $this->db->stmt_init();
 			$windSensorStmt = $this->db->stmt_init();
 
+
 			$compassStmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
 			$courseCalculationStmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
 			$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
 			$systemStmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
 			$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
 
-			
+
 			foreach($data["gps_datalogs"] as $row) {
 				$gpsStmt->bind_param("sdddid",
 					$row["time"],
@@ -537,6 +555,8 @@
 				);
 					$windSensorStmt->execute();
 				}
+
+
 			foreach($data["system_datalogs"] as $row) {
 				$systemStmt->bind_param("siiiiid",
 					$boat,
@@ -546,7 +566,7 @@
 					$row["rudder_servo_position"],
 					$row["waypoint_id"],
 					$row["true_wind_direction_calc"]
-					
+
 				);
 					$systemStmt->execute();
 
@@ -563,7 +583,7 @@
 			$compassStmt->close();
 			$courseCalculationStmt->close();
 			$gpsStmt->close();
-			
+
 			return json_encode($result);
 		}
 	}
