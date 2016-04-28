@@ -59,7 +59,7 @@
 
       <div class="starter-template">
         <div class="jumbotron">
-        <h1>Configuration Page</h1>
+        <h1>Konfigurations sida</h1>
           <p>På den här sidan kan du se och updatera konfigurationerna för Åland sailing robots.</p>
         </div>
         <br><br><br>
