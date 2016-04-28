@@ -65,83 +65,77 @@
         <br><br><br>
 
 
-         <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_course_calculation_config.php');
-               ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_maestro_controller_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_rudder_command_config.php');
-              ?>
-            </div>
-          </div>
-          <br><br>
+         
 
 
-          <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_rudder_servo_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_sailing_robot_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_sail_command_config.php');
-              ?>
-            </div>
-          </div>
-
-          <br><br>
-          <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_sail_servo_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_waypoint_routing_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_windsensor_config.php');
-              ?>
-            </div>
-          </div>
 
 
-          <br><br>
-          <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_wind_vane_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              <?php
-                require('getConfigs/get_xbee_config.php');
-              ?>
-            </div>
-            <div class="btn-group" role="group">
-              
-            </div>
-          </div>
 
 
-          <br><br><br><br><br>
+      <div class="row">
+        <?php
+          require('getConfigs/get_course_calculation_config.php');
+         ?>
+        <?php
+          require('getConfigs/get_maestro_controller_config.php');
+        ?>
+      </div>
+
+      <div class="row">
+        <?php
+          require('getConfigs/get_rudder_command_config.php');
+        ?>
+        <?php
+          require('getConfigs/get_rudder_servo_config.php');
+        ?>
+      </div>
+
+      <div class="row">
+        <?php
+          require('getConfigs/get_sailing_robot_config.php');
+        ?>
+        <?php
+          require('getConfigs/get_sail_command_config.php');
+        ?>
+      </div>
+
+      <div class="row">
+        <?php
+          require('getConfigs/get_sail_servo_config.php');
+        ?>
+        <?php
+          require('getConfigs/get_waypoint_routing_config.php');
+        ?>
+      </div>
+
+      <div class="row">
+        <?php
+          require('getConfigs/get_windsensor_config.php');
+        ?>
+        <?php
+          require('getConfigs/get_wind_vane_config.php');
+        ?>
+      </div>
+
+      <div class="row">
+        <?php
+          require('getConfigs/get_xbee_config.php');
+        ?>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         </div>
