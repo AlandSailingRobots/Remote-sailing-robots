@@ -7,10 +7,10 @@ class DBConnection {
 	function __construct() {
 
 		$host = 'localhost';
-		//$user = 'ithaax_testdata';
-		$user = 'root';
-		//$pass = 'test123data';
-		$pass = '';
+		$user = 'ithaax_testdata';
+		//$user = 'root';
+		$pass = 'test123data';
+		//$pass = '';
 		$dbname = 'ithaax_testdata';
 
 		try {
@@ -26,9 +26,9 @@ class DBConnection {
 	public function getLatestID() {
 
 		try {
-			$sql = "SELECT id
-					FROM datalogs
-					ORDER BY id
+			$sql = "SELECT id_system
+					FROM system_dataLogs
+					ORDER BY id_system
 					DESC LIMIT 1;"
 					;
 			$result = $this->query($sql);
@@ -121,20 +121,6 @@ public function getLatestCourseCalculationData() {
 	$sql = "SELECT *
 	FROM compass_dataLogs
 	ORDER BY id_compass_model
-	DESC LIMIT 1;";
-	$result = $this->query($sql);
-	} catch (PDOException $e) {
-	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
-	}
-	return $result;
-	}
-
-	public function getLatestLatitudeLongitudeData() {
-
-	try {
-	$sql = "SELECT gps_lon, gps_lat
-	FROM datalogs
-	ORDER BY id
 	DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
