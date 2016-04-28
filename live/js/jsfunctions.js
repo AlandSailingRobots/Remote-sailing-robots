@@ -333,7 +333,9 @@ function updateBoat(data) {
 	vGpsHeading = parseFloat(data.heading);
 	vCompasHeading = parseFloat(data.heading);
 
-	vSAIL = (((vSAIL-5824)/(7424-5824))*60)-60;
+	vSailMin = 5824;
+	vSailMax = 7424;
+	vSAIL = (((vSAIL-vSailMin)/(vSailMax-vSailMin))*60)-60;
 	vRUDDER = ((((vRUDDER-4352)/(7616-4352))*90)-45)*-1;
 	vWIND = vWIND+180;
 	if(vWIND > 360) {
@@ -417,6 +419,7 @@ function updateCompassData(dataCompass){
 }
 
 function drawBoat() {
+	var radians = Math.PI/180;
 	var jibdir = 1;
 	if (vWIND > 180 && vWIND < 210) {
 		jibdir = -1;
@@ -456,59 +459,49 @@ function drawBoat() {
 
 	}
 
-
 	layerCanvasctx.drawImage(compass,0,0);
 	layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
 
-
 	layerTWDctx.drawImage(compass,0,0);
 	layerTWDctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	layerTWDctx.rotate(vTWD * Math.PI/180);
+	layerTWDctx.rotate(vTWD * radians);
 	layerTWDctx.drawImage(trueWindArrow,-layerTWD.width/2,-layerTWD.width/2);
-
 
 	layerHeadingctx.drawImage(compass,0,0);
 	layerHeadingctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	layerHeadingctx.rotate(vCTS*Math.PI/180);
+	layerHeadingctx.rotate(vCTS * radians);
 	layerHeadingctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
-
 
 	layerWaypointctx.drawImage(compass,0,0);
 	layerWaypointctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	layerWaypointctx.rotate(vWAYPOINT*Math.PI/180);
+	layerWaypointctx.rotate(vWAYPOINT * radians);
 	layerWaypointctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
 
-
-
-	// compass heading
 	layerCompasHeadingctx.drawImage(compass,0,0);
 	layerCompasHeadingctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	layerCompasHeadingctx.rotate((vCompasHeading)*Math.PI/180);
+	layerCompasHeadingctx.rotate((vCompasHeading) * radians);
 	layerCompasHeadingctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
 
 	layerBoatHeadingctx.drawImage(compass,0,0);
 	layerBoatHeadingctx.translate(layerCanvas.width/2, layerCanvas.height/2);
-	layerBoatHeadingctx.rotate(vHEADING*Math.PI/180);
+	layerBoatHeadingctx.rotate(vHEADING * radians);
 	layerBoatHeadingctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
 
-	layerBoatHeadingctx.rotate((vWIND)*Math.PI/180);
+	layerBoatHeadingctx.rotate((vWIND) * radians);
 	layerBoatHeadingctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
 
-	layerBoatHeadingctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
+	layerBoatHeadingctx.rotate((maindir*vSAIL-vWIND)*radians);
 	layerBoatHeadingctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
 
-
-	layerBoatHeadingctx.rotate((-maindir*vSAIL)*Math.PI/180);
+	layerBoatHeadingctx.rotate((-maindir*vSAIL) * radians);
 	layerBoatHeadingctx.translate(0,-layerCanvas.height/6);
-	layerBoatHeadingctx.rotate(jibdir*vSAIL*Math.PI/180);
+	layerBoatHeadingctx.rotate(jibdir*vSAIL*radians);
 	layerBoatHeadingctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
 
-	// roder
-	layerBoatHeadingctx.rotate(-jibdir*vSAIL*Math.PI/180);
+	layerBoatHeadingctx.rotate(-jibdir*vSAIL*radians);
 	layerBoatHeadingctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
-	layerBoatHeadingctx.rotate(vRUDDER*Math.PI/180);
+	layerBoatHeadingctx.rotate(vRUDDER*radians);
 	layerBoatHeadingctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
-
 
 	layerBoatHeadingctx.restore();
 	layerCompasHeadingctx.restore();
