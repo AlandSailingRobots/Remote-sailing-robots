@@ -110,16 +110,15 @@ function setUpdateTimer(interval) {
 
 function run() {
 	checkLatestId();
-	if(!isNaN(latestId) && latestId !== currentId) {
+	//if(!isNaN(latestId) && latestId !== currentId) {
 		getLatestData();
 		getLatestGpsData();
 		getLatestCourseCalculationData();
 		getLatestWindSensorData();
 		getLatestSystemData();
 		getLatestCompassData();
-		getLatestLatitudeLongitudeData();
 		currentId = latestId;
-	}
+	//}
 }
 function checkLatestId() {
 
@@ -128,6 +127,7 @@ function checkLatestId() {
 		data: {'action': "idcheck"},
 		success: function(data) {
 			var obj = jQuery.parseJSON(data);
+			console.log(obj);
 			latestId = parseInt(obj.id);
 			$("#pingCanvas").hide().fadeIn(50, function() {
 				$("#pingCanvas").fadeOut(350);
@@ -145,7 +145,6 @@ function getLatestData() {
 		url: 'dbapi.php',
 		data: {'action': "getdata"},
 		success: function(data) {
-			console.log(data);
 			var dataObj = jQuery.parseJSON(data);
 			console.log(dataObj);
 			updateBoat(dataObj);
@@ -167,6 +166,7 @@ function getLatestGpsData() {
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
 			updateGpsData(dataObj);
+			map(dataObj);
 		},
 		error: function(errorThrown) {
 			console.log(errorThrown);
@@ -234,21 +234,6 @@ function getLatestCompassData() {
 	});
 }
 
-function getLatestLatitudeLongitudeData() {
-
-	$.ajax({
-		url: 'dbapi.php',
-		data: {'action': "getLongitudeLatitudeData"},
-		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			map(dataObj);
-		},
-		error: function(errorThrown) {
-			console.log(errorThrown);
-		}
-	});
-
-}
 
 function hideShowMapBoat() {
 	if(showMap == true) {
@@ -268,7 +253,7 @@ function hideShowMapBoat() {
 }
 
 function map(dataObj) {
-		var latLong = {lat: Number(dataObj.gps_lat), lng: Number(dataObj.gps_lon)}
+		var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
 		var mapDiv = document.getElementById("map");
 		var map = new google.maps.Map(mapDiv, {
 			center: latLong,
@@ -434,9 +419,7 @@ function updateCompassData(dataCompass){
 }
 
 function drawBoat() {
-
 	var radians = Math.PI/180;
-
 	var jibdir = 1;
 	if (vWIND > 180 && vWIND < 210) {
 		jibdir = -1;

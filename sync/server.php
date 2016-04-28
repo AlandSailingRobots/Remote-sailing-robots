@@ -491,11 +491,12 @@
 			$waypoint = $this->db->stmt_init();
 			$waypoint->prepare("DELETE FROM waypoints");
 			$waypoint->execute();
-			$waypoint->prepare("INSERT INTO waypoints VALUES(NULL,?,?,?,NULL);");
+			$waypoint->prepare("INSERT INTO waypoints VALUES(?,?,?,?,NULL);");
 			for($i=1; $i <= $size; $i++) {
-				$waypoints = "waypoints_".$i;
+				$waypoints = "waypoint_".$i;
 				foreach($data[$waypoints] as $row) {
-						$waypoint->bind_param("ddi",
+						$waypoint->bind_param("iddi",
+							$row["id"],
 							$row["latitude"],
 							$row["longitude"],
 							$row["radius"]
