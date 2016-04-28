@@ -498,8 +498,7 @@
 			$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
 			$systemStmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
 			$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
-
-			
+	
 			foreach($data["gps_datalogs"] as $row) {
 				$gpsStmt->bind_param("sdddid",
 					$row["time"],
