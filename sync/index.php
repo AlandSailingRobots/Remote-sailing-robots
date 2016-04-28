@@ -4,11 +4,11 @@
 	*/
 	if(isset($_GET["id"]) && isset($_GET["pwd"])) {
 
-<<<<<<< HEAD
+
 		 //$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
-=======
-		 $options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
->>>>>>> 941d18eb30861e1265bbcaa367b117a8da4ddb50
+
+		// $options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
+
 
 		 //$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/server.php', 'uri' => 'http://localhost/');
 		//this is for local usage of httpSync

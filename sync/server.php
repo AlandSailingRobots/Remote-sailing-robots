@@ -5,8 +5,8 @@
 		private $db;
 
 		function __construct() {
-			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
+			//$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+			$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 
 		function __destruct() {
@@ -128,10 +128,12 @@
 		}
 
 		function getAllConfigs($boat) {
-			return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
+			return json_encode($this->getCourseCalculationConfig($boat), JSON_FORCE_OBJECT);
+
+			/*return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
 			. $this->getRudderCommandConfig($boat). $this->getRudderServoConfig($boat) . $this->getSailingRobotConfig($boat)
 			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat)
-			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);
+			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);*/
 		}
 
 		function getCourseCalculationConfig($boat) {
@@ -156,7 +158,7 @@
 				"sector_angle" => $sector_angle
 			);
 			$stmt->close();
-			return json_encode($config);
+			return $config;
 		}
 
 		function getMaestroControllerConfig($boat) {

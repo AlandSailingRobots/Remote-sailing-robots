@@ -124,6 +124,7 @@ function hideShowMapBoat() {
 }
 
 function drawBoat() {
+      var radians = Math.PI/180;
      var jibdir = 1;
      if (vWIND > 180 && vWIND < 210) {
           jibdir = -1;
@@ -170,35 +171,35 @@ function drawBoat() {
      layerCanvasctx.drawImage(compass,0,0);
      layerCanvasctx.translate(layerCanvas.width/2, layerCanvas.height/2);
 
-     layerHeadingctx.rotate(vCTS*Math.PI/180);
+     layerHeadingctx.rotate(vCTS*radians);
      layerHeadingctx.drawImage(heading,-layerCanvas.width/2,-layerCanvas.width/2);
 
      //true wind direction
-     layerTWDctx.rotate(vTWD*Math.PI/180);
+     layerTWDctx.rotate(vTWD*radians);
      layerTWDctx.drawImage(trueWindDirection,-layerCanvas.width/2,-layerCanvas.width/2);
 
-     layerWaypointctx.rotate(vWAYPOINT*Math.PI/180);
+     layerWaypointctx.rotate(vWAYPOINT*radians);
      layerWaypointctx.drawImage(waypoint,-layerCanvas.width/2,-layerCanvas.width/2);
 
      // compas heading
-     layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*Math.PI/180);
+     layerCanvasctx.rotate((vCompasHeading-vWAYPOINT)*radians);
      layerCanvasctx.drawImage(compasHeading,-layerCanvas.width/2,-layerCanvas.width/2);
 
-     layerCanvasctx.rotate((vHEADING-vCompasHeading)*Math.PI/180);
+     layerCanvasctx.rotate((vHEADING-vCompasHeading)*radians);
      layerCanvasctx.drawImage(boat,-layerCanvas.width/2,-layerCanvas.height/2);
 
-     layerCanvasctx.rotate((vWIND)*Math.PI/180);
+     layerCanvasctx.rotate((vWIND)*radians);
      layerCanvasctx.drawImage(wind,-layerCanvas.width/2,-layerCanvas.width/2);
 
-     layerCanvasctx.rotate((maindir*vSAIL-vWIND)*Math.PI/180);
+     layerCanvasctx.rotate((maindir*vSAIL-vWIND)*radians);
      layerCanvasctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
-     layerCanvasctx.rotate((-maindir*vSAIL)*Math.PI/180);
+     layerCanvasctx.rotate((-maindir*vSAIL)*radians);
      layerCanvasctx.translate(0,-layerCanvas.height/6);
-     layerCanvasctx.rotate(jibdir*vSAIL*Math.PI/180);
+     layerCanvasctx.rotate(jibdir*vSAIL*radians);
      layerCanvasctx.drawImage(jib,-layerCanvas.width/2,-layerCanvas.width/2);
-     layerCanvasctx.rotate(-jibdir*vSAIL*Math.PI/180);
+     layerCanvasctx.rotate(-jibdir*vSAIL*radians);
      layerCanvasctx.translate(0,(layerCanvas.height/6)+(layerCanvas.height/3.6));
-     layerCanvasctx.rotate(vRUDDER*Math.PI/180);
+     layerCanvasctx.rotate(vRUDDER*radians);
      layerCanvasctx.drawImage(rudder,-layerCanvas.width/2,-layerCanvas.width/2);
 
      layerBoatctx.restore();
