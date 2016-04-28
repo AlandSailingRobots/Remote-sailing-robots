@@ -1,5 +1,7 @@
 <?php
 
+
+
 	class queryHandler {
 
 		private $db;
@@ -16,7 +18,10 @@
 		public function __destruct() {
 			$this->db->close();
 		}
-		// SELECT *FROM gps_dataLogs, course_calculation_dataLogs, windsensor_dataLogs, system_dataLogs, compass_dataLogs
+		function getLim($lim2){
+			return $lim2;
+		}
+
 		public function getDatalog() {
 			$sq = "SELECT * FROM system_dataLogs
 							JOIN gps_dataLogs
