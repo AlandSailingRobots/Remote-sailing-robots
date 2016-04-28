@@ -1,0 +1,27 @@
+#wrapper {
+
+    overflow: hidden; 
+}
+#inner1 {
+    width: 17%;
+    float:left; 
+
+}
+#inner2 {
+	width: 20%;
+    float:left; 
+}
+#inner3 {
+
+}
+
+table, th, td {
+
+    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
