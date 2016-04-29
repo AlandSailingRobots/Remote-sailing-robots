@@ -52,7 +52,8 @@
 
 		public function render($data) {
 			$table="";
-			foreach($data as $row) {
+		//	print_r($data);
+		/*	foreach($data as $row) {
 				$table = $table."<tr>
 						<td>".$row["id_system"]."</td>
 						<td>".$row["boat_id"]."</td>
@@ -84,7 +85,7 @@
 						<td>".$row["pitch"]."</td>
 						<td>".$row["roll"]."</td>
 					</tr>";
-			}
+			}*/
 			return $table;
 		}
 	}
