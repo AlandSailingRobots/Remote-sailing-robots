@@ -80,22 +80,22 @@ function resizeDiv() {
 }
 
 function setCanvasSize(size) {
-	layerBoatHeading.style.width = size + 'px';
-	layerBoatHeading.style.height = size + 'px';
+	layerBoatHeading.style.width = 500 + 'px';
+	layerBoatHeading.style.height = 500 + 'px';
 
-	layerCompasHeading.style.width = size + 'px';
-	layerCompasHeading.style.height = size + 'px';
-	layerWaypoint.style.width = size + 'px';
-	layerWaypoint.style.height = size + 'px';
-	layerHeading.style.width = size + 'px';
-	layerHeading.style.height = size + 'px';
+	layerCompasHeading.style.width = 500 + 'px';
+	layerCompasHeading.style.height = 500 + 'px';
+	layerWaypoint.style.width = 500 + 'px';
+	layerWaypoint.style.height = 500 + 'px';
+	layerHeading.style.width = 500 + 'px';
+	layerHeading.style.height = 500 + 'px';
 
-	layerTWD.style.width = size + 'px';
-	layerTWD.style.height = size + 'px';
-	layerCanvas.style.width = size + 'px';
-	layerCanvas.style.height = size + 'px';
-	pingCanvas.style.width = size + 'px';
-	pingCanvas.style.height = size + 'px';
+	layerTWD.style.width = 500 + 'px';
+	layerTWD.style.height = 500 + 'px';
+	layerCanvas.style.width = 500 + 'px';
+	layerCanvas.style.height = 500 + 'px';
+	pingCanvas.style.width = 500 + 'px';
+	pingCanvas.style.height = 500 + 'px';
 }
 
 function sleep(millis, callback) {
@@ -362,6 +362,8 @@ function updateGpsData(dataGps){
 			dataValuesGps += "<p>"+dataGps[key]+"</p>";
 		}
 	});
+
+
 	$("#dataNameGps").html(dataNamesGps);
 	$("#dataValueGps").html(dataValuesGps);
 }
