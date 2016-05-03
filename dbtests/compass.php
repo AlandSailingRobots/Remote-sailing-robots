@@ -64,8 +64,8 @@
           <ul class="nav nav-sidebar">
             <?php
                 require('dbconnection.php');
-                $result = getData("gps_dataLogs");
-                $pages = getPages("gps_dataLogs");
+                $result = getData("compass_dataLogs");
+                $pages = getPages("compass_dataLogs");
                 $number = getNumber();
                 $next = getNext();
                 $prev = getPrev();
@@ -79,7 +79,7 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">Gps Logs</h2>
+          <h2 class="sub-header">Compass Data</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <?php
@@ -105,15 +105,10 @@
               ?>
               <thead>
                 <tr>
-
-                  <th>id_gps</th>
-                  <th>time</th>
-                  <th>latitude</th>
-                  <th>speed</th>
+                  <th>id_compass_model</th>
                   <th>heading</th>
-                  <th>satellites_used</th>
-                  <th>longitude</th>
-
+                  <th>pitch</th>
+                  <th>roll</th>
                 </tr>
               </thead>
 
@@ -123,15 +118,10 @@
                 {
                   echo "
                     <tr>
-
-                      <td>".$row["id_gps"]."</td>
-                      <td>".$row["time"]."</td>
-                      <td>".$row["latitude"]."</td>
-                      <td>".$row["speed"]."</td>
+                      <td>".$row["id_compass_model"]."</td>
                       <td>".$row["heading"]."</td>
-                      <td>".$row["satellites_used"]."</td>
-                      <td>".$row["longitude"]."</td>
-                      ";
+                      <td>".$row["pitch"]."</td>
+                      <td>".$row["roll"]."</td>";
                 }
                 ?>
               </tbody>
