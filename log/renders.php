@@ -52,6 +52,9 @@
 
 		public function render($data) {
 			$table="";
+			//print_r($data);
+		//	ini_set('max_execution_time', 400);
+		$i = 0;
 			foreach($data as $row) {
 				$table = $table."<tr>
 						<td>".$row["id_system"]."</td>
@@ -84,6 +87,7 @@
 						<td>".$row["pitch"]."</td>
 						<td>".$row["roll"]."</td>
 					</tr>";
+
 			}
 			return $table;
 		}
