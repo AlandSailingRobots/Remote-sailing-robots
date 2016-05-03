@@ -123,21 +123,6 @@
         ?>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
         <footer>
         <p>© 2016 Åland Sailing Robots</p>
