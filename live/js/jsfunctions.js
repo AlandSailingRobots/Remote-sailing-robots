@@ -22,7 +22,6 @@ var boat = null;
 var mainsail = null;
 var jib = null;
 var rudder = null;
-var wind = null;
 var trueWindArrow = null;
 //var gpsHeading = null;
 var compass = null;
@@ -212,6 +211,7 @@ function getLatestSystemData() {
 		data: {'action': "getSystemData"},
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
+			console.log(dataObj);
 			updateSystemData(dataObj);
 		},
 		error: function(errorThrown) {
@@ -300,8 +300,6 @@ function initBoat() {
 	jib.src = "images/jib.png";
 	rudder = new Image();
 	rudder.src = "images/rudder.png";
-	wind = new Image();
-	wind.src = "images/windArrow.png";
 
 	compasHeading = new Image();
 	compasHeading.src = "images/compasHeading.png"
@@ -323,7 +321,7 @@ function initBoat() {
 }
 
 function updateBoat(data) {
-	vHEADING = parseFloat(data.heading);
+	/*vHEADING = parseFloat(data.heading);
 	vWIND = parseFloat(data.direction);
 	vSAIL = parseFloat(data.sail_command_sail);
 	vRUDDER = parseFloat(data.rudder_command_rudder);
@@ -332,7 +330,7 @@ function updateBoat(data) {
 	vTACKING = parseFloat(data.tack);
 	vTWD = parseFloat(data.true_wind_direction_calc);
 	vGpsHeading = parseFloat(data.heading);
-	vCompasHeading = parseFloat(data.heading);
+	vCompasHeading = parseFloat(data.heading);*/
 
 	vSailMin = 5824;
 	vSailMax = 7424;
@@ -363,7 +361,7 @@ function updateGpsData(dataGps){
 			dataValuesGps += "<p>"+dataGps[key]+"</p>";
 		}
 	});
-
+	vGpsHeading = parseFloat(dataGps.heading);
 
 	$("#dataNameGps").html(dataNamesGps);
 	$("#dataValueGps").html(dataValuesGps);
@@ -378,6 +376,8 @@ function updateCourseCalculationData(dataCourse){
 			dataValuesCourse += "<p>"+dataCourse[key]+"</p>";
 		}
 	});
+
+	vWAYPOINT = parseFloat(dataCourse.bearing_to_waypoint);
 	$("#dataNamesCourse").html(dataNamesCourse);
 	$("#dataValuesCourse").html(dataValuesCourse);
 }
@@ -400,10 +400,19 @@ function updateSystemData(dataSystem){
 	var dataValuesSystem = "";
 	Object.keys(dataSystem).forEach(function(key) {
 		if(isNaN(key)) {
-			dataNamesSystem +="<p>"+key+"</p>";
-			dataValuesSystem += "<p>"+dataSystem[key]+"</p>";
+			if(key == "true_wind_direction_calc"){
+				 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
+
+			}else{
+
+
+				dataNamesSystem +="<p>"+key+"</p>";
+				dataValuesSystem += "<p>"+dataSystem[key]+"</p>";
+			}
+
 		}
 	});
+	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
 	$("#dataNamesSystem").html(dataNamesSystem);
 	$("#dataValuesSystem").html(dataValuesSystem);
 }
@@ -417,6 +426,7 @@ function updateCompassData(dataCompass){
 			dataValuesCompass += "<p>"+dataCompass[key]+"</p>";
 		}
 	});
+	vCompasHeading = parseFloat(dataCompass.heading);
 	$("#dataNamesCompass").html(dataNamesCompass);
 	$("#dataValuesCompass").html(dataValuesCompass);
 }
@@ -451,6 +461,7 @@ function drawBoat() {
 	restoreLayer(layerHeadingctx);
 	restoreLayer(layerCanvasctx);
 	restoreLayer(layerTWDctx);
+	}
 
 	$("#pingCanvas").hide().fadeIn(50, function() {
 		$("#pingCanvas").fadeOut(350);
@@ -464,7 +475,7 @@ function drawBoat() {
 		drawComponent(layerTWDctx, vTWD, trueWindArrow);
 	}
 	function drawHeading() {
-		drawComponent(layerHeadingctx, vCTS, heading);
+		drawComponent(layerHeadingctx, vGpsHeading, heading);
 	}
 	function drawWaypoint() {
 		drawComponent(layerWaypointctx, vWAYPOINT, waypoint);
@@ -493,9 +504,8 @@ function drawBoat() {
 		}
 		var radians = Math.PI/180;
 
-		drawComponent(layerBoatHeadingctx, vHEADING, boat);
+		drawComponent(layerBoatHeadingctx, vCompasHeading, boat);
 		rotateCanvas(layerBoatHeadingctx, vWIND);
-		drawImage(layerBoatHeadingctx, wind);
 		layerBoatHeadingctx.rotate((maindir*vSAIL-vWIND)*radians);
 		layerBoatHeadingctx.drawImage(mainsail,-layerCanvas.width/2,-layerCanvas.width/2);
 		layerBoatHeadingctx.rotate((-maindir*vSAIL) * radians);
@@ -533,6 +543,5 @@ function drawBoat() {
 		layerctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
 		layerctx.save();
 	}
-
 
 }

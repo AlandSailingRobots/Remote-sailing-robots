@@ -52,7 +52,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="http://localhost/Remote-sailing-robots/live">Live</a></li>
-            <li ><a href="http://localhost/Remote-sailing-robots/config/test.php">config</a></li>
+            <li ><a href="http://localhost/Remote-sailing-robots/config">config</a></li>
             <li ><a href="http://www.sailingrobots.com/testdata/log/">Log</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -80,13 +80,16 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
+
+  
+
+
+
 <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing">
-
-      
 
 
       <!-- START THE FEATURETTES -->
@@ -98,17 +101,17 @@
       
         <div class="col-md-4">
           <div id='boatData'>
-      <div id='boatDataSystem' draggable=true>
+      <div id='boatDataSystem'>
         <h2>SystemDataLogs</h2>
         <div id='dataNamesSystem'></div>
         <div id='dataValuesSystem'></div>
       </div>
-      <div id='boatDataCompass' draggable=true>
+      <div id='boatDataCompass' >
         <h2>CompassData</h2>
         <div id='dataNamesCompass'></div>
         <div id='dataValuesCompass'></div>
       </div>
-      <div id='boatDataCourse' draggable=true>
+      <div id='boatDataCourse' >
           <h2>CourseData</h2>
           <div id='dataNamesCourse'></div>
           <div id='dataValuesCourse'></div>
@@ -120,13 +123,13 @@
 
       <div class="col-md-3">
         <div id='boatData'>
-  			<div id='boatDataGps' draggable=true>
+  			<div id='boatDataGps'>
   				<h2>Gps Data</h2>
   				<div id='dataNameGps' ></div>
   				<div id='dataValueGps'></div>
   			</div>
   			
-			 <div id='boatDataWindSensor' draggable=true>
+			 <div id='boatDataWindSensor' >
 				  <h2>WindSensorData</h2>
 				  <div id='dataNamesWindSensor'></div>
 				  <div id='dataValuesWindSensor'></div>
