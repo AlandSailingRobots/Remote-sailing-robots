@@ -211,7 +211,6 @@ function getLatestSystemData() {
 		data: {'action': "getSystemData"},
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
-			console.log(dataObj);
 			updateSystemData(dataObj);
 		},
 		error: function(errorThrown) {
