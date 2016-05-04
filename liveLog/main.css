@@ -1,0 +1,188 @@
+
+
+body {
+	color: white;
+}
+[draggable=true] {
+    cursor: move;
+}
+
+p {
+	padding-right: 15px;
+	margin: 10px;
+}
+#boatCanvas{
+	position: relative;
+}
+
+#map{
+	position: absolute;
+	width: 500px;
+	height: 500px;
+	left: 150px;
+	top: 140px;
+
+}
+
+#pingCanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:11;
+}
+
+#layerCanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;
+}
+#layerHeading {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;
+}
+#layerTWD {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;
+}
+#layerWaypoint {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;
+}
+
+#layerCompasHeading {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;
+}
+
+#layerBoatHeading {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:12;
+}
+
+#dataName {
+	float: left;
+	width: 40%;
+}
+#dataNameGps {
+	float: left;
+	width: 40%;
+}
+
+#dataNamesCourse {
+	float: left;
+	width: 50%;
+}
+#dataNamesWindSensor {
+	float: left;
+	width: 40%;
+}
+
+#dataNamesSystem {
+	float: left;
+	width: 50%;
+
+}
+#dataNamesCompass {
+	float: left;
+	width: 40%;
+}
+#dataValue {
+	float: right;
+	width: 60%;
+}
+#dataValueGps {
+	float: right;
+	width: 60%;
+}
+#dataValuesCourse {
+	float: right;
+	width: 48%;
+}
+#dataValuesWindSensor {
+	float: right;
+	width: 60%;
+}
+#dataValuesSystem{
+	float: right;
+	width: 30%;
+}
+#dataValuesCompass{
+	float: right;
+	width: 40%;
+}
+
+#boatData {
+	float: right;
+	padding: 16px;
+	width: 45%;
+	height: 100%;
+	color: white;
+}
+
+#boatData p {
+	margin: 0;
+	font-size: 14px;
+}
+
+#boatDataGps {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+
+#boatDataCourse {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+#boatDataWindSensor {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+#boatDataSystem{
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}
+#boatDataCompass {
+	float: right;
+	padding: 16px;
+	width: 30%;
+	height: 100%;
+	color: black;
+	border-style: solid;
+	border-color: black;
+	background-color: #b3b300;
+}

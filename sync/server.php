@@ -128,12 +128,14 @@
 		}
 
 		function getAllConfigs($boat) {
-			return json_encode($this->getCourseCalculationConfig($boat), JSON_FORCE_OBJECT);
 
-			/*return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
-			. $this->getRudderCommandConfig($boat). $this->getRudderServoConfig($boat) . $this->getSailingRobotConfig($boat)
-			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat)
-			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);*/
+			//$this->setConfigsUpdated();
+			
+			return "{".$this->getCourseCalculationConfig($boat).$this->getMaestroControllerConfig($boat).$this->getRudderCommandConfig($boat).
+			$this->getRudderServoConfig($boat).$this->getSailingRobotConfig($boat).$this->getSailCommandConfig($boat)
+			.$this->getSailServoConfig($boat).$this->getWaypointRoutingConfig($boat).$this->getWindSensorConfig($boat)
+			.$this->getWindVaneConfig($boat)."}";
+
 		}
 
 		function getCourseCalculationConfig($boat) {
@@ -150,15 +152,17 @@
 				$sector_angle
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"tack_angle" => $tack_angle,
-				"tack_max_angle" => $tack_max_angle,
-				"tack_min_speed" => $tack_min_speed,
-				"sector_angle" => $sector_angle
-			);
+			
+			$json = '"course_calculation_config":
+						{
+						  "id":"1",
+						  "tack_angle":'.$tack_angle.',
+						  "tack_max_angle":'.$tack_max_angle.',
+						  "tack_min_speed":'.$tack_min_speed.',
+						  "sector_angle":'.$sector_angle.'
+						},';
 			$stmt->close();
-			return $config;
+			return $json;
 		}
 
 		function getMaestroControllerConfig($boat) {
@@ -172,12 +176,15 @@
 				$port
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"port" => $port
-			);
+
+			$json = '"maestro_controller_config":
+						{
+						  "id":"1",
+						  "port":"'.$port.'"
+						},';
+
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getRudderCommandConfig($boat) {
@@ -192,13 +199,17 @@
 				$midship_command
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"extreme_command" => $extreme_command,
-				"midship_command" => $midship_command
-			);
+
+			$json = '"rudder_command_config":
+						{
+						  "id":"1",
+						  "extreme_command":"'.$extreme_command.'",
+						  "midship_command":"'.$midship_command.'"
+						},';
+
+
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getRudderServoConfig($boat) {
@@ -214,14 +225,18 @@
 				$acceleration
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"channel" => $channel,
-				"speed" => $speed,
-				"acceleration" => $acceleration
-			);
+
+			$json = '"rudder_servo_config":
+						{
+						  "id":"1",
+						  "channel":"'.$channel.'",
+						  "speed":"'.$speed.'",
+						  "acceleration":"'.$acceleration.'"
+						},';
+
+
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getSailingRobotConfig($boat) {
@@ -237,14 +252,18 @@
 				$scanning
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"flag_heading_compass" => $flag_heading_compass,
-				"loop_time" => $loop_time,
-				"scanning" => $scanning
-			);
+
+
+			$json = '"sailing_robot_config":
+						{
+						  "id":"1",
+						  "flag_heading_compass":"'.$flag_heading_compass.'",
+						  "loop_time":"'.$loop_time.'",
+						  "scanning":"'.$scanning.'"
+						},';
+
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getSailCommandConfig($boat) {
@@ -259,13 +278,16 @@
 				$run_command
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"close_reach_command" => $close_reach_command,
-				"run_command" => $run_command
-			);
+
+			$json = '"sail_command_config":
+						{
+						  "id":"1",
+						  "close_reach_command":"'.$close_reach_command.'",
+						  "run_command":"'.$run_command.'"
+						},';
+
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getSailServoConfig($boat) {
@@ -281,14 +303,17 @@
 				$acceleration
 			);
 			$stmt->fetch();
-			$config[] = array(
-				"id" => 1,
-				"channel" => $channel,
-				"speed" => $speed,
-				"acceleration" => $acceleration
-			);
+
+			$json = '"sail_servo_config":
+						{
+						  "id":"1",
+						  "channel":"'.$channel.'",
+						  "speed":"'.$speed.'",
+						  "acceleration":"'.$acceleration.'"
+						},';
+
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getWaypointRoutingConfig($boat) {
@@ -304,6 +329,15 @@
 				$adjust_degree_limit
 			);
 			$stmt->fetch();
+
+			$json = '"waypoint_routing_config":
+						{
+						  "id":"1",
+						  "radius_ratio":"'.$radius_ratio.'",
+						  "sail_adjust_time":"'.$sail_adjust_time.'",
+						  "adjust_degree_limit":"'.$adjust_degree_limit.'"
+						},';
+
 			$config[] = array(
 				"id" => 1,
 				"radius_ratio" => $radius_ratio,
@@ -311,7 +345,7 @@
 				"adjust_degree_limit" => $adjust_degree_limit
 			);
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getWindSensorConfig($boat) {
@@ -326,13 +360,21 @@
 				$baud_rate
 			);
 			$stmt->fetch();
+
+			$json = '"windsensor_config":
+						{
+						  "id":"1",
+						  "port":"'.$port.'",
+						  "baud_rate":"'.$baud_rate.'"
+						},';
+
 			$config[] = array(
 				"id" => 1,
 				"port" => $port,
 				"baud_rate" => $baud_rate
 			);
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 		function getWindVaneConfig($boat) {
@@ -348,6 +390,15 @@
 				$self_steering_intervall
 			);
 			$stmt->fetch();
+
+			$json = '"wind_vane_config":
+						{
+						  "id":"1",
+						  "use_self_steering":"'.$use_self_steering.'",
+						  "wind_sensor_self_steering":"'.$wind_sensor_self_steering.'",
+						  "self_steering_interval":"'.$self_steering_intervall.'"
+						}';
+
 			$config[] = array(
 				"id" => 1,
 				"use_self_steering" => $use_self_steering,
@@ -355,7 +406,7 @@
 				"self_steering_intervall" => $self_steering_intervall
 			);
 			$stmt->close();
-			return json_encode($config);
+			return $json;
 		}
 
 

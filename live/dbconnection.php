@@ -7,10 +7,17 @@ class DBConnection {
 	function __construct() {
 
 		$host = 'localhost';
+<<<<<<< HEAD
 		$user = 'ithaax_testdata';
 		//$user = 'root';
 		$pass = 'test123data';
 		//$pass = '';
+=======
+	//	$user = 'ithaax_testdata';
+		$user = 'root';
+		//$pass = 'test123data';
+		$pass = '';
+>>>>>>> 48f4a930f97e7872a4b96cbe0cb4ed7c6193aa9c
 		$dbname = 'ithaax_testdata';
 
 		try {

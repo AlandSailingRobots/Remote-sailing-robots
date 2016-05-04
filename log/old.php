@@ -48,11 +48,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.php">GpsData</a></li>
-            <li><a href="course.php">CourseData</a></li>
-            <li><a href="windsensor.php">WindSensorData</a></li>
-            <li><a href="compass.php">CompassData</a></li>
-            <li><a href="system.php">SystemDatalogs</a></li>
+            <li><a href="#">GpsData</a></li>
+            <li><a href="#">CourseData</a></li>
+            <li><a href="#">WindSensorData</a></li>
+            <li><a href="#">CompassData</a></li>
+            <li><a href="#">SystemDatalogs</a></li>
           </ul>
         </div>
       </div>
@@ -71,15 +71,15 @@
                 $prev = getPrev();
               ?>
 
-            <li ><a href="index.php">GpsData </a></li>
-            <li><a href="course.php">CourseData</a></li>
-            <li><a href="windsensor.php">WindSensorData</a></li>
-            <li><a href="compass.php">CompassData</a></li>
-            <li><a href="system.php">SystemDatalogs</a></li>
+            <li ><a href="#">GpsData </a></li>
+            <li><a href="#">CourseData</a></li>
+            <li><a href="#">WindSensorData</a></li>
+            <li><a href="#">CompassData</a></li>
+            <li><a href="#">SystemDatalogs</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">Gps Logs</h2>
+          <h2 class="sub-header">Log Table</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <?php
@@ -112,7 +112,6 @@
                   <th>heading</th>
                   <th>satellites_used</th>
                   <th>longitude</th>
-
                 </tr>
               </thead>
 
@@ -122,15 +121,13 @@
                 {
                   echo "
                     <tr>
-                      <td>".$row["id_gps"]."</td>
-                      <td>".$row["time"]."</td>
-                      <td>".$row["latitude"]."</td>
-                      <td>".$row["speed"]."</td>
-                      <td>".$row["heading"]."</td>
-                      <td>".$row["satellites_used"]."</td>
-                      <td>".$row["longitude"]."</td>
-                      <td><a href=info.php?name=id_gps&table=gps_dataLogs&id=".$row["id_gps"]." target='_blank'>display all</a></td>
-                      ";
+                    <td>".$row["id_gps"]."</td>
+                    <td>".$row["time"]."</td>
+                    <td>".$row["latitude"]."</td>
+                    <td>".$row["speed"]."</td>
+                    <td>".$row["heading"]."</td>
+                    <td>".$row["satellites_used"]."</td>
+                    <td>".$row["longitude"]."</td>";
                 }
                 ?>
               </tbody>

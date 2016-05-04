@@ -211,7 +211,6 @@ function getLatestSystemData() {
 		data: {'action': "getSystemData"},
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
-			console.log(dataObj);
 			updateSystemData(dataObj);
 		},
 		error: function(errorThrown) {
@@ -543,5 +542,3 @@ function drawBoat() {
 		layerctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
 		layerctx.save();
 	}
-
-}
