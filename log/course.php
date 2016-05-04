@@ -64,22 +64,22 @@
           <ul class="nav nav-sidebar">
             <?php
                 require('dbconnection.php');
-                $result = getData("gps_dataLogs");
-                $pages = getPages("gps_dataLogs");
+                $result = getData("course_calculation_dataLogs");
+                $pages = getPages("course_calculation_dataLogs");
                 $number = getNumber();
                 $next = getNext();
                 $prev = getPrev();
               ?>
 
             <li ><a href="index.php">GpsData </a></li>
-            <li><a href="course.php">CourseData</a></li>
+            <li><a href="courseData.php">CourseData</a></li>
             <li><a href="windsensor.php">WindSensorData</a></li>
             <li><a href="compass.php">CompassData</a></li>
             <li><a href="system.php">SystemDatalogs</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">Gps Logs</h2>
+          <h2 class="sub-header">Course Logs</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <?php
@@ -105,14 +105,12 @@
               ?>
               <thead>
                 <tr>
-                  <th>id_gps</th>
-                  <th>time</th>
-                  <th>latitude</th>
-                  <th>speed</th>
-                  <th>heading</th>
-                  <th>satellites_used</th>
-                  <th>longitude</th>
-
+                  <th>id_course_calculation</th>
+                  <th>distance_to_waypoint</th>
+                  <th>bearing_to_waypoint</th>
+                  <th>course_to_steer</th>
+                  <th>tack</th>
+                  <th>going_starboard</th>
                 </tr>
               </thead>
 
@@ -122,14 +120,13 @@
                 {
                   echo "
                     <tr>
-                      <td>".$row["id_gps"]."</td>
-                      <td>".$row["time"]."</td>
-                      <td>".$row["latitude"]."</td>
-                      <td>".$row["speed"]."</td>
-                      <td>".$row["heading"]."</td>
-                      <td>".$row["satellites_used"]."</td>
-                      <td>".$row["longitude"]."</td>
-                      <td><a href=info.php?name=id_gps&table=gps_dataLogs&id=".$row["id_gps"]." target='_blank'>display all</a></td>
+                    <td>".$row["id_course_calculation"]."</td>
+                    <td>".$row["distance_to_waypoint"]."</td>
+                    <td>".$row["bearing_to_waypoint"]."</td>
+                    <td>".$row["course_to_steer"]."</td>
+                    <td>".$row["tack"]."</td>
+                    <td>".$row["going_starboard"]."</td>
+                    <td><a href=info.php?name=id_course_calculation&table=course_calculation_dataLogs&id=".$row["id_course_calculation"]." target='_blank'>display all</a></td>
                       ";
                 }
                 ?>

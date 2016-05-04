@@ -64,8 +64,8 @@
           <ul class="nav nav-sidebar">
             <?php
                 require('dbconnection.php');
-                $result = getData("gps_dataLogs");
-                $pages = getPages("gps_dataLogs");
+                $result = getData("windsensor_dataLogs");
+                $pages = getPages("windsensor_dataLogs");
                 $number = getNumber();
                 $next = getNext();
                 $prev = getPrev();
@@ -79,7 +79,7 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">Gps Logs</h2>
+          <h2 class="sub-header">Windsensor Data</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <?php
@@ -105,13 +105,11 @@
               ?>
               <thead>
                 <tr>
-                  <th>id_gps</th>
-                  <th>time</th>
-                  <th>latitude</th>
+
+                  <th>id_windsensor</th>
+                  <th>direction</th>
                   <th>speed</th>
-                  <th>heading</th>
-                  <th>satellites_used</th>
-                  <th>longitude</th>
+                  <th>temperature</th>
 
                 </tr>
               </thead>
@@ -122,15 +120,13 @@
                 {
                   echo "
                     <tr>
-                      <td>".$row["id_gps"]."</td>
-                      <td>".$row["time"]."</td>
-                      <td>".$row["latitude"]."</td>
+
+                      <td>".$row["id_windsensor"]."</td>
+                      <td>".$row["direction"]."</td>
                       <td>".$row["speed"]."</td>
-                      <td>".$row["heading"]."</td>
-                      <td>".$row["satellites_used"]."</td>
-                      <td>".$row["longitude"]."</td>
-                      <td><a href=info.php?name=id_gps&table=gps_dataLogs&id=".$row["id_gps"]." target='_blank'>display all</a></td>
-                      ";
+                      <td>".$row["temperature"]."</td>
+                      <td><a href=info.php?name=id_windsensor&table=windsensor_dataLogs&id=".$row["id_windsensor"]." target='_blank'>display all</a></td>";
+
                 }
                 ?>
               </tbody>
