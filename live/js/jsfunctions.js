@@ -164,6 +164,7 @@ function getLatestGpsData() {
 
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
+			console.log(dataObj);
 			updateGpsData(dataObj);
 			map(dataObj);
 		},
@@ -400,14 +401,14 @@ function updateSystemData(dataSystem){
 		if(isNaN(key)) {
 			if(key == "true_wind_direction_calc"){
 				 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
-				  
+
 			}else{
-	
-			
+
+
 				dataNamesSystem +="<p>"+key+"</p>";
 				dataValuesSystem += "<p>"+dataSystem[key]+"</p>";
 			}
-			
+
 		}
 	});
 	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
@@ -452,7 +453,7 @@ function drawBoat() {
 	drawWaypoint();
 	drawCompasHeading();
 	draw_BoatHeading_Rudder_And_Sails();
-	
+
 	restoreLayer(layerBoatHeadingctx);
 	restoreLayer(layerCompasHeadingctx);
 	restoreLayer(layerWaypointctx);
@@ -542,7 +543,4 @@ function drawBoat() {
 		layerctx.save();
 	}
 
-	
-
-
-
+}
