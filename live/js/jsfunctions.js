@@ -543,5 +543,3 @@ function drawBoat() {
 		layerctx.clearRect(0,0,layerCanvas.width,layerCanvas.height);
 		layerctx.save();
 	}
-
-}
