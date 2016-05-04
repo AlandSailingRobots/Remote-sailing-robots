@@ -165,6 +165,7 @@ function getLatestGpsData() {
 
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
+			console.log(dataObj);
 			updateGpsData(dataObj);
 			map(dataObj);
 		},
@@ -443,7 +444,7 @@ function drawBoat() {
 	drawWaypoint();
 	drawCompasHeading();
 	draw_BoatHeading_Rudder_And_Sails();
-	
+
 	restoreLayer(layerBoatHeadingctx);
 	restoreLayer(layerCompasHeadingctx);
 	restoreLayer(layerWaypointctx);
@@ -533,5 +534,5 @@ function drawBoat() {
 		layerctx.save();
 	}
 
-	
+
 }
