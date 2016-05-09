@@ -113,7 +113,8 @@ function setUpdateTimer(interval) {
 
 function run() {
 	checkLatestId();
-	//if(!isNaN(latestId) && latestId !== currentId) {
+	if(!isNaN(latestId) && latestId !== currentId) {
+		console.log("update");
 		getLatestData();
 		getLatestGpsData();
 		getLatestCourseCalculationData();
@@ -121,7 +122,7 @@ function run() {
 		getLatestSystemData();
 		getLatestCompassData();
 		currentId = latestId;
-	//}
+	}
 }
 function checkLatestId() {
 
@@ -130,7 +131,7 @@ function checkLatestId() {
 		data: {'action': "idcheck"},
 		success: function(data) {
 			var obj = jQuery.parseJSON(data);
-			latestId = parseInt(obj.id);
+			latestId = parseInt(obj.id_system);
 			$("#pingCanvas").hide().fadeIn(50, function() {
 				$("#pingCanvas").fadeOut(350);
 			});
@@ -167,7 +168,6 @@ function getLatestGpsData() {
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
 			updateGpsData(dataObj);
-		//	map(dataObj);
 			updateMarker(dataObj);
 		},
 		error: function(errorThrown) {
@@ -430,19 +430,19 @@ function updateSystemData(dataSystem){
 	var dataValuesSystem = "";
 	Object.keys(dataSystem).forEach(function(key) {
 		if(isNaN(key)) {
-			if(key == "true_wind_direction_calc"){
-				 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
+		//	if(key == "true_wind_direction_calc"){
+			//	 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
 
-			}else{
+			//}else{
 
 
 				dataNamesSystem +="<p>"+key+"</p>";
 				dataValuesSystem += "<p>"+dataSystem[key]+"</p>";
-			}
+			//}
 
 		}
 	});
-	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
+//	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
 	$("#dataNamesSystem").html(dataNamesSystem);
 	$("#dataValuesSystem").html(dataValuesSystem);
 }
