@@ -45,6 +45,9 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
+var waypointsObj = null;
+var marker = null;
+
 $(function() {
 	$( "#boatDataGps" ).draggable();
 	$( "#boatDataCourse" ).draggable();
@@ -59,9 +62,10 @@ $(document).ready(function(){
 	initBoat();
 	drawBoat();
 	resizeDiv();
+	getWaypoints();
 	setUpdateTimer(3000);
 });
-
+//lat 60.107429 long 19.923938
 $(window).resize(function() {
 	$("#boatCanvas").hide();
 	sleep(1000, resizeDiv);
@@ -126,7 +130,6 @@ function checkLatestId() {
 		data: {'action': "idcheck"},
 		success: function(data) {
 			var obj = jQuery.parseJSON(data);
-			console.log(obj);
 			latestId = parseInt(obj.id);
 			$("#pingCanvas").hide().fadeIn(50, function() {
 				$("#pingCanvas").fadeOut(350);
@@ -145,7 +148,6 @@ function getLatestData() {
 		data: {'action': "getdata"},
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
-			console.log(dataObj);
 			updateBoat(dataObj);
 			drawBoat();
 
@@ -164,9 +166,9 @@ function getLatestGpsData() {
 
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
-			console.log(dataObj);
 			updateGpsData(dataObj);
-			map(dataObj);
+		//	map(dataObj);
+			updateMarker(dataObj);
 		},
 		error: function(errorThrown) {
 			console.log(errorThrown);
@@ -234,6 +236,21 @@ function getLatestCompassData() {
 	});
 }
 
+function getWaypoints() {
+
+	$.ajax({
+		url: 'dbapi.php',
+		data: {'action': "getWaypoints"},
+		success: function(data) {
+			var dobj = jQuery.parseJSON(data);
+			map(dobj);
+		},
+		error: function(errorThrown) {
+			console.log(errorThrown);
+		}
+	});
+}
+
 
 function hideShowMapBoat() {
 	if(showMap == true) {
@@ -251,19 +268,33 @@ function hideShowMapBoat() {
 		showMap = true;
 	}
 }
-
-function map(dataObj) {
-		var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
+// lat 60.107101 lon 19.922842
+function updateMarker(dataObj) {
+			var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
+		marker.setPosition(latLong);
+}
+function map(waypointsObj) {
+		var latLong = {lat: Number(waypointsObj[0].latitude), lng: Number(waypointsObj[0].longitude)}
 		var mapDiv = document.getElementById("map");
-		var map = new google.maps.Map(mapDiv, {
+		 mapvar = new google.maps.Map(mapDiv, {
 			center: latLong,
 			zoom: 14
 		});
-		var marker = new google.maps.Marker({
-			position: latLong,
-			map: map,
+
+			marker = new google.maps.Marker({
+			map: mapvar,
 			title: 'sailingrobots'
 		});
+
+		for (var i = 0; i < waypointsObj.length; i++) {
+			var waypointMarkers = new google.maps.Marker({
+ 				position: new google.maps.LatLng(waypointsObj[i].latitude, waypointsObj[i].longitude),
+				map: mapvar,
+				icon :'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+				title: 'waypoints'
+			});
+		}
+
 }
 
 

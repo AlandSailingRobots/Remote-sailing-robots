@@ -76,13 +76,13 @@ class DBConnection {
 public function getLatestCourseCalculationData() {
 
 	try {
-	$sql = "SELECT *
-	FROM course_calculation_dataLogs
-	ORDER BY id_course_calculation
-	DESC LIMIT 1;";
+		$sql = "SELECT *
+		FROM course_calculation_dataLogs
+		ORDER BY id_course_calculation
+		DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
-	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
 	}
 	return $result;
 	}
@@ -90,13 +90,13 @@ public function getLatestCourseCalculationData() {
 		public function getLatestWindSensorData() {
 
 	try {
-	$sql = "SELECT *
-	FROM windsensor_dataLogs
-	ORDER BY id_windsensor
-	DESC LIMIT 1;";
+		$sql = "SELECT *
+		FROM windsensor_dataLogs
+		ORDER BY id_windsensor
+		DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
-	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
 	}
 	return $result;
 	}
@@ -104,13 +104,13 @@ public function getLatestCourseCalculationData() {
 	public function getLatestSystemData() {
 
 	try {
-	$sql = "SELECT *
-	FROM system_dataLogs
-	ORDER BY id_system
-	DESC LIMIT 1;";
+		$sql = "SELECT *
+		FROM system_dataLogs
+		ORDER BY id_system
+		DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
-	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
 	}
 	return $result;
 	}
@@ -118,15 +118,26 @@ public function getLatestCourseCalculationData() {
 	public function getLatestCompassData() {
 
 	try {
-	$sql = "SELECT *
-	FROM compass_dataLogs
-	ORDER BY id_compass_model
-	DESC LIMIT 1;";
+		$sql = "SELECT *
+		FROM compass_dataLogs
+		ORDER BY id_compass_model
+		DESC LIMIT 1;";
 	$result = $this->query($sql);
 	} catch (PDOException $e) {
-	die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
 	}
 	return $result;
+	}
+
+	public function getWaypoints() {
+		try {
+			$sql = "SELECT *
+			FROM waypoints;";
+			$result = $this->queryAll($sql);
+		} catch (PDOException $e) {
+			die("Woah, you wrote some crappy sql statement - lol. This went wrong: " . $e->getMessage());
+		}
+		return $result;
 	}
 
 	private function query($sql) {
@@ -135,7 +146,11 @@ public function getLatestCourseCalculationData() {
 		return $sth->fetch();
 	}
 
-
+	private function queryAll($sql) {
+		$sth = $this->dbconn->prepare($sql);
+		$sth->execute();
+		return $sth->fetchAll();
+	}
 }
 
 //when in non-wsdl mode the uri option must be specified
