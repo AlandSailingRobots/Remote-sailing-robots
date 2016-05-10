@@ -45,16 +45,20 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
+
+/*$(function() {
+=======
 var waypointsObj = null;
 var marker = null;
 
 $(function() {
+>>>>>>> 2bb45bbf497f1ec4f32aff980d2f3881ebef2fdc
 	$( "#boatDataGps" ).draggable();
 	$( "#boatDataCourse" ).draggable();
 	$( "#boatDataWindSensor" ).draggable();
 	$( "#boatDataSystem" ).draggable();
 	$( "#boatDataCompass" ).draggable();
-});
+});*/
 
 $(document).ready(function(){
 	document.getElementById("map").disabled = true;
@@ -430,10 +434,17 @@ function updateSystemData(dataSystem){
 	var dataValuesSystem = "";
 	Object.keys(dataSystem).forEach(function(key) {
 		if(isNaN(key)) {
+
+		/*	if(key == "true_wind_direction_calc"){
+				 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
+
+			}else{*/
+
 		//	if(key == "true_wind_direction_calc"){
 			//	 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
 
 			//}else{
+
 
 
 				dataNamesSystem +="<p>"+key+"</p>";
@@ -442,7 +453,11 @@ function updateSystemData(dataSystem){
 
 		}
 	});
+
+	//vTWD = parseFloat(dataSystem.true_wind_direction_calc);
+
 //	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
+
 	$("#dataNamesSystem").html(dataNamesSystem);
 	$("#dataValuesSystem").html(dataValuesSystem);
 }

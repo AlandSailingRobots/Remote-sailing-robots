@@ -1,4 +1,4 @@
- 
+
  <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 <body>
 
 	<h1>Configuration page</h1>
-	
+
 	<div id="wrapper">
 	    <div id="inner1">
 			<?php
@@ -78,5 +78,4 @@
 	</div>
 
 </body>
-</html> 
-
+</html>

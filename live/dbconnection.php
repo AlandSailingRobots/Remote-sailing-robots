@@ -11,6 +11,8 @@ class DBConnection {
 	//	$user = 'root';
 		$pass = 'test123data';
 	//	$pass = '';
+		$host = 'localhost';
+
 		$dbname = 'ithaax_testdata';
 
 		try {

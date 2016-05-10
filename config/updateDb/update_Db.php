@@ -1,5 +1,6 @@
 <?php
 
+
 	$servername = "localhost";
 	$username = "ithaax_testdata";
 	$password = "test123data";
@@ -12,6 +13,8 @@
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
 	}
+
+	require('../dbConn.php');
 
 	$table = $_POST['theTable'];
 	$selectedConfig = $_POST['selected_config'];
@@ -31,7 +34,7 @@
 		$conn->query($sqlquery);
 
 		if ($conn->query($sql) === TRUE) {
-		    header('Location: http://localhost/Remote-sailing-robots/config/test.php');
+		    header('Location: http://localhost/Remote-sailing-robots/config');
 				//header('Location: http://www.sailingrobots.com/testdata/configLog/');
 		} else {
 		    echo "Error updating record: " . $conn->error;
@@ -41,7 +44,7 @@
 
 	}
 	else {
-		header("location:http://localhost/Remote-sailing-robots/config/test.php");
+		header("location:http://localhost/Remote-sailing-robots/config");
 
 	}
 

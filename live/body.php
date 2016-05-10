@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -81,10 +78,6 @@
 
 
 
-
-
-
-
 <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
@@ -94,6 +87,8 @@
 
       <!-- START THE FEATURETTES -->
 
+
+    <div class="container marketing">
 
       <br><br><br><br><br>
 
@@ -118,8 +113,6 @@
         </div>
     </div>
         </div>
-
-
 
       <div class="col-md-3">
         <div id='boatData'>
