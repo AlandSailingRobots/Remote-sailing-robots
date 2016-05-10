@@ -1,8 +1,8 @@
 <?php
 
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
+	$username = "ithaax_testdata";
+	$password = "test123data";
 	$dbname = "ithaax_testdata";
 	// username = ithaax_testdata , pass = test123data
 	// Create connection
@@ -12,5 +12,3 @@
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
 	}
-
-

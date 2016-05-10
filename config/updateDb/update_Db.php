@@ -1,8 +1,8 @@
 <?php
 
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
+	$username = "ithaax_testdata";
+	$password = "test123data";
 	$dbname = "ithaax_testdata";
 	// username = ithaax_testdata , pass = test123data
 	// Create connection
@@ -22,7 +22,7 @@
 	echo $selectedConfig;
 	echo $inputValue;
 
-	
+
 	if($pw == "pophaax"){
 
 		$sql = "UPDATE $table SET $selectedConfig = '$inputValue'  where id=1";

@@ -46,8 +46,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li ><a href="http://localhost/Remote-sailing-robots/live">Live</a></li>
-            <li class="active"><a href="http://localhost/Remote-sailing-robots/config">Config</a></li>
+            <li ><a href="http://www.sailingrobots.com/testdata/live/">Live</a></li>
+            <li class="active"><a href="http://www.sailingrobots.com/testdata/config">Config</a></li>
             <li ><a href="http://www.sailingrobots.com/testdata/log/">Log</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -65,7 +65,7 @@
         <br><br><br>
 
 
-         
+
 
 
 
@@ -139,6 +139,6 @@
     <script src="Starter%20Template%20for%20Bootstrap_files/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="Starter%20Template%20for%20Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
-  
+
 
 </body></html>
