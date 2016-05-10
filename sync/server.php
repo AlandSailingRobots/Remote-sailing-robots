@@ -22,7 +22,7 @@
 		function setConfigsUpdated() {
 			$sql = "UPDATE config_updated SET updated = 0 where id=1";
 			$result = $this->db->query($sql);
-			$result->close();
+			//$result->close();
 		}
 
 	  function getDatalog($boat) {
@@ -129,13 +129,12 @@
 
 		function getAllConfigs($boat) {
 
-			//$this->setConfigsUpdated();
-			
+			$this->setConfigsUpdated();
+
 			return "{".$this->getCourseCalculationConfig($boat).$this->getMaestroControllerConfig($boat).$this->getRudderCommandConfig($boat).
 			$this->getRudderServoConfig($boat).$this->getSailingRobotConfig($boat).$this->getSailCommandConfig($boat)
 			.$this->getSailServoConfig($boat).$this->getWaypointRoutingConfig($boat).$this->getWindSensorConfig($boat)
 			.$this->getWindVaneConfig($boat)."}";
-
 		}
 
 		function getCourseCalculationConfig($boat) {
@@ -152,7 +151,7 @@
 				$sector_angle
 			);
 			$stmt->fetch();
-			
+
 			$json = '"course_calculation_config":
 						{
 						  "id":"1",
@@ -199,7 +198,6 @@
 				$midship_command
 			);
 			$stmt->fetch();
-
 			$json = '"rudder_command_config":
 						{
 						  "id":"1",
