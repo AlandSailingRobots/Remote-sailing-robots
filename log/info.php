@@ -1,3 +1,4 @@
+<?php session_start();  ?>
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -31,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <script src="../libs/jquery/jquery-1.11.1.min.js"></script>
     <script src="../libs/DataTables-1.10.0/media/js/jquery.dataTables.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script src="jsfunctions.js"></script>
 </head>
@@ -48,15 +50,6 @@
         <a class="navbar-brand" href="#">Log</a>
         <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/live/">Live</a>
         <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/config/">Config</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">GpsData</a></li>
-          <li><a href="#">CourseData</a></li>
-          <li><a href="#">WindSensorData</a></li>
-          <li><a href="#">CompassData</a></li>
-          <li><a href="#">SystemDatalogs</a></li>
-        </ul>
       </div>
     </div>
   </nav>
@@ -97,10 +90,11 @@
 </thead>
 <tbody>
 <?php
+
   require('dbconnection.php');
-  session_start();
   if(isset($_GET["id"]))
   {
+
     $id = $_GET["id"];
     $name = $_GET["name"];
     $table = $_GET["table"];
@@ -143,29 +137,32 @@
           <td>".$row["roll"]."</td>
           </tr>";
     }
-
+    //session_destroy();
   }
   else {
     echo "nothing";
   }
 
-
 ?>
 
 </tbody>
 </table>
-
 </div>
-<div id='map'></div>
-<div id='boatCanvas'>
-  <canvas width='900px' height='900px' id='pingCanvas' ></canvas>
-   <canvas width='900px' height='900px' id='layerCanvas'></canvas>
-   <canvas width='900px' height='900px' id='layerHeading'></canvas>
-   <canvas width='900px' height='900px' id='layerTWD'></canvas>
-   <canvas width='900px' height='900px' id='layerWaypoint'></canvas>
-   <canvas width='900px' height='900px' id='layerCompasHeading'></canvas>
-   <canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
-</div>
+  <div class="col-md-5">
+    <div id='mapbtn'>
+      <input type="button" class="btn btn-success" value="maps/boat" onclick="hideShowMapBoat()" />
+    </div>
+    <div id='map'></div>
+    <div id='boatCanvas'>
+      <canvas width='900px' height='900px' id='pingCanvas' ></canvas>
+       <canvas width='900px' height='900px' id='layerCanvas'></canvas>
+       <canvas width='900px' height='900px' id='layerHeading'></canvas>
+       <canvas width='900px' height='900px' id='layerTWD'></canvas>
+       <canvas width='900px' height='900px' id='layerWaypoint'></canvas>
+       <canvas width='900px' height='900px' id='layerCompasHeading'></canvas>
+       <canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
+    </div>
+  </div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

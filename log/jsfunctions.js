@@ -1,3 +1,5 @@
+$("#map").hide();
+var showMap = false;
 var layerBoat = null;
 var layerBoatctx = null;
 var layerCompasheading = null;
@@ -38,7 +40,10 @@ var vCompasHeading = 0;
 var vTWD = 0;
 
 $(document).ready(function(){
+	initBoat();
 	getData();
+	drawBoat();
+	hideShowMapBoat();
 
 });
 
@@ -242,6 +247,23 @@ function drawBoat() {
 				console.log(errorThrown);
 			}
 		});
+	}
+
+	function hideShowMapBoat() {
+		if(showMap == true) {
+			document.getElementById("map").disabled = true;
+			document.getElementById("map").style.visibility = "hidden";
+			document.getElementById("boatCanvas").disabled = false;
+			document.getElementById("boatCanvas").style.visibility = "visible";
+			showMap = false;
+		}
+		else{
+			document.getElementById("map").disabled = false;
+			document.getElementById("map").style.visibility = "visible";
+			document.getElementById("boatCanvas").disabled = true;
+			document.getElementById("boatCanvas").style.visibility = "hidden";
+			showMap = true;
+		}
 	}
 
   function updateBoat(data) {

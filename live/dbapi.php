@@ -35,6 +35,10 @@ switch ($_REQUEST['action']) {
 		$dataCompass = $service->getLatestCompassData();
 		echo json_encode($dataCompass);
 		break;
+	case 'getWaypoints':
+		$waypoints = $service->getWaypoints();
+		echo json_encode($waypoints);
+		break;
 	default:
 		echo "!!! CONNY W T F !!!";
 		break;

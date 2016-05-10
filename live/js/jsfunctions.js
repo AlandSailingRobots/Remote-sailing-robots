@@ -45,7 +45,14 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
+
 /*$(function() {
+=======
+var waypointsObj = null;
+var marker = null;
+
+$(function() {
+>>>>>>> 2bb45bbf497f1ec4f32aff980d2f3881ebef2fdc
 	$( "#boatDataGps" ).draggable();
 	$( "#boatDataCourse" ).draggable();
 	$( "#boatDataWindSensor" ).draggable();
@@ -59,9 +66,10 @@ $(document).ready(function(){
 	initBoat();
 	drawBoat();
 	resizeDiv();
+	getWaypoints();
 	setUpdateTimer(3000);
 });
-
+//lat 60.107429 long 19.923938
 $(window).resize(function() {
 	$("#boatCanvas").hide();
 	sleep(1000, resizeDiv);
@@ -109,7 +117,8 @@ function setUpdateTimer(interval) {
 
 function run() {
 	checkLatestId();
-	//if(!isNaN(latestId) && latestId !== currentId) {
+	if(!isNaN(latestId) && latestId !== currentId) {
+		console.log("update");
 		getLatestData();
 		getLatestGpsData();
 		getLatestCourseCalculationData();
@@ -117,7 +126,7 @@ function run() {
 		getLatestSystemData();
 		getLatestCompassData();
 		currentId = latestId;
-	//}
+	}
 }
 function checkLatestId() {
 
@@ -126,8 +135,7 @@ function checkLatestId() {
 		data: {'action': "idcheck"},
 		success: function(data) {
 			var obj = jQuery.parseJSON(data);
-			console.log(obj);
-			latestId = parseInt(obj.id);
+			latestId = parseInt(obj.id_system);
 			$("#pingCanvas").hide().fadeIn(50, function() {
 				$("#pingCanvas").fadeOut(350);
 			});
@@ -145,7 +153,6 @@ function getLatestData() {
 		data: {'action': "getdata"},
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
-			console.log(dataObj);
 			updateBoat(dataObj);
 			drawBoat();
 
@@ -164,9 +171,8 @@ function getLatestGpsData() {
 
 		success: function(data) {
 			var dataObj = jQuery.parseJSON(data);
-			console.log(dataObj);
 			updateGpsData(dataObj);
-			map(dataObj);
+			updateMarker(dataObj);
 		},
 		error: function(errorThrown) {
 			console.log(errorThrown);
@@ -234,6 +240,21 @@ function getLatestCompassData() {
 	});
 }
 
+function getWaypoints() {
+
+	$.ajax({
+		url: 'dbapi.php',
+		data: {'action': "getWaypoints"},
+		success: function(data) {
+			var dobj = jQuery.parseJSON(data);
+			map(dobj);
+		},
+		error: function(errorThrown) {
+			console.log(errorThrown);
+		}
+	});
+}
+
 
 function hideShowMapBoat() {
 	if(showMap == true) {
@@ -251,19 +272,33 @@ function hideShowMapBoat() {
 		showMap = true;
 	}
 }
-
-function map(dataObj) {
-		var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
+// lat 60.107101 lon 19.922842
+function updateMarker(dataObj) {
+			var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
+		marker.setPosition(latLong);
+}
+function map(waypointsObj) {
+		var latLong = {lat: Number(waypointsObj[0].latitude), lng: Number(waypointsObj[0].longitude)}
 		var mapDiv = document.getElementById("map");
-		var map = new google.maps.Map(mapDiv, {
+		 mapvar = new google.maps.Map(mapDiv, {
 			center: latLong,
 			zoom: 14
 		});
-		var marker = new google.maps.Marker({
-			position: latLong,
-			map: map,
+
+			marker = new google.maps.Marker({
+			map: mapvar,
 			title: 'sailingrobots'
 		});
+
+		for (var i = 0; i < waypointsObj.length; i++) {
+			var waypointMarkers = new google.maps.Marker({
+ 				position: new google.maps.LatLng(waypointsObj[i].latitude, waypointsObj[i].longitude),
+				map: mapvar,
+				icon :'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+				title: 'waypoints'
+			});
+		}
+
 }
 
 
@@ -399,10 +434,17 @@ function updateSystemData(dataSystem){
 	var dataValuesSystem = "";
 	Object.keys(dataSystem).forEach(function(key) {
 		if(isNaN(key)) {
+
 		/*	if(key == "true_wind_direction_calc"){
 				 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
 
 			}else{*/
+
+		//	if(key == "true_wind_direction_calc"){
+			//	 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
+
+			//}else{
+
 
 
 				dataNamesSystem +="<p>"+key+"</p>";
@@ -411,7 +453,11 @@ function updateSystemData(dataSystem){
 
 		}
 	});
+
 	//vTWD = parseFloat(dataSystem.true_wind_direction_calc);
+
+//	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
+
 	$("#dataNamesSystem").html(dataNamesSystem);
 	$("#dataValuesSystem").html(dataValuesSystem);
 }
