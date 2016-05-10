@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <script type="text/javascript" src="js/formGatherer.js"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +33,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
   <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -64,14 +66,6 @@
         </div>
         <br><br><br>
 
-
-         
-
-
-
-
-
-
       <div class="row">
         <?php
           require('getConfigs/get_course_calculation_config.php');
@@ -79,18 +73,15 @@
         <?php
           require('getConfigs/get_maestro_controller_config.php');
         ?>
-      </div>
-
-      <div class="row">
         <?php
           require('getConfigs/get_rudder_command_config.php');
         ?>
-        <?php
-          require('getConfigs/get_rudder_servo_config.php');
-        ?>
       </div>
 
       <div class="row">
+        <?php
+          require('getConfigs/get_rudder_servo_config.php');
+        ?>
         <?php
           require('getConfigs/get_sailing_robot_config.php');
         ?>
@@ -106,21 +97,22 @@
         <?php
           require('getConfigs/get_waypoint_routing_config.php');
         ?>
-      </div>
-
-      <div class="row">
         <?php
           require('getConfigs/get_windsensor_config.php');
         ?>
-        <?php
-          require('getConfigs/get_wind_vane_config.php');
-        ?>
       </div>
 
       <div class="row">
         <?php
+          require('getConfigs/get_wind_vane_config.php');
+        ?>
+        <?php
           require('getConfigs/get_xbee_config.php');
         ?>
+      </div>
+      <br>
+      <div class="row">
+        <input type='button' value='Just do it!' class='btn btn-success col-md-2' onclick='submitForms()'/>
       </div>
 
         </div>
@@ -130,7 +122,6 @@
       </footer>
     </div><!-- /.container -->
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -139,6 +130,5 @@
     <script src="Starter%20Template%20for%20Bootstrap_files/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="Starter%20Template%20for%20Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
-  
 
 </body></html>
