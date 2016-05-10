@@ -1,7 +1,7 @@
 <?php
-
-require('dbconnection.php');
 session_start();
+require('dbconnection.php');
+
 $id = $_SESSION['id'];
 $name = $_SESSION['name'];
 $table = $_SESSION['table'];
@@ -14,4 +14,5 @@ switch ($_REQUEST['action']) {
 		echo "!!! CONNY W T F !!!";
 		break;
 }
+
 ?>

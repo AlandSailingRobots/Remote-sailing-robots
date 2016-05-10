@@ -43,8 +43,8 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Log</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/live/">Live</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/config/">Config</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/live/">Live</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/config/">Config</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -112,7 +112,7 @@
                   <th>heading</th>
                   <th>satellites_used</th>
                   <th>longitude</th>
-
+                  <th>timestamp</th>
                 </tr>
               </thead>
 
@@ -129,6 +129,7 @@
                       <td>".$row["heading"]."</td>
                       <td>".$row["satellites_used"]."</td>
                       <td>".$row["longitude"]."</td>
+                      <td>".$row["Timestamp"]."</td>
                       <td><a href=info.php?name=id_gps&table=gps_dataLogs&id=".$row["id_gps"]." target='_blank'>display all</a></td>
                       ";
                 }
