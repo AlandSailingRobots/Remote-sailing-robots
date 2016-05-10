@@ -70,7 +70,7 @@
     <script src="Carousel%20Template%20for%20Bootstrap_files/holder.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="Carousel%20Template%20for%20Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
-  
+
 
 <svg style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;" preserveAspectRatio="none" viewBox="0 0 500 500" height="500" width="500"><defs><style type="text/css"></style></defs><text style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif" y="25" x="0">500x500</text></svg></body></html>
 
@@ -81,7 +81,7 @@
 
 
 
-  
+
 
 
 
@@ -94,11 +94,11 @@
 
       <!-- START THE FEATURETTES -->
 
-   
+
       <br><br><br><br><br>
 
       <div class="row featurette">
-      
+
         <div class="col-md-4">
           <div id='boatData'>
       <div id='boatDataSystem'>
@@ -128,7 +128,7 @@
   				<div id='dataNameGps' ></div>
   				<div id='dataValueGps'></div>
   			</div>
-  			
+
 			 <div id='boatDataWindSensor' >
 				  <h2>WindSensorData</h2>
 				  <div id='dataNamesWindSensor'></div>
@@ -141,11 +141,11 @@
 
         <div class="col-md-5">
 
-          	<div id='mapbtn'>
+      <div id='mapbtn'>
 				<input type="button" class="btn btn-success" value="maps/boat" onclick="hideShowMapBoat()" />
 			</div>
-	
-         	
+
+
 			<div id='boatCanvas'>
 				<canvas width='900px' height='900px' id='pingCanvas' ></canvas>
 				<canvas width='900px' height='900px' id='layerCanvas'></canvas>
@@ -156,7 +156,7 @@
 				<canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
 			</div>
 			<div id='map'></div>
-        </div>
+      </div>
       </div>
 
       <!-- /END THE FEATURETTES -->
@@ -167,20 +167,3 @@
 
 
     </div><!-- /.container -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,11 +6,11 @@ class DBConnection {
 
 	function __construct() {
 
-		$host = 'localhost';
-	//	$user = 'ithaax_testdata';
-		$user = 'root';
-		//$pass = 'test123data';
-		$pass = '';
+	//	$host = 'localhost';
+		$user = 'ithaax_testdata';
+	//	$user = 'root';
+		$pass = 'test123data';
+	//	$pass = '';
 		$dbname = 'ithaax_testdata';
 
 		try {
