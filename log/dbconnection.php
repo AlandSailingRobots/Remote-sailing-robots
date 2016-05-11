@@ -1,8 +1,8 @@
 <?php
 function dbConn() {
 	//	username: ithaax_testdata & pass: test123data
-	$userName = "ithaax_testdata";
-	$passWord = "test123data";
+	$userName = "root";
+	$passWord = "";
 	$conn = new PDO('mysql:host=localhost;dbname=ithaax_testdata',$userName, $passWord);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -80,10 +80,6 @@ function getData($table){
 function getAll($id, $name, $table){
 	$conn = dbConn();
 	try {
-		$pages = getPages("system_dataLogs");
-		$perpage = getPerPage();
-		$number = getNumber();
-		$range  = $perpage * ($number - 1);
 
     $stmt = $conn->prepare("SELECT * FROM system_dataLogs
             JOIN gps_dataLogs
@@ -105,6 +101,19 @@ function getAll($id, $name, $table){
 
 	$conn = null;
 	return $result;
+}
+
+function getRoute($number){
+	$conn = dbConn();
+	try {
+		$stmt = $conn->prepare("SELECT latitude, longitude FROM gps_dataLogs LIMIT $number");
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+	}
+	catch(PDOException $e) {
+	 $error = $e->getMessage();
+ }
+ return $result;
 }
 
 ?>

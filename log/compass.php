@@ -43,8 +43,8 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Log</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/live/">Live</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/config/">Config</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/live/">Live</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/config/">Config</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">

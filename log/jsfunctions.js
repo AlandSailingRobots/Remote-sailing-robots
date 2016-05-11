@@ -38,10 +38,13 @@ var vCTS = 0;
 var vTACKING = 0;
 var vCompasHeading = 0;
 var vTWD = 0;
+var route = null;
 
 $(document).ready(function(){
+	getRoute();
 	initBoat();
 	getData();
+
 	drawBoat();
 	hideShowMapBoat();
 
@@ -113,6 +116,21 @@ function map(lati, lon) {
      map: map,
      title: 'sailingrobots'
    });
+
+		 var boatPath = new google.maps.Polyline({
+	    geodesic: true,
+	    strokeColor: '#FF0000',
+	    strokeOpacity: 1.0,
+	    strokeWeight: 2
+	  });
+
+		var routes=[];
+		 for(var i = 0; i <= route.length-1; i++){
+					routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
+			}
+
+		boatPath.setPath(routes);
+		boatPath.setMap(map);
 }
 
 function drawBoat() {
@@ -240,8 +258,23 @@ function drawBoat() {
 				data = data.replace('[','');
 				data = data.replace(']','');
 				var dataObj = jQuery.parseJSON(data);
+				console.log(dataObj);
 				updateBoat(dataObj);
 				map(dataObj.latitude, dataObj.longitude);
+			},
+			error: function(errorThrown) {
+				console.log(errorThrown);
+			}
+		});
+	}
+
+	function getRoute() {
+		$.ajax({
+			url: 'dbapi.php',
+			data: {'action': "getRoute"},
+			success: function(data) {
+				route = jQuery.parseJSON(data);
+
 			},
 			error: function(errorThrown) {
 				console.log(errorThrown);
@@ -286,7 +319,6 @@ function drawBoat() {
   	if(vWIND > 360) {
   		vWIND = vWIND -360;
   	}
-		console.log("goo");
 		initBoat();
 		drawBoat();
   }
