@@ -106,7 +106,7 @@ function getAll($id, $name, $table){
 function getRoute($number){
 	$conn = dbConn();
 	try {
-		$stmt = $conn->prepare("SELECT latitude, longitude FROM gps_dataLogs LIMIT $number");
+		$stmt = $conn->prepare("SELECT latitude, longitude, routeStart FROM gps_dataLogs LIMIT $number");
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 	}

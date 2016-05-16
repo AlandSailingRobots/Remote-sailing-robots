@@ -114,15 +114,17 @@
 
               <tbody>
                 <?php
+                $i = 0;
                 foreach($result as $key => $row)
                 {
+                  $i++;
                   echo "
                     <tr>
                       <td>".$row["id_compass_model"]."</td>
                       <td>".$row["heading"]."</td>
                       <td>".$row["pitch"]."</td>
                       <td>".$row["roll"]."</td>
-                      <td><a href=info.php?name=id_compass_model&table=compass_dataLogs&id=".$row["id_compass_model"]." target='_blank'>display all</a></td>";
+                      <td><a href=info.php?number=$i&name=id_compass_model&table=compass_dataLogs&id=".$row["id_compass_model"]." target='_blank'>display all</a></td>";
                 }
                 ?>
               </tbody>

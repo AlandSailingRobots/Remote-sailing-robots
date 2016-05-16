@@ -26,6 +26,8 @@ var heading = null;
 var waypoint = null;
 var tacking = null;
 var ping = null;
+
+
 var compasHeading = null;
 var trueWindDirection = null;
 
@@ -116,18 +118,24 @@ function map(lati, lon) {
      map: map,
      title: 'sailingrobots'
    });
-
+	 var routes=[];
+	 var count = 0;
+		for(var i = 0; i <= route.length-1; i++){
+				if(route[i].routeStart == 1){
+					count++;
+					if(count >=2){
+						routes=[];
+						count = 0;
+					}
+				}
+				routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
+		 }
 		 var boatPath = new google.maps.Polyline({
-	    geodesic: true,
-	    strokeColor: '#FF0000',
-	    strokeOpacity: 1.0,
-	    strokeWeight: 2
-	  });
-
-		var routes=[];
-		 for(var i = 0; i <= route.length-1; i++){
-					routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
-			}
+			geodesic: true,
+			strokeColor: '#FF0000',
+			strokeOpacity: 1.0,
+			strokeWeight: 2
+		});
 
 		boatPath.setPath(routes);
 		boatPath.setMap(map);
@@ -258,7 +266,6 @@ function drawBoat() {
 				data = data.replace('[','');
 				data = data.replace(']','');
 				var dataObj = jQuery.parseJSON(data);
-				console.log(dataObj);
 				updateBoat(dataObj);
 				map(dataObj.latitude, dataObj.longitude);
 			},
@@ -274,13 +281,13 @@ function drawBoat() {
 			data: {'action': "getRoute"},
 			success: function(data) {
 				route = jQuery.parseJSON(data);
-
 			},
 			error: function(errorThrown) {
 				console.log(errorThrown);
 			}
 		});
 	}
+
 
 	function hideShowMapBoat() {
 		if(showMap == true) {

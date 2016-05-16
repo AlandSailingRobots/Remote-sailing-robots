@@ -119,8 +119,10 @@
 
               <tbody>
                 <?php
+                $i=0;
                 foreach($result as $key => $row)
                 {
+                  $i++;
                   echo "
                     <tr>
                       <td>".$row["id_system"]."</td>
@@ -129,7 +131,7 @@
                       <td>".$row["rudder_command_rudder"]."</td>
                       <td>".$row["sail_servo_position"]."</td>
                       <td>".$row["rudder_servo_position"]."</td>
-                      <td><a href=info.php?name=id_system&table=system_dataLogs&id=".$row["id_system"]." target='_blank'>display all</a></td>
+                      <td><a href=info.php?number=$i&name=id_system&table=system_dataLogs&id=".$row["id_system"]." target='_blank'>display all</a></td>
                       ";
                 }
                 ?>
