@@ -1,7 +1,7 @@
 <?php
 
-$options = array('location' => 'http://www.sailingrobots.com/testdata/live/dbconnection.php', 'uri' => 'http://localhost/');
-//$options = array('location' => 'http://localhost/Remote-sailing-robots/live/dbconnection.php', 'uri' => 'http://localhost/');
+//$options = array('location' => 'http://www.sailingrobots.com/testdata/live/dbconnection.php', 'uri' => 'http://localhost/');
+$options = array('location' => 'http://localhost/Remote-sailing-robots/live/dbconnection.php', 'uri' => 'http://localhost/');
 //create an instante of the SOAPClient (the API will be available)
 $service = new SoapClient(NULL, $options);
 //call an API method
@@ -11,28 +11,24 @@ switch ($_REQUEST['action']) {
 		//$data = $service->getLatestData(end($id));
 		echo json_encode($id);
 		break;
-	case 'getdata':
-		$data = $service->getLatestData();
-		echo json_encode($data);
-		break;
 	case 'getGpsData':
-		$dataGps = $service->getLatestGpsData();
+		$dataGps = $service->getLatestData("gps_dataLogs","id_gps");
 		echo json_encode($dataGps);
 		break;
 	case 'getCourseCalculationData':
-		$dataCourse = $service->getLatestCourseCalculationData();
+		$dataCourse = $service->getLatestData("course_calculation_dataLogs", "id_course_calculation");
 		echo json_encode($dataCourse);
 		break;
 	case 'getWindSensorData':
-		$dataWindSensor = $service->getLatestWindSensorData();
+		$dataWindSensor = $service->getLatestData("windsensor_dataLogs", "id_windsensor");
 		echo json_encode($dataWindSensor);
 		break;
 	case 'getSystemData':
-		$dataSystem = $service->getLatestSystemData();
+		$dataSystem = $service->getLatestData("system_dataLogs", "id_system");
 		echo json_encode($dataSystem);
 		break;
 	case 'getCompassData':
-		$dataCompass = $service->getLatestCompassData();
+		$dataCompass = $service->getLatestData("compass_dataLogs", "id_compass_model");
 		echo json_encode($dataCompass);
 		break;
 	case 'getWaypoints':

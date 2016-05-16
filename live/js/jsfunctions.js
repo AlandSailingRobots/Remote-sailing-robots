@@ -23,7 +23,7 @@ var mainsail = null;
 var jib = null;
 var rudder = null;
 var trueWindArrow = null;
-//var gpsHeading = null;
+
 var compass = null;
 var heading = null;
 var waypoint = null;
@@ -45,21 +45,6 @@ var vCompasHeading = 0;
 var latestId = -1;
 var currentId = -1;
 
-
-/*$(function() {
-=======
-var waypointsObj = null;
-var marker = null;
-
-$(function() {
->>>>>>> 2bb45bbf497f1ec4f32aff980d2f3881ebef2fdc
-	$( "#boatDataGps" ).draggable();
-	$( "#boatDataCourse" ).draggable();
-	$( "#boatDataWindSensor" ).draggable();
-	$( "#boatDataSystem" ).draggable();
-	$( "#boatDataCompass" ).draggable();
-});*/
-
 $(document).ready(function(){
 	document.getElementById("map").disabled = true;
 	document.getElementById("map").style.visibility = "hidden";
@@ -69,7 +54,6 @@ $(document).ready(function(){
 	getWaypoints();
 	setUpdateTimer(3000);
 });
-//lat 60.107429 long 19.923938
 $(window).resize(function() {
 	$("#boatCanvas").hide();
 	sleep(1000, resizeDiv);
@@ -118,13 +102,11 @@ function setUpdateTimer(interval) {
 function run() {
 	checkLatestId();
 	if(!isNaN(latestId) && latestId !== currentId) {
-		console.log("update");
-		getLatestData();
-		getLatestGpsData();
-		getLatestCourseCalculationData();
-		getLatestWindSensorData();
-		getLatestSystemData();
-		getLatestCompassData();
+		getLatestData("getGpsData");
+		getLatestData("getCourseCalculationData");
+		getLatestData("getWindSensorData");
+		getLatestData("getSystemData");
+		getLatestData("getCompassData");
 		currentId = latestId;
 	}
 }
@@ -146,93 +128,20 @@ function checkLatestId() {
 	});
 }
 
-function getLatestData() {
+function getLatestData(table) {
 
 	$.ajax({
 		url: 'dbapi.php',
-		data: {'action': "getdata"},
+		data: {'action': table},
 		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			updateBoat(dataObj);
+			var dataObj = jQuery.parseJSON(data)
+			updateBoat();
 			drawBoat();
+			updateData(dataObj);
+			if (dataObj.hasOwnProperty('id_gps')) {
+				updateMarker(dataObj);
+			}
 
-		},
-		error: function(errorThrown) {
-			console.log(errorThrown);
-		}
-	});
-}
-
-function getLatestGpsData() {
-
-	$.ajax({
-		url: 'dbapi.php',
-		data: {'action': "getGpsData"},
-
-		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			updateGpsData(dataObj);
-			updateMarker(dataObj);
-		},
-		error: function(errorThrown) {
-			console.log(errorThrown);
-		}
-	});
-}
-
-function getLatestCourseCalculationData() {
-
-	$.ajax({
-		url: 'dbapi.php',
-		data: {'action': "getCourseCalculationData"},
-		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			updateCourseCalculationData(dataObj);
-		},
-		error: function(errorThrown) {
-			console.log(errorThrown);
-		}
-	});
-}
-
-function getLatestWindSensorData() {
-
-	$.ajax({
-		url: 'dbapi.php',
-		data: {'action': "getWindSensorData"},
-		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			updateWindSensorData(dataObj);
-		},
-		error: function(errorThrown) {
-			console.log(errorThrown);
-		}
-	});
-}
-
-function getLatestSystemData() {
-
-	$.ajax({
-		url: 'dbapi.php',
-		data: {'action': "getSystemData"},
-		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			updateSystemData(dataObj);
-		},
-		error: function(errorThrown) {
-			console.log(errorThrown);
-		}
-	});
-}
-
-function getLatestCompassData() {
-
-	$.ajax({
-		url: 'dbapi.php',
-		data: {'action': "getCompassData"},
-		success: function(data) {
-			var dataObj = jQuery.parseJSON(data);
-			updateCompassData(dataObj);
 		},
 		error: function(errorThrown) {
 			console.log(errorThrown);
@@ -241,13 +150,12 @@ function getLatestCompassData() {
 }
 
 function getWaypoints() {
-
 	$.ajax({
 		url: 'dbapi.php',
 		data: {'action': "getWaypoints"},
 		success: function(data) {
-			var dobj = jQuery.parseJSON(data);
-			map(dobj);
+			var dataObj = jQuery.parseJSON(data);
+			map(dataObj);
 		},
 		error: function(errorThrown) {
 			console.log(errorThrown);
@@ -272,7 +180,7 @@ function hideShowMapBoat() {
 		showMap = true;
 	}
 }
-// lat 60.107101 lon 19.922842
+
 function updateMarker(dataObj) {
 			var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
 		marker.setPosition(latLong);
@@ -353,19 +261,7 @@ function initBoat() {
 	pingCanvasctx.drawImage(ping,0,0);
 
 }
-
-function updateBoat(data) {
-	/*vHEADING = parseFloat(data.heading);
-	vWIND = parseFloat(data.direction);
-	vSAIL = parseFloat(data.sail_command_sail);
-	vRUDDER = parseFloat(data.rudder_command_rudder);
-	vWAYPOINT = parseFloat(data.bearing_to_waypoint);
-	vCTS = parseFloat(data.course_to_steer);
-	vTACKING = parseFloat(data.tack);
-	vTWD = parseFloat(data.true_wind_direction_calc);
-	vGpsHeading = parseFloat(data.heading);
-	vCompasHeading = parseFloat(data.heading);*/
-
+function updateBoat() {
 	vSailMin = 5824;
 	vSailMax = 7424;
 	vSAIL = (((vSAIL-vSailMin)/(vSailMax-vSailMin))*60)-60;
@@ -374,106 +270,44 @@ function updateBoat(data) {
 	if(vWIND > 360) {
 		vWIND = vWIND -360;
 	}
+}
 
+
+function updateData(dataObj){
 	var dataNames = "";
 	var dataValues = "";
-	Object.keys(data).forEach(function(key) {
+	Object.keys(dataObj).forEach(function(key) {
 		if(isNaN(key)) {
 			dataNames +="<p>"+key+"</p>";
-			dataValues += "<p>"+data[key]+"</p>";
-		}
-	});
-	$("#dataName").html(dataNames);
-	$("#dataValue").html(dataValues);
-}
-function updateGpsData(dataGps){
-	var dataNamesGps = "";
-	var dataValuesGps = "";
-	Object.keys(dataGps).forEach(function(key) {
-		if(isNaN(key)) {
-			dataNamesGps +="<p>"+key+"</p>";
-			dataValuesGps += "<p>"+dataGps[key]+"</p>";
-		}
-	});
-	vGpsHeading = parseFloat(dataGps.heading);
-
-	$("#dataNameGps").html(dataNamesGps);
-	$("#dataValueGps").html(dataValuesGps);
-}
-
-function updateCourseCalculationData(dataCourse){
-	var dataNamesCourse = "";
-	var dataValuesCourse = "";
-	Object.keys(dataCourse).forEach(function(key) {
-		if(isNaN(key)) {
-			dataNamesCourse +="<p>"+key+"</p>";
-			dataValuesCourse += "<p>"+dataCourse[key]+"</p>";
+			dataValues += "<p>"+dataObj[key]+"</p>";
 		}
 	});
 
-	vWAYPOINT = parseFloat(dataCourse.bearing_to_waypoint);
-	$("#dataNamesCourse").html(dataNamesCourse);
-	$("#dataValuesCourse").html(dataValuesCourse);
-}
+	if (dataObj.hasOwnProperty('id_gps')) {
+		vGpsHeading = parseFloat(dataObj.heading);
+		$("#dataNameGps").html(dataNames);
+		$("#dataValueGps").html(dataValues);
+	}
+	if (dataObj.hasOwnProperty('id_course_calculation')) {
+			vWAYPOINT = parseFloat(dataObj.bearing_to_waypoint);
+		$("#dataNamesCourse").html(dataNames);
+		$("#dataValuesCourse").html(dataValues);
+	}
+	if (dataObj.hasOwnProperty('id_windsensor')) {
+			$("#dataNamesWindSensor").html(dataNames);
+			$("#dataValuesWindSensor").html(dataValues);
+	}
+	if (dataObj.hasOwnProperty('id_system')) {
 
-function updateWindSensorData(dataWindSensor){
-	var dataNamesWindSensor = "";
-	var dataValuesWindSensor = "";
-	Object.keys(dataWindSensor).forEach(function(key) {
-		if(isNaN(key)) {
-			dataNamesWindSensor +="<p>"+key+"</p>";
-			dataValuesWindSensor += "<p>"+dataWindSensor[key]+"</p>";
-		}
-	});
-	$("#dataNamesWindSensor").html(dataNamesWindSensor);
-	$("#dataValuesWindSensor").html(dataValuesWindSensor);
-}
-
-function updateSystemData(dataSystem){
-	var dataNamesSystem = "";
-	var dataValuesSystem = "";
-	Object.keys(dataSystem).forEach(function(key) {
-		if(isNaN(key)) {
-
-		/*	if(key == "true_wind_direction_calc"){
-				 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
-
-			}else{*/
-
-		//	if(key == "true_wind_direction_calc"){
-			//	 dataNamesSystem +=key+" "+"<img src='images/compasHeading.png' alt='Smiley face' height='20' width='20'></p>";
-
-			//}else{
-
-
-
-				dataNamesSystem +="<p>"+key+"</p>";
-				dataValuesSystem += "<p>"+dataSystem[key]+"</p>";
-			//}
-
-		}
-	});
-
-	//vTWD = parseFloat(dataSystem.true_wind_direction_calc);
-
-//	vTWD = parseFloat(dataSystem.true_wind_direction_calc);
-
-	$("#dataNamesSystem").html(dataNamesSystem);
-	$("#dataValuesSystem").html(dataValuesSystem);
-}
-
-function updateCompassData(dataCompass){
-	var dataNamesCompass = "";
-	var dataValuesCompass = "";
-	Object.keys(dataCompass).forEach(function(key) {
-		if(isNaN(key)) {
-			dataNamesCompass +="<p>"+key+"</p>";
-			dataValuesCompass += "<p>"+dataCompass[key]+"</p>";
-		}
-	});
-	vCompasHeading = parseFloat(dataCompass.heading);
-	$("#dataNamesCompass").html(dataNamesCompass);
-	$("#dataValuesCompass").html(dataValuesCompass);
+		$("#dataNamesSystem").html(dataNames);
+		$("#dataValuesSystem").html(dataValues);
+	}
+	if (dataObj.hasOwnProperty('id_compass_model')) {
+		console.log("dasfdsa");
+		vCompasHeading = parseFloat(dataObj.heading);
+		$("#dataNamesCompass").html(dataNames);
+		$("#dataValuesCompass").html(dataValues);
+	}
 }
 
 function drawBoat() {
