@@ -82,13 +82,24 @@ function getAll($id, $name, $table){
 	try {
 
     $stmt = $conn->prepare("SELECT * FROM system_dataLogs
-            JOIN gps_dataLogs
+            RIGHT JOIN gps_dataLogs
             ON system_dataLogs.id_system=gps_dataLogs.id_gps
-            JOIN course_calculation_dataLogs
+            RIGHT JOIN course_calculation_dataLogs
             ON system_dataLogs.id_system=course_calculation_dataLogs.id_course_calculation
-            JOIN windsensor_dataLogs
+            RIGHT JOIN windsensor_dataLogs
             ON system_dataLogs.id_system=windsensor_dataLogs.id_windsensor
-            JOIN compass_dataLogs
+            RIGHT JOIN compass_dataLogs
+            ON system_dataLogs.id_system=compass_dataLogs.id_compass_model
+            WHERE $table.$name = $id
+						UNION
+						SELECT * FROM system_dataLogs
+            LEFT JOIN gps_dataLogs
+            ON system_dataLogs.id_system=gps_dataLogs.id_gps
+            LEFT JOIN course_calculation_dataLogs
+            ON system_dataLogs.id_system=course_calculation_dataLogs.id_course_calculation
+            LEFT JOIN windsensor_dataLogs
+            ON system_dataLogs.id_system=windsensor_dataLogs.id_windsensor
+            LEFT JOIN compass_dataLogs
             ON system_dataLogs.id_system=compass_dataLogs.id_compass_model
             WHERE $table.$name = $id");
 		$stmt->execute();
