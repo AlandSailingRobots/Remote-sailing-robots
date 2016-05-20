@@ -43,8 +43,8 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Log</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/live/">Live</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/config/">Config</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/live/">Live</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/config/">Config</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -97,7 +97,6 @@
                 else
                   echo "<a href=\"?page=$prev\">&laquo; prev</a> | <a href=\"?page=$next\">next &raquo;</a>";
               }
-
               else
               {
                 echo "<p>No results found.</p>";
@@ -105,27 +104,26 @@
               ?>
               <thead>
                 <tr>
-
                   <th>id_windsensor</th>
                   <th>direction</th>
                   <th>speed</th>
                   <th>temperature</th>
-
                 </tr>
               </thead>
 
               <tbody>
                 <?php
+                $i=0;
                 foreach($result as $key => $row)
                 {
+                  $i++;
                   echo "
                     <tr>
-
                       <td>".$row["id_windsensor"]."</td>
                       <td>".$row["direction"]."</td>
                       <td>".$row["speed"]."</td>
                       <td>".$row["temperature"]."</td>
-                      <td><a href=info.php?name=id_windsensor&table=windsensor_dataLogs&id=".$row["id_windsensor"]." target='_blank'>display all</a></td>";
+                      <td><a href=info.php?number=$i&name=id_windsensor&table=windsensor_dataLogs&id=".$row["id_windsensor"]." target='_blank'>display all</a></td>";
 
                 }
                 ?>

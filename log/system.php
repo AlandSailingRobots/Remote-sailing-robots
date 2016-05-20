@@ -42,9 +42,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+
+
           <a class="navbar-brand" href="#">Log</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/live/">Live</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/config/">Config</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/live/">Live</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/config/">Config</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -117,8 +119,10 @@
 
               <tbody>
                 <?php
+                $i=0;
                 foreach($result as $key => $row)
                 {
+                  $i++;
                   echo "
                     <tr>
                       <td>".$row["id_system"]."</td>
@@ -127,7 +131,7 @@
                       <td>".$row["rudder_command_rudder"]."</td>
                       <td>".$row["sail_servo_position"]."</td>
                       <td>".$row["rudder_servo_position"]."</td>
-                      <td><a href=info.php?name=id_system&table=system_dataLogs&id=".$row["id_system"]." target='_blank'>display all</a></td>
+                      <td><a href=info.php?number=$i&name=id_system&table=system_dataLogs&id=".$row["id_system"]." target='_blank'>display all</a></td>
                       ";
                 }
                 ?>

@@ -76,7 +76,20 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+
+
+<!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
     <div class="container marketing">
+
+
+      <!-- START THE FEATURETTES -->
+
+
+    <div class="container marketing">
+
       <br><br><br><br><br>
 
       <div class="row featurette">
@@ -121,7 +134,7 @@
 
         <div class="col-md-5">
 
-          	<div id='mapbtn'>
+      <div id='mapbtn'>
 				<input type="button" class="btn btn-success" value="maps/boat" onclick="hideShowMapBoat()" />
 			</div>
 
@@ -136,7 +149,7 @@
 				<canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
 			</div>
 			<div id='map'></div>
-        </div>
+      </div>
       </div>
 
       <!-- /END THE FEATURETTES -->

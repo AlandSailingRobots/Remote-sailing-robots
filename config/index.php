@@ -52,8 +52,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li ><a href="http://localhost/Remote-sailing-robots/live">Live</a></li>
-            <li class="active"><a href="http://localhost/Remote-sailing-robots/config">Config</a></li>
+            <li ><a href="http://www.sailingrobots.com/testdata/live/">Live</a></li>
+            <li class="active"><a href="http://www.sailingrobots.com/testdata/config">Config</a></li>
             <li ><a href="http://www.sailingrobots.com/testdata/log/">Log</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -69,7 +69,17 @@
           <p>On this side you can see and update the configurations for Aland Sailing Robots.</p>
         </div>
         <br><br><br>
+<<<<<<< HEAD
 
+=======
+      <div class="row">
+        <?php
+          require('getConfigs/get_course_calculation_config.php');
+         ?>
+        <?php
+          require('getConfigs/get_maestro_controller_config.php');
+        ?>
+>>>>>>> 3b14e0f2de5cffa0cc3521b5757742c249a47e13
         <?php
           $bufferConfigArray = getConfigData("buffer_config");
           $courseCalculationConfigArray = getConfigData("course_calculation_config");

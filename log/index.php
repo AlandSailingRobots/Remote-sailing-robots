@@ -118,8 +118,10 @@
 
               <tbody>
                 <?php
+                $i = 0;
                 foreach($result as $key => $row)
                 {
+                  $i++;
                   echo "
                     <tr>
                       <td>".$row["id_gps"]."</td>
@@ -130,7 +132,7 @@
                       <td>".$row["satellites_used"]."</td>
                       <td>".$row["longitude"]."</td>
                       <td>".$row["Timestamp"]."</td>
-                      <td><a href=info.php?name=id_gps&table=gps_dataLogs&id=".$row["id_gps"]." target='_blank'>display all</a></td>
+                      <td><a href=info.php?number=$i&name=id_gps&table=gps_dataLogs&id=".$row["id_gps"]." target='_blank'>display all</a></td>
                       ";
                 }
                 ?>

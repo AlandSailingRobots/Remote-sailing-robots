@@ -43,8 +43,8 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Log</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/live/">Live</a>
-          <a class="navbar-brand" href="http://localhost/Remote-sailing-robots/config/">Config</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/live/">Live</a>
+          <a class="navbar-brand" href="http://sailingrobots.com/testdata/config/">Config</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -114,15 +114,17 @@
 
               <tbody>
                 <?php
+                $i = 0;
                 foreach($result as $key => $row)
                 {
+                  $i++;
                   echo "
                     <tr>
                       <td>".$row["id_compass_model"]."</td>
                       <td>".$row["heading"]."</td>
                       <td>".$row["pitch"]."</td>
                       <td>".$row["roll"]."</td>
-                      <td><a href=info.php?name=id_compass_model&table=compass_dataLogs&id=".$row["id_compass_model"]." target='_blank'>display all</a></td>";
+                      <td><a href=info.php?number=$i&name=id_compass_model&table=compass_dataLogs&id=".$row["id_compass_model"]." target='_blank'>display all</a></td>";
                 }
                 ?>
               </tbody>

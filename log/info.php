@@ -98,6 +98,8 @@
     $id = $_GET["id"];
     $name = $_GET["name"];
     $table = $_GET["table"];
+    $number = $_GET["number"];
+    $_SESSION['number'] = $number;
     $_SESSION['id'] = $id;
     $_SESSION['name'] = $name;
     $_SESSION['table'] = $table;
