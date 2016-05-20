@@ -26,8 +26,8 @@
 									  </tr>
 									   <tr>
 									    <td>self_steering_intervall:</td>
-									    <td>".$row["self_steering_intervall"]."</td>
-									    <td><input type='text' class='form-control' name='self_steering_intervall' size='1'></td>
+									    <td>".$row["self_steering_interval"]."</td>
+									    <td><input type='text' class='form-control' name='self_steering_interval' size='1'></td>
 									  </tr>
 								  </table>
 								</div>

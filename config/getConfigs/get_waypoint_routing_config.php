@@ -1,9 +1,6 @@
 <?php
 	require_once('dbConn.php');
-
-
-	$sql = "SELECT * from waypoint_routing_config
- WHERE id=1";
+	$sql = "SELECT * from waypoint_routing_config WHERE id=1";
 	$result = $conn->query($sql);
 
 	 while ($row = $result->fetch_assoc()) {
@@ -23,6 +20,16 @@
 					    <td>".$row["radius_ratio"]."</td>
 					    <td><input type='text' class='form-control' name='radius_ratio' size='1'></td>
 					 </tr>
+					 <tr>
+ 					    <td>max_command_angle:</td>
+ 					    <td>".$row["max_command_angle"]."</td>
+ 					    <td><input type='text' class='form-control' name='max_command_angle' size='1'></td>
+ 					 </tr>
+					 <tr>
+ 					    <td>rudder_speed_min:</td>
+ 					    <td>".$row["rudder_speed_min"]."</td>
+ 					    <td><input type='text' class='form-control' name='rudder_speed_min' size='1'></td>
+ 					 </tr>
 					 <tr>
 					    <td>sail_adjust_time:</td>
 					    <td>".$row["sail_adjust_time"]."</td>

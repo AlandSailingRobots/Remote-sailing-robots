@@ -2,6 +2,11 @@
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
+<?php require('configurationData.php');
+      require('printTables.php');
+?>
+
+
   <script type="text/javascript" src="js/formGatherer.js"></script>
 
     <meta charset="utf-8">
@@ -34,8 +39,7 @@
     <![endif]-->
   </head>
   <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -66,54 +70,57 @@
         </div>
         <br><br><br>
 
-      <div class="row">
         <?php
-          require('getConfigs/get_course_calculation_config.php');
-         ?>
-        <?php
-          require('getConfigs/get_maestro_controller_config.php');
+          $bufferConfigArray = getConfigData("buffer_config");
+          $courseCalculationConfigArray = getConfigData("course_calculation_config");
+          $maestroControllerConfigArray = getConfigData("maestro_controller_config");
+          $rudderCommandConfigArray = getConfigData("rudder_command_config");
+          $rudderServoConfigArray = getConfigData("rudder_servo_config");
+          $sailCommandConfigArray = getConfigData("sail_command_config");
+          $sailServoConfigArray = getConfigData("sail_servo_config");
+          $sailingRobotConfigArray = getConfigData("sailing_robot_config");
+          $waypointRoutingConfigArray = getConfigData("waypoint_routing_config");
+          $windVaneConfigArray = getConfigData("wind_vane_config");
+          $windsensorConfigArray = getConfigData("windsensor_config");
+          $xbeeConfigArray = getConfigData("xbee_config");
         ?>
-        <?php
-          require('getConfigs/get_rudder_command_config.php');
-        ?>
-      </div>
 
-      <div class="row">
+    <div class="row">
         <?php
-          require('getConfigs/get_rudder_servo_config.php');
+            printTables($bufferConfigArray, "buffer_config");
+            printTables($courseCalculationConfigArray, "course_calculation_config");
+            printTables($maestroControllerConfigArray, "maestro_controller_config");
         ?>
-        <?php
-          require('getConfigs/get_sailing_robot_config.php');
-        ?>
-        <?php
-          require('getConfigs/get_sail_command_config.php');
-        ?>
-      </div>
+    </div>
 
-      <div class="row">
+    <div class="row">
         <?php
-          require('getConfigs/get_sail_servo_config.php');
+            printTables($rudderCommandConfigArray, "rudder_command_config");
+            printTables($rudderServoConfigArray, "rudder_servo_config");
+            printTables($sailCommandConfigArray, "sail_command_config");
         ?>
-        <?php
-          require('getConfigs/get_waypoint_routing_config.php');
-        ?>
-        <?php
-          require('getConfigs/get_windsensor_config.php');
-        ?>
-      </div>
+    </div>
 
-      <div class="row">
+    <div class="row">
         <?php
-          require('getConfigs/get_wind_vane_config.php');
+            printTables($sailServoConfigArray, "sail_servo_config");
+            printTables($sailingRobotConfigArray, "sailing_robot_config");
+            printTables($waypointRoutingConfigArray, "waypoint_routing_config");
         ?>
+    </div>
+
+    <div class="row">
         <?php
-          require('getConfigs/get_xbee_config.php');
+            printTables($windVaneConfigArray, "wind_vane_config");
+            printTables($windsensorConfigArray, "windsensor_config");
+            printTables($xbeeConfigArray, "xbee_config");
         ?>
-      </div>
+    </div>
+
       <br>
-      <div class="row">
-        <input type='button' value='Just do it!' class='btn btn-success col-md-2' onclick='submitForms()'/>
-      </div>
+    <div class="row">
+      <input type='button' value='Just do it!' class='btn btn-success col-md-2' onclick='submitForms()'/>
+    </div>
 
         </div>
         <footer>
