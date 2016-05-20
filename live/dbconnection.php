@@ -6,11 +6,19 @@ class DBConnection {
 
 	function __construct() {
 
+		$host = 'localhost';
 	//	$user = 'ithaax_testdata';
 		$user = 'root';
 		//$pass = 'test123data';
 		$pass = '';
+
+		$user = 'ithaax_testdata';
+		//$user = 'root';
+		$pass = 'test123data';
+	//	$pass = '';
+
 		$host = 'localhost';
+
 
 		$dbname = 'ithaax_testdata';
 
@@ -22,7 +30,6 @@ class DBConnection {
 			echo $e->getMessage();
 		}
 	}
-
 
 	public function getLatestID() {
 
