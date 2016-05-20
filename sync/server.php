@@ -22,7 +22,7 @@
 		function setConfigsUpdated() {
 			$sql = "UPDATE config_updated SET updated = 0 where id=1";
 			$result = $this->db->query($sql);
-			//$result->close();
+			$result->close();
 		}
 
 	  function getDatalog($boat) {
@@ -128,13 +128,10 @@
 		}
 
 		function getAllConfigs($boat) {
-
-			$this->setConfigsUpdated();
-
-			return "{".$this->getCourseCalculationConfig($boat).$this->getMaestroControllerConfig($boat).$this->getRudderCommandConfig($boat).
-			$this->getRudderServoConfig($boat).$this->getSailingRobotConfig($boat).$this->getSailCommandConfig($boat)
-			.$this->getSailServoConfig($boat).$this->getWaypointRoutingConfig($boat).$this->getWindSensorConfig($boat)
-			.$this->getWindVaneConfig($boat)."}";
+			return $this->getCourseCalculationConfig($boat) . $this->getMaestroControllerConfig($boat)
+			. $this->getRudderCommandConfig($boat). $this->getRudderServoConfig($boat) . $this->getSailingRobotConfig($boat)
+			. $this->getSailCommandConfig($boat) .  $this->getSailServoConfig($boat) . $this->getWaypointRoutingConfig($boat)
+			. $this->getWindSensorConfig($boat). $this->getWindVaneConfig($boat);
 		}
 
 		function getCourseCalculationConfig($boat) {
@@ -151,17 +148,15 @@
 				$sector_angle
 			);
 			$stmt->fetch();
-
-			$json = '"course_calculation_config":
-						{
-						  "id":"1",
-						  "tack_angle":'.$tack_angle.',
-						  "tack_max_angle":'.$tack_max_angle.',
-						  "tack_min_speed":'.$tack_min_speed.',
-						  "sector_angle":'.$sector_angle.'
-						},';
+			$config[] = array(
+				"id" => 1,
+				"tack_angle" => $tack_angle,
+				"tack_max_angle" => $tack_max_angle,
+				"tack_min_speed" => $tack_min_speed,
+				"sector_angle" => $sector_angle
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getMaestroControllerConfig($boat) {
@@ -175,15 +170,12 @@
 				$port
 			);
 			$stmt->fetch();
-
-			$json = '"maestro_controller_config":
-						{
-						  "id":"1",
-						  "port":"'.$port.'"
-						},';
-
+			$config[] = array(
+				"id" => 1,
+				"port" => $port
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getRudderCommandConfig($boat) {
@@ -198,16 +190,13 @@
 				$midship_command
 			);
 			$stmt->fetch();
-			$json = '"rudder_command_config":
-						{
-						  "id":"1",
-						  "extreme_command":"'.$extreme_command.'",
-						  "midship_command":"'.$midship_command.'"
-						},';
-
-
+			$config[] = array(
+				"id" => 1,
+				"extreme_command" => $extreme_command,
+				"midship_command" => $midship_command
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getRudderServoConfig($boat) {
@@ -223,18 +212,14 @@
 				$acceleration
 			);
 			$stmt->fetch();
-
-			$json = '"rudder_servo_config":
-						{
-						  "id":"1",
-						  "channel":"'.$channel.'",
-						  "speed":"'.$speed.'",
-						  "acceleration":"'.$acceleration.'"
-						},';
-
-
+			$config[] = array(
+				"id" => 1,
+				"channel" => $channel,
+				"speed" => $speed,
+				"acceleration" => $acceleration
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getSailingRobotConfig($boat) {
@@ -250,18 +235,14 @@
 				$scanning
 			);
 			$stmt->fetch();
-
-
-			$json = '"sailing_robot_config":
-						{
-						  "id":"1",
-						  "flag_heading_compass":"'.$flag_heading_compass.'",
-						  "loop_time":"'.$loop_time.'",
-						  "scanning":"'.$scanning.'"
-						},';
-
+			$config[] = array(
+				"id" => 1,
+				"flag_heading_compass" => $flag_heading_compass,
+				"loop_time" => $loop_time,
+				"scanning" => $scanning
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getSailCommandConfig($boat) {
@@ -276,16 +257,13 @@
 				$run_command
 			);
 			$stmt->fetch();
-
-			$json = '"sail_command_config":
-						{
-						  "id":"1",
-						  "close_reach_command":"'.$close_reach_command.'",
-						  "run_command":"'.$run_command.'"
-						},';
-
+			$config[] = array(
+				"id" => 1,
+				"close_reach_command" => $close_reach_command,
+				"run_command" => $run_command
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getSailServoConfig($boat) {
@@ -301,17 +279,14 @@
 				$acceleration
 			);
 			$stmt->fetch();
-
-			$json = '"sail_servo_config":
-						{
-						  "id":"1",
-						  "channel":"'.$channel.'",
-						  "speed":"'.$speed.'",
-						  "acceleration":"'.$acceleration.'"
-						},';
-
+			$config[] = array(
+				"id" => 1,
+				"channel" => $channel,
+				"speed" => $speed,
+				"acceleration" => $acceleration
+			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getWaypointRoutingConfig($boat) {
@@ -327,15 +302,6 @@
 				$adjust_degree_limit
 			);
 			$stmt->fetch();
-
-			$json = '"waypoint_routing_config":
-						{
-						  "id":"1",
-						  "radius_ratio":"'.$radius_ratio.'",
-						  "sail_adjust_time":"'.$sail_adjust_time.'",
-						  "adjust_degree_limit":"'.$adjust_degree_limit.'"
-						},';
-
 			$config[] = array(
 				"id" => 1,
 				"radius_ratio" => $radius_ratio,
@@ -343,7 +309,7 @@
 				"adjust_degree_limit" => $adjust_degree_limit
 			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getWindSensorConfig($boat) {
@@ -358,21 +324,13 @@
 				$baud_rate
 			);
 			$stmt->fetch();
-
-			$json = '"windsensor_config":
-						{
-						  "id":"1",
-						  "port":"'.$port.'",
-						  "baud_rate":"'.$baud_rate.'"
-						},';
-
 			$config[] = array(
 				"id" => 1,
 				"port" => $port,
 				"baud_rate" => $baud_rate
 			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 		function getWindVaneConfig($boat) {
@@ -388,15 +346,6 @@
 				$self_steering_intervall
 			);
 			$stmt->fetch();
-
-			$json = '"wind_vane_config":
-						{
-						  "id":"1",
-						  "use_self_steering":"'.$use_self_steering.'",
-						  "wind_sensor_self_steering":"'.$wind_sensor_self_steering.'",
-						  "self_steering_interval":"'.$self_steering_intervall.'"
-						}';
-
 			$config[] = array(
 				"id" => 1,
 				"use_self_steering" => $use_self_steering,
@@ -404,7 +353,7 @@
 				"self_steering_intervall" => $self_steering_intervall
 			);
 			$stmt->close();
-			return $json;
+			return json_encode($config);
 		}
 
 
@@ -558,7 +507,8 @@
 		}
 
 	function pushAllLogs($boat, $data) {
-
+			error_log("in push", 0);
+			error_log($data, 0);
 			$data = json_decode($data,true);
 
 			$compassStmt = $this->db->stmt_init();
@@ -573,6 +523,7 @@
 			$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
 			$systemStmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
 			$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
+
 
 			foreach($data["gps_datalogs"] as $row) {
 				$gpsStmt->bind_param("sdddid",
@@ -628,7 +579,7 @@
 
 				if($systemStmt->affected_rows === 1) {
 					$foreignKey[$row["id"]] = $systemStmt->insert_id;
-					$result[] = array("tab" => "system_dataLogs", "id_system" => $row["id"]);
+					$result[] = array("table" => "system_dataLogs", "id" => $row["id"]);
 				} else {
 					$foreignKey[$row["id"]] = NULL;
 				}
