@@ -114,10 +114,10 @@ function getAll($id, $name, $table){
 	return $result;
 }
 
-function getRoute($number){
+function getRoute($id){
 	$conn = dbConn();
 	try {
-		$stmt = $conn->prepare("SELECT latitude, longitude, routeStart FROM gps_dataLogs LIMIT $number");
+		$stmt = $conn->prepare("SELECT latitude, longitude, route_started FROM gps_dataLogs LIMIT $id");
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 	}

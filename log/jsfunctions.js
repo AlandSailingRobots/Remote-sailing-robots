@@ -120,6 +120,7 @@ function map(lati, lon) {
    });
 	 var routes=[];
 	 var count = 0;
+	 console.log(route);
 		for(var i = 0; i <= route.length-1; i++){
 				if(route[i].routeStart == 1){
 					count++;
@@ -128,7 +129,9 @@ function map(lati, lon) {
 						count = 0;
 					}
 				}
-				routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
+				if(Number(route[i].latitude)>0 && Number(route[i].longitude)>0){
+					routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
+				}
 		 }
 		 var boatPath = new google.maps.Polyline({
 			geodesic: true,

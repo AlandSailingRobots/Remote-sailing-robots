@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  This site is used to display the datalogs from the db. when you click display all
+  you will go to the info.php. The info that is displayed in info.php is a fulljoin
+  from all datalogs for that row. You will also se a map with the boats possition
+  and the route that the boat have sailed up to that point.
+ -->
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
