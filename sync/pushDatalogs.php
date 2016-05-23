@@ -3,8 +3,8 @@
 		private $db;
 
 		function __construct() {
-			//$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-			$this->db = new mysqli("localhost","root","","ithaax_testdata");
+			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 		function __destruct() {
 			$this->db->close();
@@ -19,18 +19,19 @@
 
 				$compassStmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
 				$courseCalculationStmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
-				$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL);");
+				$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL,?);");
 				$systemStmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
 				$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
 
 				foreach($data["gps_datalogs"] as $row) {
-					$gpsStmt->bind_param("sdddid",
+					$gpsStmt->bind_param("sdddidi",
 						$row["time"],
 						$row["latitude"],
 						$row["speed"],
 						$row["heading"],
 						$row["satellites_used"],
-						$row["longitude"]
+						$row["longitude"],
+						$row["route_started"]
 					);
 						$gpsStmt->execute();
 					}

@@ -4,8 +4,8 @@
 		private $db;
 
 		function __construct() {
-			//$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-			$this->db = new mysqli("localhost","root","","ithaax_testdata");
+			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 		function __destruct() {
 			$this->db->close();
