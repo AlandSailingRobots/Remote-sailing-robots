@@ -12,7 +12,7 @@ switch ($_REQUEST['action']) {
 		echo json_encode($tables);
 		break;
 	case 'getRoute':
-		$tables = getRoute($number);
+		$tables = getRoute($id);
 		echo json_encode($tables);
 		break;
 	default:

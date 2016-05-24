@@ -54,6 +54,7 @@
     </div>
   </nav>
 <div id='table'>
+
 <table class="table table-striped">
 <thead>
   <tr>
@@ -94,7 +95,6 @@
   require('dbconnection.php');
   if(isset($_GET["id"]))
   {
-
     $id = $_GET["id"];
     $name = $_GET["name"];
     $table = $_GET["table"];
