@@ -1,4 +1,7 @@
-submitForms = function(){
+
+submitAllForms = function(){
+  var pw = document.password_form.password.value;
+  if(pw == "conny"){
     document.forms["buffer_config"].submit();
     document.forms["course_calculation_config"].submit();
     document.forms["maestro_controller_config"].submit();
@@ -11,4 +14,8 @@ submitForms = function(){
     document.forms["wind_vane_config"].submit();
     document.forms["windsensor_config"].submit();
     document.forms["xbee_config"].submit();
+  }
+  else {
+    window.alert("Wrong password!");
+  }
 }

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
+<?php session_start(); ?>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
 <?php require('configurationData.php');
       require('printTables.php');
 ?>
-
-
-  <script type="text/javascript" src="js/formGatherer.js"></script>
+  <script type="text/javascript" src="js/activateForms.js"></script>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,8 +55,7 @@
             <li class="active"><a href="http://www.sailingrobots.com/testdata/config">Config</a></li>
             <li ><a href="http://www.sailingrobots.com/testdata/log/">Log</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
-
+        </div>
       </div>
     </nav>
 
@@ -69,17 +67,8 @@
           <p>On this side you can see and update the configurations for Aland Sailing Robots.</p>
         </div>
         <br><br><br>
-<<<<<<< HEAD
 
-=======
       <div class="row">
-        <?php
-          require('getConfigs/get_course_calculation_config.php');
-         ?>
-        <?php
-          require('getConfigs/get_maestro_controller_config.php');
-        ?>
->>>>>>> 3b14e0f2de5cffa0cc3521b5757742c249a47e13
         <?php
           $bufferConfigArray = getConfigData("buffer_config");
           $courseCalculationConfigArray = getConfigData("course_calculation_config");
@@ -94,7 +83,6 @@
           $windsensorConfigArray = getConfigData("windsensor_config");
           $xbeeConfigArray = getConfigData("xbee_config");
         ?>
-
     <div class="row">
         <?php
             printTables($bufferConfigArray, "buffer_config");
@@ -102,7 +90,6 @@
             printTables($maestroControllerConfigArray, "maestro_controller_config");
         ?>
     </div>
-
     <div class="row">
         <?php
             printTables($rudderCommandConfigArray, "rudder_command_config");
@@ -110,7 +97,6 @@
             printTables($sailCommandConfigArray, "sail_command_config");
         ?>
     </div>
-
     <div class="row">
         <?php
             printTables($sailServoConfigArray, "sail_servo_config");
@@ -118,7 +104,6 @@
             printTables($waypointRoutingConfigArray, "waypoint_routing_config");
         ?>
     </div>
-
     <div class="row">
         <?php
             printTables($windVaneConfigArray, "wind_vane_config");
@@ -126,12 +111,15 @@
             printTables($xbeeConfigArray, "xbee_config");
         ?>
     </div>
-
       <br>
-    <div class="row">
-      <input type='button' value='Just do it!' class='btn btn-success col-md-2' onclick='submitForms()'/>
+    <div class="col-md-2">
+      <form action="updataDb.php" method="POST" name="password_form">
+       <td>Password:</td>
+       <td><input type='password' class='form-control' name="password" size='1'></td>
+      </form>
+      <input type='button' value='Submit' class='btn btn-success col-md-12' onclick='submitAllForms()'/>
+      <br>
     </div>
-
         </div>
         <footer>
         <p>© 2016 Åland Sailing Robots</p>
@@ -148,4 +136,5 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="Starter%20Template%20for%20Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
 
-</body></html>
+</body>
+</html>
