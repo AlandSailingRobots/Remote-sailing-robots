@@ -8,7 +8,7 @@
 		//$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushConfigs.php, 'uri' => 'http://localhost/');
 		$optionsPushwaypoints = array('location' => 'http://localhost/Remote-sailing-robots/sync/pushWaypoints.php', 'uri' => 'http://localhost/');
 		//$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushWaypoints.php, 'uri' => 'http://localhost/');
-		
+
 		//create an instante of the SOAPClient (the API will be available)
 		$pushLogsService = new SoapClient(NULL, $optionsPushlogs);
 		$getConfigsService = new SoapClient(NULL, $optionsGetConfigs);
