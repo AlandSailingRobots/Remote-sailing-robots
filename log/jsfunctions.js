@@ -120,18 +120,19 @@ function map(lati, lon) {
    });
 	 var routes=[];
 	 var count = 0;
-	 console.log(route);
+	 var test = 0;
 		for(var i = 0; i <= route.length-1; i++){
-				if(route[i].routeStart == 1){
-					count++;
-					if(count >=2){
-						routes=[];
-						count = 0;
-					}
+			if(route[i].route_started == 1){
+				count++;
+				console.log(count);
+				if(count >=2){
+					routes=[];
+					count = 0;
 				}
-				if(Number(route[i].latitude)>0 && Number(route[i].longitude)>0){
-					routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
-				}
+			}
+			if(Number(route[i].latitude)>0 && Number(route[i].longitude)>0){
+				routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
+			}
 		 }
 		 var boatPath = new google.maps.Polyline({
 			geodesic: true,
