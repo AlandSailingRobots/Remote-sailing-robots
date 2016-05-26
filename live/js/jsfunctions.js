@@ -52,6 +52,7 @@ $(document).ready(function(){
 	drawBoat();
 	resizeDiv();
 	getWaypoints();
+	readDatalog();
 	setUpdateTimer(3000);
 });
 $(window).resize(function() {
@@ -99,14 +100,18 @@ function setUpdateTimer(interval) {
 	setInterval('run()', interval);
 }
 
+function readDatalog() {
+	getLatestData("getGpsData");
+	getLatestData("getCourseCalculationData");
+	getLatestData("getWindSensorData");
+	getLatestData("getSystemData");
+	getLatestData("getCompassData");
+}
+
 function run() {
 	checkLatestId();
 	if(!isNaN(latestId) && latestId !== currentId) {
-		getLatestData("getGpsData");
-		getLatestData("getCourseCalculationData");
-		getLatestData("getWindSensorData");
-		getLatestData("getSystemData");
-		getLatestData("getCompassData");
+		readDatalog();
 		currentId = latestId;
 	}
 }
