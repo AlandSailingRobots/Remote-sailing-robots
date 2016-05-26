@@ -1,4 +1,4 @@
-
+/*this is a massive file that handles all of the js code on the live site*/
 $("#boatCanvas").hide();
 $("#pingCanvas").hide();
 $("#map").hide();
@@ -368,7 +368,7 @@ function drawBoat() {
 		rotateCanvas(layerctx, vValue);
 		drawImage(layerctx, image);
 	}
-	
+
 	function draw_BoatHeading_Rudder_And_Sails() {
 		var jibdir = 1;
 		if (vWIND > 180 && vWIND < 210) {

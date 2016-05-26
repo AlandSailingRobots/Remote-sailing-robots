@@ -1,5 +1,6 @@
 <?php
-
+/*this file takes care of the db stuff. remember to set the pass to 'test123data'
+and the username to 'ithaax_testdata' if you want to test on hostgator*/
 class DBConnection {
 
 	private $dbconn;
@@ -7,7 +8,7 @@ class DBConnection {
 	function __construct() {
 
 		$host = 'localhost';
-	//	$user = 'ithaax_testdata';
+		//	$user = 'ithaax_testdata';
 		$user = 'root';
 		//$pass = 'test123data';
 		$pass = '';
