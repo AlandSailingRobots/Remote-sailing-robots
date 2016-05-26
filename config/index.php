@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<?php session_start(); ?>
+<!-- This site is supposed to send configs and waypoint's trought the sync to the boat.
+    You can send configs but not waypoint's and the password check is working but we have had some
+    problems calling it. -->
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-<?php require('configurationData.php');
+  <?php
+    require('configurationData.php');
       require('printTables.php');
-?>
+  ?>
   <script type="text/javascript" src="js/activateForms.js"></script>
 
     <meta charset="utf-8">
@@ -14,7 +17,14 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <script src="../libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../libs/DataTables-1.10.0/media/js/jquery.dataTables.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link rel="icon" href="https://image.freepik.com/free-icon/sailing-boat_318-54194.png">
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="js/jsfunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <title>Config</title>
 
@@ -83,6 +93,7 @@
           $windsensorConfigArray = getConfigData("windsensor_config");
           $xbeeConfigArray = getConfigData("xbee_config");
         ?>
+    <div id="forms">
     <div class="row">
         <?php
             printTables($bufferConfigArray, "buffer_config");
@@ -90,6 +101,7 @@
             printTables($maestroControllerConfigArray, "maestro_controller_config");
         ?>
     </div>
+
     <div class="row">
         <?php
             printTables($rudderCommandConfigArray, "rudder_command_config");
@@ -111,13 +123,15 @@
             printTables($xbeeConfigArray, "xbee_config");
         ?>
     </div>
+    </div>
+    <div id='map'></div>
       <br>
     <div class="col-md-2">
-      <form action="updataDb.php" method="POST" name="password_form">
+      <form action="updateDb.php" method="POST" name="password_form">
        <td>Password:</td>
        <td><input type='password' class='form-control' name="password" size='1'></td>
       </form>
-      <input type='button' value='Submit' class='btn btn-success col-md-12' onclick='submitAllForms()'/>
+      <input action="updateDb.php" type='button' value='Submit' class='btn btn-success col-md-12' onclick='submitAllForms()'/>
       <br>
     </div>
         </div>
