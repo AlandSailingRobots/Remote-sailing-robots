@@ -1,4 +1,4 @@
-
+/*this is a massive file that handles all of the js code on the live site*/
 $("#boatCanvas").hide();
 $("#pingCanvas").hide();
 $("#map").hide();
@@ -52,6 +52,7 @@ $(document).ready(function(){
 	drawBoat();
 	resizeDiv();
 	getWaypoints();
+	readDatalog();
 	setUpdateTimer(3000);
 });
 $(window).resize(function() {
@@ -99,14 +100,18 @@ function setUpdateTimer(interval) {
 	setInterval('run()', interval);
 }
 
+function readDatalog() {
+	getLatestData("getGpsData");
+	getLatestData("getCourseCalculationData");
+	getLatestData("getWindSensorData");
+	getLatestData("getSystemData");
+	getLatestData("getCompassData");
+}
+
 function run() {
 	checkLatestId();
 	if(!isNaN(latestId) && latestId !== currentId) {
-		getLatestData("getGpsData");
-		getLatestData("getCourseCalculationData");
-		getLatestData("getWindSensorData");
-		getLatestData("getSystemData");
-		getLatestData("getCompassData");
+		readDatalog();
 		currentId = latestId;
 	}
 }
@@ -368,7 +373,7 @@ function drawBoat() {
 		rotateCanvas(layerctx, vValue);
 		drawImage(layerctx, image);
 	}
-	
+
 	function draw_BoatHeading_Rudder_And_Sails() {
 		var jibdir = 1;
 		if (vWIND > 180 && vWIND < 210) {

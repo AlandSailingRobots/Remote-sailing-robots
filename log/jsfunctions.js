@@ -120,11 +120,9 @@ function map(lati, lon) {
    });
 	 var routes=[];
 	 var count = 0;
-	 var test = 0;
 		for(var i = 0; i <= route.length-1; i++){
 			if(route[i].route_started == 1){
 				count++;
-				console.log(count);
 				if(count >=2){
 					routes=[];
 					count = 0;

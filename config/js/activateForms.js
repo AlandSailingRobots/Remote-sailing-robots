@@ -15,6 +15,8 @@ submitAllForms = function(){
     document.forms["wind_vane_config"].submit();
     document.forms["windsensor_config"].submit();
     document.forms["xbee_config"].submit();
+    document.forms["password_form"].submit();
+
   }
   else {
     window.alert("Wrong pass !!! ");

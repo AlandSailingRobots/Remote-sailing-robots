@@ -48,8 +48,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="http://localhost/Remote-sailing-robots/live">Live</a></li>
-            <li ><a href="http://localhost/Remote-sailing-robots/config">config</a></li>
+            <li class="active"><a href="http://www.sailingrobots.com/testdata/live">Live</a></li>
+            <li ><a href="http://www.sailingrobots.com/testdata/config">config</a></li>
             <li ><a href="http://www.sailingrobots.com/testdata/log/">Log</a></li>
           </ul>
         </div><!--/.nav-collapse -->
