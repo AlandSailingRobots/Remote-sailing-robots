@@ -1,8 +1,8 @@
 
 submitAllForms = function(){
-  var pw = document.password_form.password.value;
+/*  var pw = document.password_form.password.value;
   console.log(pw);
-  if(pw == "conny"){
+  if(pw == "pophaax123"){*/
     document.forms["buffer_config"].submit();
     document.forms["course_calculation_config"].submit();
     document.forms["maestro_controller_config"].submit();
@@ -15,10 +15,8 @@ submitAllForms = function(){
     document.forms["wind_vane_config"].submit();
     document.forms["windsensor_config"].submit();
     document.forms["xbee_config"].submit();
-    document.forms["password_form"].submit();
-
-  }
-  else {
-    window.alert("Wrong pass !!! ");
-  }
+//  }
+  /*else {
+    window.alert("You typed the wrong password");
+  }*/
 }

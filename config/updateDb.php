@@ -1,6 +1,4 @@
-
 <?php
-	/*This file handles the insertion of config values to the db*/
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -14,6 +12,8 @@
 
   $table = "";
   $stmt = "";
+	$keys = array_keys($_POST);
+
   foreach($_POST as $key => $value){
     if($keys[0] == $key){
       $table = $value;
@@ -35,12 +35,8 @@
 	if(!empty($stmt)){
 	  $sql = "UPDATE $table SET $stmt WHERE id=1";
 		$conn->query($sql);
-		if ($conn->query($sql) === TRUE) {
-			echo "query worked";
-		}else {
-			echo "Error updating record: " . $conn->error;
-			$conn->close();
-		}
 	}
-	header("Refresh:1; url=http://localhost/Remote-sailing-robots/config");
-?>
+
+	echo "Updating tables..";
+	header("Refresh:4; url=http://localhost/Remote-sailing-robots/config/mainPage.php");
+//	header("Refresh:3; url=http://www.sailingrobots.com/testdata/config/mainPage.php");?>
