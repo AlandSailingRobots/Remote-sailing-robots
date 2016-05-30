@@ -1,6 +1,7 @@
 
 submitAllForms = function(){
   var pw = document.password_form.password.value;
+  console.log(pw);
   if(pw == "conny"){
     document.forms["buffer_config"].submit();
     document.forms["course_calculation_config"].submit();
@@ -16,6 +17,6 @@ submitAllForms = function(){
     document.forms["xbee_config"].submit();
   }
   else {
-    window.alert("Wrong password!");
+    window.alert("Wrong pass !!! ");
   }
 }

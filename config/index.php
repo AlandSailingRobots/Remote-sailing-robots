@@ -113,7 +113,7 @@
     </div>
       <br>
     <div class="col-md-2">
-      <form action="updataDb.php" method="POST" name="password_form">
+      <form method="POST" name="password_form">
        <td>Password:</td>
        <td><input type='password' class='form-control' name="password" size='1'></td>
       </form>
