@@ -1,4 +1,8 @@
 <?php
+	ob_start();
+
+	//header("Refresh:5; url=http://localhost/Remote-sailing-robots/config/mainPage.php");
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -17,9 +21,11 @@
   foreach($_POST as $key => $value){
     if($keys[0] == $key){
       $table = $value;
+
     }
     else{
         if(!empty($value)){
+
 			if (!is_numeric($value)) {
 				$stmt.= $key."=".'"'.$value.'"'.",";
 	    	}else {
@@ -37,6 +43,8 @@
 		$conn->query($sql);
 	}
 
-	echo "Updating tables..";
-	header("Refresh:4; url=http://localhost/Remote-sailing-robots/config/mainPage.php");
-//	header("Refresh:3; url=http://www.sailingrobots.com/testdata/config/mainPage.php");?>
+	while(ob_get_status()){
+		ob_end_clean();
+	}
+
+?>

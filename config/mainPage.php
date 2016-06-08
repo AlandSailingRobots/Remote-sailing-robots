@@ -21,6 +21,8 @@
   ?>
   <script type="text/javascript" src="js/activateForms.js"></script>
 
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,6 +36,7 @@
     <link rel="icon" href="https://image.freepik.com/free-icon/sailing-boat_318-54194.png">
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script src="js/jsfunctions.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <title>Config</title>
@@ -50,6 +53,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="Starter%20Template%20for%20Bootstrap_files/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript" src="js/ajaxFormSubmit.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -154,5 +158,6 @@
     <script src="Starter%20Template%20for%20Bootstrap_files/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="Starter%20Template%20for%20Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>
