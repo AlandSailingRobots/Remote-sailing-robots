@@ -92,7 +92,7 @@
       <div class="starter-template">
         <div class="jumbotron">
         <h1>Configuration page</h1>
-          <p>On this side you can see and update the configurations for Aland Sailing Robots.</p>
+          <p>On this page you can see and update the configurations for Aland Sailing Robots.</p>
         </div>
         <br><br><br>
 

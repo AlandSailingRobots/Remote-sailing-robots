@@ -14,12 +14,12 @@
             echo "<td>".$value."</td>";
             if ( $key != "id"){
               echo "<td><input type='text' class='form-control' name=".$key." size='1'></td>";
-            }
+          }else echo "<td></td>";
 
           }
       }else{
           echo "<tr>";
-          echo "<td> ERROR: No data found </td>";
+          echo "<td> No data found </td>";
       }
 
       echo "</tr>";
