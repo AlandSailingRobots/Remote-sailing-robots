@@ -42,6 +42,12 @@ var vCompasHeading = 0;
 var vTWD = 0;
 var route = null;
 
+var m_map = null;
+var boatPath = null;
+var log_marker = null;
+var path_marker = null;
+var idLookupTable = [];
+
 $(document).ready(function(){
 	getRoute();
 	initBoat();
@@ -49,6 +55,7 @@ $(document).ready(function(){
 
 	drawBoat();
 	hideShowMapBoat();
+
 
 });
 
@@ -107,41 +114,144 @@ function initBoat() {
 }
 
 function map(lati, lon) {
-   var latLong = {lat: Number(lati), lng: Number(lon)}
-   var mapDiv = document.getElementById("map");
-   var map = new google.maps.Map(mapDiv, {
-     center: latLong,
-     zoom: 14
-   });
-   var marker = new google.maps.Marker({
-     position: latLong,
-     map: map,
-     title: 'sailingrobots'
-   });
-	 var routes=[];
-	 var count = 0;
-		for(var i = 0; i <= route.length-1; i++){
-			if(route[i].route_started == 1){
-				count++;
-				if(count >=2){
-					routes=[];
-					count = 0;
-				}
-			}
-			if(Number(route[i].latitude)>0 && Number(route[i].longitude)>0){
-				routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
-			}
-		 }
-		 var boatPath = new google.maps.Polyline({
-			geodesic: true,
-			strokeColor: '#FF0000',
-			strokeOpacity: 1.0,
-			strokeWeight: 2
-		});
+	var latLong = {lat: Number(lati), lng: Number(lon)}
+	var mapDiv = document.getElementById("map");
+	m_map = new google.maps.Map(mapDiv, {
+	 center: latLong,
+	 zoom: 14
+	});
+	log_marker = new google.maps.Marker({
+	 position: latLong,
+	 map: m_map,
+	 title: 'sailingrobots'
+	});
 
-		boatPath.setPath(routes);
-		boatPath.setMap(map);
+	boatPath = new google.maps.Polyline({
+	  geodesic: true,
+	  strokeColor: '#FF0000',
+	  strokeOpacity: 1.0,
+	  strokeWeight: 2
+	});
+
+
+	path_marker = new google.maps.Marker({
+	position: {lat: Number(0), lng:  Number(0)},
+	map: m_map,
+	title: 'path_marker',
+	id: -1
+	});
+
+	path_marker.setVisible(false);
+	path_marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
+	google.maps.event.addListener(path_marker, 'click', function(f){
+	  var lookUpWindow = confirm("The database id of this position data is " + path_marker.get('id') + ".\nOpen log page in new window?");
+	  if (lookUpWindow == true) {
+		  //Problematic due to session
+		  var number = 0;
+		  var newPage = "info.php?number="+ number +"&name=id_gps&table=gps_dataLogs&id=" + path_marker.id;
+		  //window.location.href = newPage;
+		  window.open(newPage);
+	  }
+	});
+
+	//Listeners
+	//http://stackoverflow.com/questions/6170176/google-maps-polyline-click-on-section-of-polyline-and-return-id
+	google.maps.event.addListener(boatPath, 'click', function(h) {
+	   var latlng=h.latLng;
+	   var needle = {
+		   minDistance: 9999999999, //silly high
+		   index: -1,
+		   latlng: null,
+		   id: -1
+	   };
+	   boatPath.getPath().forEach(function(routePoint, index){
+		   var dist = google.maps.geometry.spherical.computeDistanceBetween(latlng, routePoint);
+		   if (dist < needle.minDistance){
+			  needle.minDistance = dist;
+			  needle.index = index;
+			  needle.latlng = routePoint;
+			  needle.id = idLookupTable[index];
+		   }
+	   });
+	   // The closest point in the polyline
+	   alert("Marker created at closest referenced point on polyline.");
+
+	   path_marker.id = needle.id;
+	   path_marker.setPosition(needle.latlng);
+	   path_marker.setVisible(true);
+
+	});
+
+	updatePath();
 }
+
+function updatePath(){
+
+	var path_endField = document.getElementById ('endPath');
+	var path_startField = document.getElementById ('startPath');
+
+	//Stores IDs for the path points for retreival on listener events. THere's probably a better way to do this.
+	idLookupTable = [];
+	path_marker.setVisible(false);
+
+	//console.log(path_counter.value);
+
+	var routes=[];
+	if (route != null){
+
+		//Can be shortened
+		if (!Number(path_endField.value)){
+			path_endField.value = route[route.length-1].id_gps;
+		}else if(Number(path_endField.value) > route[route.length-1].id_gps){
+			path_endField.value = route[route.length-1].id_gps;
+		}else if(Number(path_endField.value) < route[0].id_gps){
+			path_endField.value = route[route.length-1].id_gps;
+		}
+
+		if (!Number(path_startField.value)){
+			path_startField.value = route[0].id_gps;
+		}else if(Number(path_startField.value) < route[0].id_gps){
+			path_startField.value = route[0].id_gps;
+		}else if(Number(path_startField.value) > route[route.length-1].id_gps){
+			path_startField.value = route[0].id_gps;
+		}
+
+		var count = 0;
+		var routeIndex = 0;
+		   for(var i = 0; i <= route.length-1; i++){
+
+			   if(route[i].route_started == 1){
+				   count++;
+				   if(count >=2){
+					   console.log("routes reset! (route_started found twice or more)");
+					   routes=[];
+					   count = 0;
+				   }
+			   }
+			   if(Number(route[i].latitude)>0 && Number(route[i].longitude)>0){
+				   if (Number(path_endField.value) >= Number(route[i].id_gps) && Number(path_startField.value) <= Number(route[i].id_gps)){
+					   routes.push({lat: Number(route[i].latitude), lng:  Number(route[i].longitude)});
+					   idLookupTable[routeIndex] = route[i].id_gps;
+					   routeIndex++;
+				   }else{
+					   console.log("A step was ignored (Out of range)");
+				   }
+
+			   }
+			}
+
+		   console.log((routeIndex+1) + " steps routed.");
+		   boatPath.setPath(routes);
+		   boatPath.setMap(m_map);
+		   console.log("Polyline drawn!");
+
+
+	}else console.log("[jsfunctions.js: 127]: No route found for selected entry.");
+
+
+}
+
 
 function drawBoat() {
 	clearRectLayer(layerTWDctx);
@@ -258,6 +368,7 @@ function drawBoat() {
 	}
   }
 
+
 	function getData() {
 
 		$.ajax({
@@ -282,6 +393,7 @@ function drawBoat() {
 			url: 'dbapi.php',
 			data: {'action': "getRoute"},
 			success: function(data) {
+				console.log("route found.");
 				route = jQuery.parseJSON(data);
 			},
 			error: function(errorThrown) {
