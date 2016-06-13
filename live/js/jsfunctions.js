@@ -44,6 +44,7 @@ var vCompasHeading = 0;
 
 var latestId = -1;
 var currentId = -1;
+var marker;
 
 $(document).ready(function(){
 	document.getElementById("map").disabled = true;
@@ -204,12 +205,14 @@ function map(waypointsObj) {
 		});
 
 		for (var i = 0; i < waypointsObj.length; i++) {
+
 			var waypointMarkers = new google.maps.Marker({
  				position: new google.maps.LatLng(waypointsObj[i].latitude, waypointsObj[i].longitude),
 				map: mapvar,
 				icon :'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-				title: 'waypoints'
+				title: "Waypoint id: " + waypointsObj[i].id_waypoint
 			});
+
 		}
 
 }
