@@ -104,45 +104,60 @@
     $_SESSION['name'] = $name;
     $_SESSION['table'] = $table;
     $result = getAll($id, $name, $table);
-    foreach($result as $key => $row)
-    {
-      echo "
-        <tr>
-          <td>".$row["id_system"]."</td>
-          <td>".$row["boat_id"]."</td>
-          <td>".$row["sail_command_sail"]."</td>
-          <td>".$row["rudder_command_rudder"]."</td>
-          <td>".$row["sail_servo_position"]."</td>
-          <td>".$row["rudder_servo_position"]."</td>
-          <td>".$row["waypoint_id"]."</td>
-          <td>".$row["true_wind_direction_calc"]."</td>
-          <td>".$row["id_gps"]."</td>
-          <td>".$row["time"]."</td>
-          <td>".$row["latitude"]."</td>
-          <td>".$row["speed"]."</td>
-          <td>".$row["heading"]."</td>
-          <td>".$row["satellites_used"]."</td>
-          <td>".$row["longitude"]."</td>
-          <td>".$row["id_course_calculation"]."</td>
-          <td>".$row["distance_to_waypoint"]."</td>
-          <td>".$row["bearing_to_waypoint"]."</td>
-          <td>".$row["course_to_steer"]."</td>
-          <td>".$row["tack"]."</td>
-          <td>".$row["going_starboard"]."</td>
-          <td>".$row["id_windsensor"]."</td>
-          <td>".$row["direction"]."</td>
-          <td>".$row["speed"]."</td>
-          <td>".$row["temperature"]."</td>
-          <td>".$row["id_compass_model"]."</td>
-          <td>".$row["heading"]."</td>
-          <td>".$row["pitch"]."</td>
-          <td>".$row["roll"]."</td>
-          </tr>";
+    if (!empty($result)){
+
+        foreach($result as $key => $row)
+        {
+          echo "
+            <tr>
+              <td>".$row["id_system"]."</td>
+              <td>".$row["boat_id"]."</td>
+              <td>".$row["sail_command_sail"]."</td>
+              <td>".$row["rudder_command_rudder"]."</td>
+              <td>".$row["sail_servo_position"]."</td>
+              <td>".$row["rudder_servo_position"]."</td>
+              <td>".$row["waypoint_id"]."</td>
+              <td>".$row["true_wind_direction_calc"]."</td>
+              <td>".$row["id_gps"]."</td>
+              <td>".$row["time"]."</td>
+              <td>".$row["latitude"]."</td>
+              <td>".$row["speed"]."</td>
+              <td>".$row["heading"]."</td>
+              <td>".$row["satellites_used"]."</td>
+              <td>".$row["longitude"]."</td>
+              <td>".$row["id_course_calculation"]."</td>
+              <td>".$row["distance_to_waypoint"]."</td>
+              <td>".$row["bearing_to_waypoint"]."</td>
+              <td>".$row["course_to_steer"]."</td>
+              <td>".$row["tack"]."</td>
+              <td>".$row["going_starboard"]."</td>
+              <td>".$row["id_windsensor"]."</td>
+              <td>".$row["direction"]."</td>
+              <td>".$row["speed"]."</td>
+              <td>".$row["temperature"]."</td>
+              <td>".$row["id_compass_model"]."</td>
+              <td>".$row["heading"]."</td>
+              <td>".$row["pitch"]."</td>
+              <td>".$row["roll"]."</td>
+              </tr>";
+
+        }
+    }else{
+        echo "
+          <tr>
+            <td>ERROR:</td>
+            <td>Table empty; gps_datalogs id does not have a corresponding system_dataLogs entry</td>
+            </tr>";
+
     }
+
     //session_destroy();
   }
   else {
-    echo "nothing";
+    echo "
+      <tr>
+        <td>NOTHING</td>
+        </tr>";
   }
 
 ?>
@@ -153,6 +168,12 @@
   <div class="col-md-5">
     <div id='mapbtn'>
       <input type="button" class="btn btn-success" value="maps/boat" onclick="hideShowMapBoat()" />
+    </div>
+    <label for="usr">Route range: </label>
+    <div class="input-group">
+        <input type="text" id="startPath" onChange="updatePath()" class="form-control" placeholder="Start"/>
+        <span class="input-group-addon">-</span>
+        <input type="text" id="endPath" onChange="updatePath()" class="form-control" placeholder="End"/>
     </div>
     <div id='map'></div>
     <div id='boatCanvas'>
