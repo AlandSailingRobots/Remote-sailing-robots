@@ -2,7 +2,7 @@
     function printTables($table, $tableName){
 
       echo "<div class='col-md-4'>
-                <form name=".$tableName." id=".$tableName." action='updateDb.php' method='POST' autocomplete='off'>
+                <form name=".$tableName." id=".$tableName." autocomplete='off'>
             <div class='panel panel-default'>
               <div class='panel-heading'>".$tableName."</div>";
       echo "<table class='table'>";
