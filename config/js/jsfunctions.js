@@ -11,12 +11,23 @@ var drag_lng_status;
 var drag_lat_status;
 var drag_id_status;
 
+var ajaxBusy;
+
 var latestId;
 
 $(document).ready(function(){
 	drag_lng_status = document.getElementById ('lngStatus');
 	drag_lat_status = document.getElementById ('latStatus');
 	drag_id_status = document.getElementById ('idStatus');
+
+	ajaxBusy = false;
+
+	$(document).ajaxStart( function() {
+		ajaxBusy = true;
+	}).ajaxStop( function() {
+		ajaxBusy = false;
+	});
+
 	getWaypoints();
 });
 
@@ -117,7 +128,8 @@ function updateWaypoints(){
 		data        : {json: JSON.stringify(wps)}, // our data object
 		dataType    : 'text', // what type of data do we expect back from the server
 		   error: function(xhr, ajaxOptions, thrownError){
-			   alert(thrownError);
+			   //alert(thrownError);
+			   console.log("ERROR HAPPENED IN UPDATEWAYPOINTS");
 		   }
 	})
 		.done(function(data) {

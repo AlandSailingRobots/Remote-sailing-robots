@@ -8,13 +8,13 @@ ajaxFormSubmit = function(formData){
         dataType    : 'text', // what type of data do we expect back from the server
                    encode          : true,
            error: function(xhr, ajaxOptions, thrownError){
-               //alert(thrownError);
+               console.log("Error in ajaxformsubmit: " + thrownError);
            }
     })
         .done(function(data) {
 
             // log data to the console so we can see
-            //console.log(data);
+            //console.log(formData);
         });
 
 }

@@ -5,7 +5,7 @@
 		location's that have something like http://www.sailingrobots.com/ is used to test the sync on the website.
 	*/
 	if(isset($_POST["id"]) && isset($_POST["pwd"])) {
-<<<<<<< HEAD
+
 		$optionsPushlogs = array('location' => 'http://localhost/Remote-sailing-robots/sync/pushDatalogs.php', 'uri' => 'http://localhost/');
 		 //$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushDatalogs.php', 'uri' => 'http://localhost/');
 		$optionsGetConfigs = array('location' => 'http://localhost/Remote-sailing-robots/sync/getConfigs.php', 'uri' => 'http://localhost/');
@@ -14,18 +14,18 @@
 		//$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushConfigs.php, 'uri' => 'http://localhost/');
 		$optionsPushwaypoints = array('location' => 'http://localhost/Remote-sailing-robots/sync/pushWaypoints.php', 'uri' => 'http://localhost/');
 		//$options = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushWaypoints.php, 'uri' => 'http://localhost/');
-=======
+
 		//$optionsPushlogs = array('location' => 'http://localhost/Remote-sailing-robots/sync/pushDatalogs.php', 'uri' => 'http://localhost/');
-		 $optionsPushlogs = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushDatalogs.php', 'uri' => 'http://localhost/');
+		// $optionsPushlogs = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushDatalogs.php', 'uri' => 'http://localhost/');
 
 	//	$optionsGetConfigs = array('location' => 'http://localhost/Remote-sailing-robots/sync/getConfigs.php', 'uri' => 'http://localhost/');
-		$optionsGetConfigs = array('location' => 'http://www.sailingrobots.com/testdata/sync/getConfigs.php', 'uri' => 'http://localhost/');
+		//$optionsGetConfigs = array('location' => 'http://www.sailingrobots.com/testdata/sync/getConfigs.php', 'uri' => 'http://localhost/');
 
 		//$optionsPushConfigs = array('location' => 'http://localhost/Remote-sailing-robots/sync/pushConfigs.php', 'uri' => 'http://localhost/');
-		$optionsPushConfigs = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushConfigs.php', 'uri' => 'http://localhost/');
+		//$optionsPushConfigs = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushConfigs.php', 'uri' => 'http://localhost/');
 	//	$optionsPushwaypoints = array('location' => 'http://localhost/Remote-sailing-robots/sync/pushWaypoints.php', 'uri' => 'http://localhost/');
-		$optionsPushwaypoints = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushWaypoints.php', 'uri' => 'http://localhost/');
->>>>>>> 64615dbb0512776d2c224acb42c94aeb8a324247
+		//$optionsPushwaypoints = array('location' => 'http://www.sailingrobots.com/testdata/sync/pushWaypoints.php', 'uri' => 'http://localhost/');
+
 
 		//create an instante of the SOAPClient (the API will be available)
 		$pushLogsService = new SoapClient(NULL, $optionsPushlogs);

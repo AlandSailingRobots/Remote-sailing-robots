@@ -7,17 +7,17 @@
 submitAllForms = function(){
 
   var formName = "";
-  var countChanges = 0;
+  var countChanges = 1;
 
   for (index = 0; index < document.forms.length; ++index) {
       formName = "#" + document.forms[index].id;
 
-      //Checks if any form fields have been updated (contains number)
-      if (/\d/.test($(formName).serialize())){
-          countChanges++;
-      }
-
       if (formName != "#"){
+          //Checks if any form fields have been updated (contains number)
+        //   if (/\d/.test($(formName).serialize())){
+        //       countChanges++;
+        //   }
+
           ajaxFormSubmit($(formName).serialize());
           // == makes calls like this:
           //   ajaxFormSubmit($("#buffer_config").serialize());
@@ -32,18 +32,23 @@ submitAllForms = function(){
     updateWaypoints();
 
     if(countChanges > 0){
-        console.log(countChanges);
-        setTimeout(function(){
-              window.location.reload(1);
-          }, 300);
+        refreshWhenReady();
     }else {
         setTimeout(function(){
             getWaypoints();
             alert("Waypoints updated!");
         }, 300);
     }
+}
 
+function refreshWhenReady(){
 
-
+    if (ajaxBusy){
+        setTimeout(function(){
+            refreshWhenReady();
+        }, 300);
+    }else{
+        window.location.reload(1);
+    }
 
 }
