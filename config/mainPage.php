@@ -87,6 +87,8 @@
       </div>
     </nav>
 
+
+
     <div class="container">
 
       <div class="starter-template">
@@ -95,6 +97,8 @@
           <p>On this page you can see and update the configurations for Aland Sailing Robots.</p>
         </div>
         <br><br><br>
+
+
 
       <div class="row">
         <?php
@@ -141,11 +145,33 @@
             printTables($xbeeConfigArray, "xbee_config");
         ?>
     </div>
+    <div class ="row">
+    <div class='panel panel-default'>
+    <div class='panel-heading'>Waypoints</div>
+
+            <div class="col-md-4" id = "map" ></div>
+            <div class="input-group">
+                <span class="input-group-addon">Marker Latitude: </span>
+                <input type="text" id="latStatus" class="form-control" placeholder="Drag a marker"/>
+                <span class="input-group-addon">Marker Longitude: </span>
+                <input type="text" id="lngStatus" class="form-control" placeholder="Drag a marker"/>
+                <span class="input-group-addon">Marker ID: </span>
+                <input type="text" id="idStatus" class="form-control" placeholder="Drag a marker"/>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <input type='button' value='Undo waypoint changes' class='btn btn-danger btn-lg' onclick='getWaypoints()'/>
+                <br>
+            </div>
+
+    </div>
+    </div>
+
       <br>
     <div class="col-md-2">
       <input type='button' value='Submit' class='btn btn-success col-md-12' onclick='submitAllForms()'/>
       <br>
     </div>
+
         </div>
           <br><br><br><br><br><br>
     </div><!-- /.container -->

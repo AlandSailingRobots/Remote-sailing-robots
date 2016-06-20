@@ -12,7 +12,11 @@
 		}
     function checkIfNewConfigs() {
 			$sql = "SELECT updated FROM config_updated";
-			$result = $this->db->query($sql)->fetch_assoc();
+			$preResult = $this->db->query($sql);
+			if (!$preResult) {
+				throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");
+			}
+			$result = $preResult->fetch_assoc();
 			return $result['updated'];
 		}
 		function setConfigsUpdated() {
@@ -39,7 +43,11 @@
 			return json_encode($allData);
 		}
 		function getConfig($boat, $table) {
-			$result = $this->db->query("SELECT * FROM $table")->fetch_assoc();
+			$preResult = $this->db->query("SELECT * FROM $table");
+			if (!$preResult) {
+				throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");
+			}
+			$result = $preResult->fetch_assoc();
 			$array = array($table => 0);
 		 	$array[$table] = $result;
 			return $array;
