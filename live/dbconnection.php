@@ -6,10 +6,11 @@ class DBConnection {
 	private $dbconn;
 
 	function __construct() {
+		require_once('../globalsettings.php');
 
 		$host = 'localhost';
-		$user = 'root';
-		$pass = '';
+		$user = $GLOBALS['username'];
+		$pass = $GLOBALS['password'];
 		$dbname = 'ithaax_testdata';
 
 		try {

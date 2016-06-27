@@ -1,7 +1,8 @@
 <?php
 
-$options = array('location' => 'http://www.sailingrobots.com/testdata/live/dbconnection.php', 'uri' => 'http://localhost/');
-//$options = array('location' => 'http://localhost/Remote-sailing-robots/live/dbconnection.php', 'uri' => 'http://localhost/');
+require_once('../globalsettings.php');
+//$options = array('location' => 'http://www.sailingrobots.com/testdata/live/dbconnection.php', 'uri' => 'http://localhost/');
+$options = array('location' => $GLOBALS['server'].'/live/dbconnection.php', 'uri' => 'http://localhost/');
 //create an instante of the SOAPClient (the API will be available)
 $service = new SoapClient(NULL, $options);
 //call an API method

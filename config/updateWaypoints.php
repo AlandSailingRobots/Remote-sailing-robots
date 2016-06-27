@@ -1,14 +1,12 @@
 <?php
 
 
-	//header("Refresh:5; url=http://localhost/Remote-sailing-robots/config/mainPage.php");
+	require_once('../globalsettings.php');
 
 	$servername = 'localhost';
-	$username = 'root';
-	$password = '';
+	$username = $GLOBALS['username'];
+	$password = $GLOBALS['password'];
 	$dbname = 'ithaax_testdata';
-	// username = ithaax_testdata , pass = test123data
-	// Local: username = root, pass = ""
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
 	if ($conn->connect_error) {

@@ -1,8 +1,10 @@
 <?php
 
+require_once('../globalsettings.php');
+
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = $GLOBALS['username'];
+$password = $GLOBALS['password'];
 $dbname = "ithaax_testdata";
 // username = ithaax_testdata , pass = test123data
 // Local: username = root, pass = ""

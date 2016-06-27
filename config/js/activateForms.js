@@ -7,6 +7,7 @@
 submitAllForms = function(){
 
   var formName = "";
+  //Changes in form fields counter (unimplemented; some fields take non-number data :( )
   var countChanges = 1;
 
   for (index = 0; index < document.forms.length; ++index) {
@@ -31,6 +32,7 @@ submitAllForms = function(){
 
     updateWaypoints();
 
+    //No need to refresh whole page if only map has been updated
     if(countChanges > 0){
         refreshWhenReady();
     }else {

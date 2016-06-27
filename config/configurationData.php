@@ -1,14 +1,24 @@
 <?php
+
+
     function getConfigData($table){
+      require_once('../globalsettings.php');
+      $user = $GLOBALS['username'];
+      $password = $GLOBALS['password'];
       // local
       $dsn = 'mysql:dbname=ithaax_testdata;host=localhost';
-      $user = 'root';
-      $password = '';
+
 
       // when putting it on Gator
       /*$dsn = 'mysql:dbname=ithaax_testdata;host=localhost';
       $user = 'ithaax_testdata';
-      $password = 'test123data';*/
+      $password = 'test123data';
+
+      //When local:
+      $dsn = 'mysql:dbname=ithaax_testdata;host=localhost';
+      $user = 'root';
+      $password = '';
+      */
 
 
       try {

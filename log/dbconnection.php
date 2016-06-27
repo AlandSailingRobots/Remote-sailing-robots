@@ -1,8 +1,9 @@
 <?php
 function dbConn() {
 	//	username: ithaax_testdata & pass: test123data
-	$userName = "root";
-	$passWord = "";
+	require_once('../globalsettings.php');
+	$userName = $GLOBALS['username'];
+	$passWord = $GLOBALS['password'];
 	$conn = new PDO('mysql:host=localhost;dbname=ithaax_testdata',$userName, $passWord);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

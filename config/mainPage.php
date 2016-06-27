@@ -17,8 +17,11 @@
 
   <?php
     require('configurationData.php');
-      require('printTables.php');
+    require('printTables.php');
+    require('printWaypointList.php');
+    require('../live/dbconnection.php');
   ?>
+
   <script type="text/javascript" src="js/activateForms.js"></script>
 
 
@@ -114,6 +117,7 @@
           $windVaneConfigArray = getConfigData("wind_vane_config");
           $windsensorConfigArray = getConfigData("windsensor_config");
           $xbeeConfigArray = getConfigData("xbee_config");
+          $httpSyncConfigArray = getConfigData("httpsync_config");
         ?>
     <div class="row">
         <?php
@@ -145,23 +149,41 @@
             printTables($xbeeConfigArray, "xbee_config");
         ?>
     </div>
+    <div class="row">
+        <?php
+            printTables($httpSyncConfigArray, "httpsync_config");
+        ?>
+    </div>
     <div class ="row">
     <div class='panel panel-default'>
     <div class='panel-heading'>Waypoints</div>
 
             <div class="col-md-4" id = "map" ></div>
-            <div class="input-group">
-                <span class="input-group-addon">Marker Latitude: </span>
-                <input type="text" id="latStatus" class="form-control" placeholder="Drag a marker"/>
-                <span class="input-group-addon">Marker Longitude: </span>
-                <input type="text" id="lngStatus" class="form-control" placeholder="Drag a marker"/>
-                <span class="input-group-addon">Marker ID: </span>
-                <input type="text" id="idStatus" class="form-control" placeholder="Drag a marker"/>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>Selected Waypoint</div>
+                <div class="input-group">
+                    <span class="input-group-addon">Marker Latitude: </span>
+                    <input type="text" id="latStatus" class="form-control" placeholder="Drag a marker"/>
+                    <span class="input-group-addon">Marker Longitude: </span>
+                    <input type="text" id="lngStatus" class="form-control" placeholder="Drag a marker"/>
+                    <span class="input-group-addon">Marker ID: </span>
+                    <input type="text" id="idStatus" class="form-control" placeholder="Drag a marker"/>
+                </div>
+            </div>
+
+            <div class='panel panel-default'>
+                <div class='panel-heading'>Waypoint list (reload to see changes)</div>
+                <?php
+                    printWaypointList();
+                    //$waypointString = json_encode($getWaypointsService->getWaypoints());
+                    //echo "<div>.$waypointString.</div>";
+                ?>
             </div>
             <div class="col-md-4 col-md-offset-1">
                 <input type='button' value='Undo waypoint changes' class='btn btn-danger btn-lg' onclick='getWaypoints()'/>
                 <br>
             </div>
+
 
     </div>
     </div>

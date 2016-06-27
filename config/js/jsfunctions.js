@@ -175,6 +175,13 @@ var bindMarkerEvents = function(marker) {
 	  });
 }
 
+//[es] do later
+function removeLastMarker(){
+
+	if (newWaypoints.size() > 0){}
+
+}
+
 function placeMarker(latLng, map) {
 	var markerId = latLng.lat() + '_' + latLng.lng();
  	var marker = new google.maps.Marker({

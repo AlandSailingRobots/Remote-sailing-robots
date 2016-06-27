@@ -2,7 +2,17 @@
 	class ASRService {
 		private $db;
 		function __construct() {
-			$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+			require_once('../globalsettings.php');
+
+			$servername = "localhost";
+			$username = $GLOBALS['username'];
+			$password = $GLOBALS['password'];
+			$dbname = "ithaax_testdata";
+			// username = ithaax_testdata , pass = test123data
+			// Local: username = root, pass = ""
+			$this->db = new mysqli($servername, $username, $password, $dbname);
+
+			//$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
 			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
 		}
 		function __destruct() {

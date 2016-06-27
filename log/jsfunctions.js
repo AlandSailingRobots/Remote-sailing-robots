@@ -224,6 +224,7 @@ function updatePath(){
 			   if(route[i].route_started == 1){
 				   count++;
 				   if(count >=2){
+					   //This could lead to problems with idlookuptable and route range input and should probably be rewritten
 					   console.log("routes reset! (route_started found twice or more)");
 					   routes=[];
 					   count = 0;
