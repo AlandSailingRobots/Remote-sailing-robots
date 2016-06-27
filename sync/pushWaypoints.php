@@ -33,7 +33,7 @@
         foreach($data[$waypoints] as $row) {
             $waypoint->bind_param("iddi",
               $row["id"],
-              $row["latitude"],1
+              $row["latitude"],
               $row["longitude"],
               $row["radius"]
             );
