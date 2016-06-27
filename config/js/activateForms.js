@@ -30,17 +30,7 @@ submitAllForms = function(){
     }
     console.log("Forms submitted");
 
-    updateWaypoints();
-
-    //No need to refresh whole page if only map has been updated
-    if(countChanges > 0){
-        refreshWhenReady();
-    }else {
-        setTimeout(function(){
-            getWaypoints();
-            alert("Waypoints updated!");
-        }, 300);
-    }
+    refreshWhenReady();
 }
 
 function refreshWhenReady(){

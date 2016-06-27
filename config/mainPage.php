@@ -153,6 +153,10 @@
         <?php
             printTables($httpSyncConfigArray, "httpsync_config");
         ?>
+        <div class="col-md-2">
+          <input type='button' value='Submit Configs' class='btn btn-success col-md-12' onclick='submitAllForms()'/>
+          <br>
+        </div>
     </div>
     <div class ="row">
     <div class='panel panel-default'>
@@ -183,16 +187,17 @@
                 <input type='button' value='Undo waypoint changes' class='btn btn-danger btn-lg' onclick='getWaypoints()'/>
                 <br>
             </div>
+            <div class="col-md-4 col-md-offset-3">
+              <input type='button' value='Submit waypoint changes' class='btn btn-success btn-lg' onclick='updateWaypoints()'/>
+              <br>
+            </div>
 
 
     </div>
     </div>
 
       <br>
-    <div class="col-md-2">
-      <input type='button' value='Submit' class='btn btn-success col-md-12' onclick='submitAllForms()'/>
-      <br>
-    </div>
+
 
         </div>
           <br><br><br><br><br><br>

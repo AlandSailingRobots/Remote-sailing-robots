@@ -11,29 +11,28 @@ class ASRService {
         $username = $GLOBALS['username'];
         $password = $GLOBALS['password'];
         $dbname = "ithaax_testdata";
-        // username = ithaax_testdata , pass = test123data
-        // Local: username = root, pass = ""
         $this->db = new mysqli($servername, $username, $password, $dbname);
-        //$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+
     }
     function __destruct() {
         $this->db->close();
     }
-    //Update check needs its own entries
-    function checkIfNewConfigs() {
-        $sql = "SELECT updated FROM config_updated";
+
+    function checkIfNewWaypoints() {
+        $sql = "SELECT waypoints_updated FROM config_updated"; //Does this exist on localhost?
         $preResult = $this->db->query($sql);
         if (!$preResult) {
             throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");
         }
         $result = $preResult->fetch_assoc();
-        return $result['updated'];
+        return $result['waypoints_updated'];
     }
-    function setConfigsUpdated() {
-        $sql = "UPDATE config_updated SET updated = 0 where id=1";
+    function setWaypointsUpdated() {
+        $sql = "UPDATE config_updated SET waypoints_updated = 0 where id=1";
         $result = $this->db->query($sql);
     }
     function getWaypoints() {
+        $this->setWaypointsUpdated();
         $preResult = $this->db->query("SELECT * FROM waypoints");
         if (!$preResult) {
         	throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");
@@ -43,10 +42,6 @@ class ASRService {
         while ($row = $preResult->fetch_row()) {
             $result[] = $row;
         }
-
-
-
-        //$result = $preResult->fetch_array();
         $array = array("waypoints" => 0);
         $array["waypoints"] = $result;
         return json_encode($array);

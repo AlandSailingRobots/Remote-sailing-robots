@@ -137,6 +137,7 @@ function updateWaypoints(){
 		});
 
 	insertNewWaypoints();
+	refreshWhenReady();
 }
 
 //Calls initmap when done

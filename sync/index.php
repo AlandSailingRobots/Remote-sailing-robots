@@ -43,6 +43,9 @@
 					case "checkIfNewConfigs":
 						echo $getConfigsService->checkIfNewConfigs();
 						break;
+                    case "checkIfNewWaypoints":
+                        echo $getWaypointsService->checkIfNewWaypoints();
+                        break;
 					case "setConfigsUpdated":
 						print_r($getConfigsService->setConfigsUpdated());
 						break;

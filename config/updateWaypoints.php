@@ -31,6 +31,8 @@
 	//BUILD LAT STRING:
 
 	if (!empty($array)){
+		$sqlquery = "UPDATE config_updated SET waypoints_updated = 1 WHERE id=1";
+		$conn->query($sqlquery);
 
 		foreach ($array as $key => $value){ //ENTRIES: [0][1]...
 	        //$stmt.=" Waypoint: ".$key.". ";
