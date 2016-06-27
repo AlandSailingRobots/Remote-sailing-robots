@@ -70,17 +70,17 @@
 					);
 						$windSensorStmt->execute();
 					}
-                foreach($data["arduino_datalogs"] as $row) {
+                		foreach($data["arduino_datalogs"] as $row) {
 					$arduinoStmt->bind_param("iiii",
 						$row["pressure"],
-						$row["rudder_act"],
-						$row["sheet_act"],
-						$row["battery"],
+						$row["rudder"],
+						$row["sheet"],
+						$row["current"]
 					);
 						$arduinoStmt->execute();
 					}
 				foreach($data["system_datalogs"] as $row) {
-					$systemStmt->bind_param("siiiiiid",
+					$systemStmt->bind_param("siiiiid",
 						$boat,
 						$row["sail_command_sail_state"],
 						$row["rudder_command_rudder_state"],
@@ -103,7 +103,7 @@
 				$compassStmt->close();
 				$courseCalculationStmt->close();
 				$gpsStmt->close();
-				$arduino->close();
+				$arduinoStmt->close();
 				return json_encode($result);
 			}
 		}
