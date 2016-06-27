@@ -11,7 +11,7 @@
 			$username = $GLOBALS['username'];
 			$password = $GLOBALS['password'];
 			$dbname = 'ithaax_testdata';
-			$conn = new mysqli($servername, $username, $password, $dbname);
+			$this->db = new mysqli($servername, $username, $password, $dbname);
 		}
 		function __destruct() {
 			$this->db->close();
