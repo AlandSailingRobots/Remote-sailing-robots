@@ -23,12 +23,14 @@
 				$gpsStmt = $this->db->stmt_init();
 				$systemStmt = $this->db->stmt_init();
 				$windSensorStmt = $this->db->stmt_init();
+				$arduinoStmt = $this->db->stmt_init();
 
 				$compassStmt->prepare("INSERT INTO compass_dataLogs VALUES(NULL,?,?,?, NULL);");
 				$courseCalculationStmt->prepare("INSERT INTO course_calculation_dataLogs VALUES(NULL,?,?,?,?,?,NULL);");
 				$gpsStmt->prepare("INSERT INTO gps_dataLogs VALUES(NULL,?,?,?,?,?,?,NULL,?);");
 				$systemStmt->prepare("INSERT INTO system_dataLogs VALUES(NULL,?,?,?,?,?,?,?,NULL);");
 				$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
+				$arduinoStmt->prepare("INSERT INTO arduino_dataLogs VALUES(NULL,?,?,?,?);");
 
 				foreach($data["gps_datalogs"] as $row) {
 					$gpsStmt->bind_param("sdddidi",
@@ -68,8 +70,17 @@
 					);
 						$windSensorStmt->execute();
 					}
+                foreach($data["arduino_datalogs"] as $row) {
+					$arduinoStmt->bind_param("iiii",
+						$row["pressure"],
+						$row["rudder_act"],
+						$row["sheet_act"],
+						$row["battery"],
+					);
+						$arduinoStmt->execute();
+					}
 				foreach($data["system_datalogs"] as $row) {
-					$systemStmt->bind_param("siiiiid",
+					$systemStmt->bind_param("siiiiiid",
 						$boat,
 						$row["sail_command_sail_state"],
 						$row["rudder_command_rudder_state"],
@@ -92,6 +103,7 @@
 				$compassStmt->close();
 				$courseCalculationStmt->close();
 				$gpsStmt->close();
+				$arduino->close();
 				return json_encode($result);
 			}
 		}
