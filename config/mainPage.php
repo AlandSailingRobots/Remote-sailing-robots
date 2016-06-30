@@ -1,8 +1,7 @@
 <?php session_start();?>
 <?php
     if(!isset($_SESSION['use']))  { // If session is not set that redirect to Login Page
-        // header("Location:index.php");
-         echo '<script type="text/javascript"> window.open("index.php","_self");</script>';
+         header("Location:index.php");
      }
 ?>
 <!DOCTYPE html>
