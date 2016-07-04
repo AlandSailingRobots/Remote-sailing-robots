@@ -19,7 +19,7 @@ class ASRService {
     }
 
     function checkIfNewWaypoints() {
-        $sql = "SELECT waypoints_updated FROM config_updated"; //Does this exist on localhost?
+        $sql = "SELECT waypoints_updated FROM config_updated";
         $preResult = $this->db->query($sql);
         if (!$preResult) {
             throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");

@@ -172,6 +172,11 @@
                     <span class="input-group-addon">Marker ID: </span>
                     <input type="text" id="idStatus" class="form-control" placeholder="Drag a marker"/>
                 </div>
+                <div class='panel-heading'>Insertion settings</div>
+                <div class="input-group">
+                    <span class="input-group-addon">New waypoint radius: </span>
+                    <input type="text" id="radSetting" class="form-control" value="15"/>
+                </div>
             </div>
 
             <div class='panel panel-default'>
@@ -187,7 +192,7 @@
                 <br>
             </div>
             <div class="col-md-4 col-md-offset-3">
-              <input type='button' value='Submit waypoint changes' class='btn btn-success btn-lg' onclick='updateWaypoints()'/>
+              <input type='button' value='Submit waypoint changes' class='btn btn-success btn-lg' onclick='waypointsToDatabase()'/>
               <br>
             </div>
 
