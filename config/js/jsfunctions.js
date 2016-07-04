@@ -32,7 +32,9 @@
 			ajaxBusy = false;
 		});
 
+
 		getWaypoints();
+
 	});
 
 
@@ -72,7 +74,34 @@
 
 		  bindMarkerEvents(waypointMarkers);
 		}
+		boatMarker();
 	};
+
+	function boatMarker(){
+		$.ajax({
+			url: '../live/dbapi.php',
+			data: {'action': "getGpsData"},
+			type: 'POST',
+			success: function(data) {
+				//var temp = jQuery.parseJSON(data);
+				var posObj = jQuery.parseJSON(data);
+				var boatPos = {lat: Number(posObj.latitude), lng: Number(posObj.longitude)};
+				console.log(posObj.latitude);
+				var boatMarker = new google.maps.Marker({
+					position: boatPos,
+					map: map,
+					icon :'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+					title: "Boat position"
+				});
+
+			},
+			error: function(errorThrown) {
+				console.log(errorThrown);
+			}
+		});
+
+
+	}
 
 	//Insert new and update are both to be replaced by this, running once to kill all waypoints and inserting new ones
 	function waypointsToDatabase(){
@@ -92,6 +121,8 @@
 
 			}
 		}
+
+		console.log(JSON.stringify(wps));
 
 		$.ajax({
 			type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
