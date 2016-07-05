@@ -298,7 +298,8 @@
 		}
 		if (dataObj.hasOwnProperty('id_course_calculation')) {
 			//Testing
-			vTacking = parseFloat(dataObj.tack);
+			vTACKING = parseFloat(dataObj.tack);
+
 			vCTS = parseFloat(dataObj.course_to_steer);
 
 			vWAYPOINT = parseFloat(dataObj.bearing_to_waypoint);
@@ -335,7 +336,7 @@
 		clearRectLayer(layerBoatHeadingctx);
 		clearRectLayer(layerCanvasctx);
 
-		if(vTACKING === 1) {
+		if(vTACKING > 0) {
 			drawZeroPosition(layerCanvasctx, tacking);
 			drawZeroPosition(layerTWDctx, tacking);
 			drawZeroPosition(layerHeadingctx, tacking);
