@@ -365,7 +365,7 @@
 		});
 
 		function drawCompass() {
-			drawZeroPosition(layerCompasHeadingctx, tacking);
+			//drawZeroPosition(layerCompasHeadingctx, tacking);
 			translateCanvas(layerCanvasctx);
 		}
 		function drawTWD() {

@@ -27,14 +27,16 @@
       $waypoint = $this->db->stmt_init();
       $waypoint->prepare("DELETE FROM waypoints");
       $waypoint->execute();
-      $waypoint->prepare("INSERT INTO waypoints VALUES(?,?,?,?,NULL);");
+	  $waypoint->prepare("ALTER TABLE waypoints AUTO_INCREMENT = 0;");
+      $waypoint->execute();
+      $waypoint->prepare("INSERT INTO waypoints VALUES(NULL,?,?,?,?,NULL);");
       for($i=1; $i <= $size; $i++) {
         $waypoints = "waypoint_".$i;
         foreach($data[$waypoints] as $row) {
-            $waypoint->bind_param("iddi",
-              $row["id"],
+            $waypoint->bind_param("ddii",
               $row["latitude"],
               $row["longitude"],
+			  $row["declination"],
               $row["radius"]
             );
               $waypoint->execute();
