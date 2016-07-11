@@ -46,13 +46,22 @@
 	var currentId = -1;
 	var marker;
 
+	var pathline;
+	var latLong;
+
 	$(document).ready(function(){
+		$.getScript("../libs/markerFunctions.js", function(){
+
+		   console.log("markerFunctions.js included");
+		   getWaypoints();
+
+		});
 		document.getElementById("map").disabled = true;
 		document.getElementById("map").style.visibility = "hidden";
 		initBoat();
 		drawBoat();
 		resizeDiv();
-		getWaypoints();
+
 		readDatalog();
 		setUpdateTimer(3000);
 	});
@@ -188,16 +197,20 @@
 	}
 
 	function updateMarker(dataObj) {
-				var latLong = {lat: Number(dataObj.latitude), lng: Number(dataObj.longitude)}
-			marker.setPosition(latLong);
+			latLong = new google.maps.LatLng(Number(dataObj.latitude), Number(dataObj.longitude));
+			if (marker != null){
+				marker.setPosition(latLong);
+			}
 	}
+
 	function map(waypointsObj) {
-			var latLong = {lat: Number(waypointsObj[0].latitude), lng: Number(waypointsObj[0].longitude)}
 			var mapDiv = document.getElementById("map");
 			 mapvar = new google.maps.Map(mapDiv, {
 				center: latLong,
 				zoom: 14
 			});
+
+			markerFunctions_setMarkerMap(mapvar);
 
 				marker = new google.maps.Marker({
 				map: mapvar,
@@ -205,13 +218,11 @@
 			});
 
 			for (var i = 0; i < waypointsObj.length; i++) {
-
-				var waypointMarkers = new google.maps.Marker({
-	 				position: new google.maps.LatLng(waypointsObj[i].latitude, waypointsObj[i].longitude),
-					map: mapvar,
-					icon :'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-					title: "Waypoint id: " + waypointsObj[i].id_waypoint
-				});
+				var wpd = waypointsObj[i];
+				console.log("THIS " + wpd.id_waypoint);
+				var wpm = placeMarker(new google.maps.LatLng(wpd.latitude, wpd.longitude), wpd.id_waypoint, wpd.id_waypoint -1, wpd.radius, false);
+				wpm.setDraggable(false);
+				renderLine(wpm);
 
 			}
 

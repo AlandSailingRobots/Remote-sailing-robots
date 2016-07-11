@@ -4,7 +4,6 @@
 
 	var waypointsObj;
 	var map;
-	var loadedWaypoints = [];
 	var setRadius = 15;
 
 	//Used for displaying "selected waypoint" on the webpage
@@ -15,25 +14,27 @@
 	var radius_setting_box;
 
 	var ajaxBusy;
-	var latestId;
 
 	$(document).ready(function(){
 		drag_lng_status = document.getElementById ('lngStatus');
 		drag_lat_status = document.getElementById ('latStatus');
 		drag_id_status = document.getElementById ('idStatus');
 		radius_setting_box = document.getElementById('radSetting');
-
-
 		ajaxBusy = false;
+
+		console.log("Document ready");
+		//Basically an "include"
+		$.getScript("../libs/markerFunctions.js", function(){
+		   console.log("markerFunctions.js included");
+		   getWaypoints();
+
+		});
 
 		$(document).ajaxStart( function() {
 			ajaxBusy = true;
 		}).ajaxStop( function() {
 			ajaxBusy = false;
 		});
-
-
-		getWaypoints();
 
 	});
 
@@ -52,30 +53,27 @@
 		});
 
 		map.addListener('click', function(event) {
-		placeMarker(event.latLng, map);
+			var newMarker = placeMarker(event.latLng, -1, -1, radius_setting_box.value, true);
+			bindMarkerEvents(newMarker);
+			renderLine(newMarker);
 		});
+
+		initMarkers(map);
+		boatMarker();
+	}
+
+	function initMarkers(setMap){
+		markerFunctions_setMarkerMap(map);
 
 		for (var i = 0; i < waypointsObj.length; i++) {
 
-		  var waypointMarkers = new google.maps.Marker({
-			  position: new google.maps.LatLng(waypointsObj[i].latitude, waypointsObj[i].longitude),
-			  map: map,
-			  draggable: true,
-			  icon :'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-			  title: "Waypoint id: " + waypointsObj[i].id_waypoint + " radius: " + waypointsObj[i].radius,
-			  db_id: waypointsObj[i].id_waypoint,
-			  radius: waypointsObj[i].radius,
-			  index: i
-		  });
+			var newMarker = placeMarker(new google.maps.LatLng(waypointsObj[i].latitude, waypointsObj[i].longitude),
+			 	waypointsObj[i].id_waypoint,i, waypointsObj[i].radius, false);
 
-		  loadedWaypoints.push(waypointMarkers);
-		  latestId = Number(waypointsObj[i].id_waypoint) + 1;
-		  //console.log("Last entry: " + loadedWaypoints[loadedWaypoints.length-1].title + " POS: " + loadedWaypoints[loadedWaypoints.length-1].position.lng());
-
-		  bindMarkerEvents(waypointMarkers);
-		}
-		boatMarker();
-	};
+			bindMarkerEvents(newMarker);
+			renderLine(newMarker);
+	  }
+	}
 
 	function boatMarker(){
 		$.ajax({
@@ -111,11 +109,12 @@
 
 		var wp_data;
 		var wps = [];
+		var existing = markerFunctions_getLoadedWaypoints();
 
-		for (var i = 0; i < loadedWaypoints.length; i++){
-			if(loadedWaypoints[i] != null){
+		for (var i = 0; i < existing.length; i++){
+			if(existing[i] != null){
 				wp_data = {
-					position: {latitude: loadedWaypoints[i].position.lat(), longitude: loadedWaypoints[i].position.lng(), radius: loadedWaypoints[i].radius}
+					position: {latitude: existing[i].position.lat(), longitude: existing[i].position.lng(), radius: existing[i].radius}
 				}
 				wps.push(wp_data);
 
@@ -145,8 +144,8 @@
 	//Calls initmap when done
 	function getWaypoints() {
 		//Keep track of current id for later insertions
-		latestId = 1;
-		loadedWaypoints = [];
+		console.log("Running getWaypoints");
+		markerFunctions_resetLoadedWaypoints();
 		newWaypoints = [];
 		$.ajax({
 			url: '../live/dbapi.php',
@@ -164,45 +163,16 @@
 
 	var bindMarkerEvents = function(marker) {
 	    google.maps.event.addListener(marker, "rightclick", function (e) {
-	        var markerId = e.latLng.lat() + '_' + e.latLng.lng();
 	        var marker = this;
-	        removeMarker(marker, markerId);
+	        removeMarker(marker);
 	    });
 		google.maps.event.addListener(marker, 'drag', function() {
 			if (drag_lat_status!=null && drag_lng_status!=null){
 				drag_lat_status.value = this.position.lat();
 				drag_lng_status.value = this.position.lng();
 				drag_id_status.value = this.db_id;
+				updateMarkerPosition(this);
 			}
 		  //console.log("Waypoint " + this.db_id + " new position: " + this.position.lng());
 		  });
-	}
-
-	function placeMarker(latLng, map) {
-		setRadius = radius_setting_box.value;
-
-		if (isNaN(setRadius)){
-			console.log("Radius not numeric, defaulting to 15");
-			setRadius = 15;
-		}
-
-		var markerId = latLng.lat() + '_' + latLng.lng();
-	 	var marker = new google.maps.Marker({
-			position: latLng,
-			map: map,
-			draggable: true,
-			db_id: latestId,
-			index: latestId - 1,
-			radius: setRadius,
-			title: "New marker, id: " + latestId
-		});
-		loadedWaypoints.push(marker);
-		latestId++;
-		bindMarkerEvents(marker);
-	}
-
-	var removeMarker = function (marker, markerId) {
-	 	marker.setMap(null);
-		delete loadedWaypoints[marker.index];
-		console.log(marker.index + " deleted.");
 	}
