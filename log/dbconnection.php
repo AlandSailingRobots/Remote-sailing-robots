@@ -115,6 +115,19 @@ function getAll($id, $name, $table){
 	return $result;
 }
 
+function getAllRoutes(){
+	$conn = dbConn();
+	try {
+		$stmt = $conn->prepare("SELECT latitude, longitude, route_started, id_gps FROM gps_dataLogs");
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+	}
+	catch(PDOException $e) {
+	 $error = $e->getMessage();
+ 	}
+ 	return $result;
+}
+
 function getRoute($id){
 	$conn = dbConn();
 	try {

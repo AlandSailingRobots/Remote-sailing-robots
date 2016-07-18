@@ -35,6 +35,8 @@
     <script src="../libs/DataTables-1.10.0/media/js/jquery.dataTables.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="../libs/markerFunctions.js"></script>
+    <script src='../libs/utility.js'></script>
     <script src="jsfunctions.js"></script>
 </head>
 <body>

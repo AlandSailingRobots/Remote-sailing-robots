@@ -32,15 +32,3 @@ submitAllForms = function(){
 
     refreshWhenReady();
 }
-
-function refreshWhenReady(){
-
-    if (ajaxBusy){
-        setTimeout(function(){
-            refreshWhenReady();
-        }, 300);
-    }else{
-        window.location.reload(1);
-    }
-
-}

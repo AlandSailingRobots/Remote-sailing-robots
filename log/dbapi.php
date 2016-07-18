@@ -15,6 +15,10 @@ switch ($_REQUEST['action']) {
 		$tables = getRoute($id);
 		echo json_encode($tables);
 		break;
+	case 'getAllRoutes':
+		$tables = getAllRoutes();
+		echo json_encode($tables);
+		break;
 	default:
 		echo "!!! CONNY W T F !!!";
 		break;

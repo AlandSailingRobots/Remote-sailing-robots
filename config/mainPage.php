@@ -37,6 +37,8 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link rel="icon" href="https://image.freepik.com/free-icon/sailing-boat_318-54194.png">
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="../libs/markerFunctions.js"></script>
+    <script src="../libs/utility.js"></script>
     <script src="js/jsfunctions.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -188,7 +190,7 @@
                 ?>
             </div>
             <div class="col-md-4 col-md-offset-1">
-                <input type='button' value='Undo waypoint changes' class='btn btn-danger btn-lg' onclick='getWaypoints()'/>
+                <input type='button' value='Undo changes' class='btn btn-danger btn-lg' onclick='reloadPage()'/>
                 <br>
             </div>
             <div class="col-md-4 col-md-offset-3">
