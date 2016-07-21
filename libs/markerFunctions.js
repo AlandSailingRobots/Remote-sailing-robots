@@ -8,6 +8,7 @@
     var pathLine;
 
     var trailLine;
+    var trailLimit = -1;
 
     function markerFunctions_resetLoadedWaypoints(){
         latestId = 1;
@@ -235,6 +236,11 @@
         // });
     }
 
+    //Limit amount of possible points in the trail. -1 = infinite (default)
+    function markerFunctions_setTrailLimit(newLimit){
+        trailLimit = newLimit;
+    }
+
     //Used for direct boat tracking, no corridors
     function markerFunctions_renderTrail(targetLat, targetLng){
 
@@ -242,10 +248,17 @@
             markerFunctions_initTrail();
         }
 
-
-
         //Zero check filters out mock results
         var newPathData = trailLine.getPath().getArray();
+
+        var trailLength = newPathData.length;
+
+        if (trailLimit != -1 && trailLength >= trailLimit){
+
+            newPathData.shift();
+
+        }
+
         var newPoint = new google.maps.LatLng(targetLat, targetLng);
         newPathData.push(newPoint);
         trailLine.setPath(newPathData);
@@ -268,7 +281,7 @@
             path: newPathData,
             geodesic: true,
             strokeColor: '#000000',
-            strokeOpacity: 1.0,
+            strokeOpacity: 0.4,
             strokeWeight: 2
         });
         trailLine.setMap(markerMap);

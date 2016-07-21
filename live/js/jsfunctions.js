@@ -50,6 +50,10 @@
 	var latLong;
 	var mapVar;
 
+	var dataRequestCount = 0;
+	//Amount of data objects requested, subject to change - see u_checkIfNewLogData and the amount of calls
+	var dataRequestDefault = 5;
+
 	var firstUtilityCallback = true;
 
 	$(document).ready(function(){
@@ -84,7 +88,7 @@
 			document.getElementById("map").style.visibility = "hidden";
 
 			u_repeatLogProbe(3000);
-			//setUpdateTimer(3000); // Old
+
 			firstUtilityCallback = false;
 		}
 
@@ -93,9 +97,17 @@
 	//Put data update here
 	function utilityNewLogData(dataObj){
 
-		updateBoat();
 		drawBoat();
 		updateData(dataObj);
+
+		//Check if the different new logs (gps, system etc) have all come in before updating boat
+		if (dataRequestCount > 1){
+			dataRequestCount--;
+		}else{
+			updateBoat();
+			dataRequestCount = dataRequestDefault;
+		}
+
 		if (dataObj.hasOwnProperty('id_gps')) {
 			updateMarker(dataObj);
 		}
@@ -151,6 +163,9 @@
 
 	function paintBoatTrail(data){
 
+		//Temp hardcoded
+		markerFunctions_setTrailLimit(200);
+
 		var lastLat;
 		var lastLng;
 
@@ -185,16 +200,18 @@
 	}
 
 	function updateMarker(dataObj) {
-			latLong = new google.maps.LatLng(Number(dataObj.latitude), Number(dataObj.longitude));
-			if (marker != null){
+		latLong = new google.maps.LatLng(Number(dataObj.latitude), Number(dataObj.longitude));
+		if (marker != null){
 
-				marker.setPosition(latLong);
-				if (mapVar){
-					mapVar.setCenter(latLong);
-				}else console.log("map not found");
+			marker.setPosition(latLong);
+			markerFunctions_renderTrail(Number(dataObj.latitude), Number(dataObj.longitude));
+			if (mapVar){
+				//Centering got annoying
+				//mapVar.setCenter(latLong);
+			}else console.log("map not found");
 
-				//markerFunctions_renderTrail(dataObj.latitude, dataObj.longitude);
-			}
+			//markerFunctions_renderTrail(dataObj.latitude, dataObj.longitude);
+		}
 	}
 
 	function initMap(){
@@ -202,7 +219,7 @@
 
 		mapVar = new google.maps.Map(mapDiv, {
 			//center: latLong,
-			center: new google.maps.LatLng(Number(0), Number(0)),
+			center: new google.maps.LatLng(Number(60), Number(19)),
 			zoom: 14
 		});
 		markerFunctions_setMarkerMap(mapVar);
@@ -210,17 +227,17 @@
 
 	function initMarkers(waypointsObj) {
 
-			marker = new google.maps.Marker({
-				map: mapVar,
-				title: 'boat position'
-			});
+		marker = new google.maps.Marker({
+			map: mapVar,
+			title: 'boat position'
+		});
 
-			for (var i = 0; i < waypointsObj.length; i++) {
-				var wpd = waypointsObj[i];
-				var wpm = markerFunctions_placeMarker(new google.maps.LatLng(wpd.latitude, wpd.longitude), wpd.id_waypoint, wpd.id_waypoint -1, wpd.radius, false);
-				wpm.setDraggable(false);
-				markerFunctions_renderLine(wpm);
-			}
+		for (var i = 0; i < waypointsObj.length; i++) {
+			var wpd = waypointsObj[i];
+			var wpm = markerFunctions_placeMarker(new google.maps.LatLng(wpd.latitude, wpd.longitude), wpd.id_waypoint, wpd.id_waypoint -1, wpd.radius, false);
+			wpm.setDraggable(false);
+			markerFunctions_renderLine(wpm);
+		}
 
 	}
 
@@ -333,6 +350,8 @@
 			$("#dataNamesCompass").html(dataNames);
 			$("#dataValuesCompass").html(dataValues);
 		}
+
+
 	}
 
 	function drawBoat() {
@@ -348,7 +367,6 @@
 			drawZeroPosition(layerTWDctx, tacking);
 			drawZeroPosition(layerHeadingctx, tacking);
 			drawZeroPosition(layerWaypointctx, tacking);
-			drawZeroPosition(layerCompasHeadingctx, tacking);
 			drawZeroPosition(layerCompasHeadingctx, tacking);
 		}
 
@@ -387,6 +405,8 @@
 		function drawCompasHeading() {
 			drawComponent(layerCompasHeadingctx, vCompasHeading, compasHeading);
 		}
+
+		//Value in degrees, painting in radians
 		function drawComponent(layerctx, vValue, image) {
 			layerctx.drawImage(compass,0,0);
 			translateCanvas(layerctx);
