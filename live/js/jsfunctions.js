@@ -1,4 +1,13 @@
-	/*this is a massive file that handles all of the js code on the live site*/
+/****************************************************************************************
+ *
+ * Purpose:
+ *		Draws latest log info, a boat illustration and a map with the current boat position and trail.
+ *
+ *
+ * Developer Notes:
+ *		- Boat illustration still a bit wonky. Look into rudder position drawing.
+ *
+ ***************************************************************************************/
 	$("#boatCanvas").hide();
 	$("#pingCanvas").hide();
 	$("#map").hide();

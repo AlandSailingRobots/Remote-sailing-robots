@@ -1,5 +1,16 @@
-    //Gathering of mostly database functions
-    //Preferrably, no duplicate code database calls should exist in jsfunctions documents
+/****************************************************************************************
+ *
+ * Purpose:
+ *      provides a shared library of functions (mostly for db handling). See usage in
+ *      page headers and jsfunctions files.
+ *
+ *
+ * Developer Notes:
+ *      - still TODO: Combine all dbapi- and dbconnection php files into one of each and
+ *          include them in the libs folder for less duplicates.
+ *      - Name is not optimal, should probably think of something better.
+ *
+ ***************************************************************************************/
 
     //Number of running ajax threads
     var u_errorMessage = "[ERROR: libs/utility.js]: ";
@@ -57,6 +68,7 @@
         u_runningThreads--;
         //Only call when ALL threads are done
         if (u_runningThreads < 1){
+            //name of callback
             utilityCallback();
             u_runningThreads = 0;
         }
@@ -65,6 +77,7 @@
     //Separate callback for repeated log probes
     function u_newLogData(dataObj){
 
+        //name of callback
         utilityNewLogData(dataObj);
 
     }

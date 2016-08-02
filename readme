@@ -1,0 +1,16 @@
+/****************************************************************************************
+ *
+ *
+ *  Developer notes:
+ *          - Hostgator may not have the latest files (mostly comment changes)
+ *          - Many ex-local functions have been centralized in utility.js and waypointFunctions.js,
+ *              but some old variables or dead references may still be in there.
+ *          - Note that most of utility.js and waypointFunctions.js was written by an old man with
+ *              little experience in web development; many functions might be better implemented in
+ *              some other language than javascript or just plain reworked.
+ *          - There are still many glaring security issues with the webpage
+ *              -   Login for config should be encrypted
+ *              -   Server settings passwords should be encrypted
+ *              -   Boat password and login in sync is not implemented (currently accepts anything)
+ *
+ ***************************************************************************************/

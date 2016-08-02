@@ -1,6 +1,13 @@
-
-
-    // Used for drawing waypoint markers with linefollowing and radius illustrations
+/****************************************************************************************
+ *
+ * Purpose:
+ *      Shared library for google maps usage. Included and used mostly like utility.js
+ *      See usage in local jsfunctions files.
+ *
+ * Developer Notes:
+ *      -   setTrailClickable not implemented (old copypaste-code left commented as reference)
+ *
+ ***************************************************************************************/
 
     var markerMap;
     var loadedWaypoints = [];
@@ -179,6 +186,7 @@
     }
 
     //Old function for finding clicked points on a polyline
+    //Needs rewriting to be included here
     function markerFunctions_setTrailClickable(clickable){
         // //Marker that moves to mark currently selected log point on line
         //

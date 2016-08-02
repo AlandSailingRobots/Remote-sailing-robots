@@ -122,7 +122,7 @@
         <div id='boatData'>
   			<div id='boatDataGps'>
   				<h2>Gps Data</h2>
-  				<div id='dataNameGps' ></div>
+  				<div id='dataNameGps'></div>
   				<div id='dataValueGps'></div>
   			</div>
 
@@ -138,9 +138,9 @@
 
         <div class="col-md-5">
 
-      <div id='mapbtn'>
-				<input type="button" class="btn btn-success" value="maps/boat" onclick="hideShowMapBoat()" />
-			</div>
+        <div id='mapbtn'>
+        		<input type="button" class="btn btn-success" value="maps/boat" onclick="hideShowMapBoat()" />
+        	</div>
 
 
 			<div id='boatCanvas'>
@@ -151,10 +151,17 @@
 				<canvas width='900px' height='900px' id='layerWaypoint'></canvas>
 				<canvas width='900px' height='900px' id='layerCompasHeading'></canvas>
 				<canvas width='900px' height='900px' id='layerBoatHeading'></canvas>
+            <div>
+                <p>Light yellow arrow: bearing to waypoints</p>
+                <p>Tiny yellow arrow: heading</p>
+            </div>
 			</div>
 			<div id='map'></div>
+
       </div>
+
       </div>
+
 
       <!-- /END THE FEATURETTES -->
 

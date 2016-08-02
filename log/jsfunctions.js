@@ -1,3 +1,16 @@
+/****************************************************************************************
+ *
+ * Purpose:
+ *		Handles display of logs and drawing of boat path up until log id or as defined by range fields.
+ *
+ *
+ * Developer Notes:
+ *		- Boat drawing is mostly duplicate code from /live and should probably be centratilzed
+ *		- ROUTE_STARTED flag in waypoint database is still not implemented properly for route drawing
+ *
+ ***************************************************************************************/
+
+
 	$("#map").hide();
 	var showMap = false;
 	var layerBoat = null;

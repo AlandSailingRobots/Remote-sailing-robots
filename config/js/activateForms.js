@@ -1,7 +1,14 @@
-
-// return here when submit completes
-// each form returns a certain number on submit
-//
+/****************************************************************************************
+ *
+ * Purpose:
+ *      Serializes all forms on the page and submits them to the database using ajaxFormsubmit.
+ *      Can probably be ported to some library and reused.
+ *
+ *
+ * Developer Notes:
+ *
+ *
+ ***************************************************************************************/
 
 
 submitAllForms = function(){

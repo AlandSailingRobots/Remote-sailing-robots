@@ -1,6 +1,14 @@
-	/*This js file handles the setting of waypoint's. When you leftclick on the map
-		a marker will be set and the longitude and latitude is stored in a js obj/array.
-		When you rightclick the marker is removed from the map and the obj/array.*/
+/****************************************************************************************
+ *
+ * Purpose:
+ *		Handles waypoint configuration on the config page. Waypoints can be:
+ *			-	Dragged (position changes)
+ *			- 	Created (left click)
+ *			-	Removed (right click)
+ * Developer Notes:
+ *
+ *
+ ***************************************************************************************/
 
 	var firstUtilityCall = true;
 	//database data objects acquired through utility.js

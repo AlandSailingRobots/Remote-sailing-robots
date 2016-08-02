@@ -1,3 +1,15 @@
+/****************************************************************************************
+ *
+ * Purpose:
+ *      Submits serialized formdata sent from activateForms.js. Should probably be included in some library.
+ *
+ *
+ * Developer Notes:
+ *
+ *
+ ***************************************************************************************/
+
+
 ajaxFormSubmit = function(formData){
 
     // process the form
