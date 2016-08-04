@@ -23,7 +23,7 @@
 
 		$result = $data;
 
-		return $result;
+
       $data = json_decode($data,true);
 
       $size = count($data);
@@ -48,6 +48,8 @@
             }
           }
         $waypoint->close();
+
+		return $result;
 
 
     }
