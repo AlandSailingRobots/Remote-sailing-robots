@@ -30,6 +30,7 @@
 	$data = $data . "[";
 	$data = $data + "]";
 
+		$result = $data;
       $data = json_decode($data,true);
 
       $size = count($data);
@@ -54,7 +55,7 @@
             }
           }
         $waypoint->close();
-        return $data[0];
+        return $data;
     }
   }
     //when in non-wsdl mode the uri option must be specified
