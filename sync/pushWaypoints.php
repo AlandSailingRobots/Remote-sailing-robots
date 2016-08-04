@@ -20,6 +20,13 @@
 			$this->db->close();
 		}
     function pushWaypoint($data){
+
+		$bom = pack("CCC", 0xef, 0xbb, 0xbf);
+		if (0 == strncmp($data, $bom, 3)) {
+			echo "BOM detected - file is UTF-8\n";
+			$data = substr($data, 3);
+		}
+
       $data = json_decode($data,true);
 
       $size = count($data);
