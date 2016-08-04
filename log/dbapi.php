@@ -2,18 +2,32 @@
 session_start();
 require('dbconnection.php');
 
-$id = $_SESSION['id'];
-$name = $_SESSION['name'];
-$table = $_SESSION['table'];
-$number = $_SESSION['number'];
+if (isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['table']) && isset($_SESSION['number'])){
+	$id = $_SESSION['id'];
+	$name = $_SESSION['name'];
+	$table = $_SESSION['table'];
+	$number = $_SESSION['number'];
+	$isSession = true;
+}else{
+	$isSession = false;
+	$id = 1;
+	$name = "";
+	$table = "";
+	$number = 1;
+}
+
 switch ($_REQUEST['action']) {
 	case 'getAll':
-		$tables = getAll($id,$name, $table);
-		echo json_encode($tables);
+		if ($isSession){
+			$tables = getAll($id,$name, $table);
+			echo json_encode($tables);
+		}else echo "ERROR: Dbapi: Session not set";
 		break;
 	case 'getRoute':
-		$tables = getRoute($id);
-		echo json_encode($tables);
+		if ($isSession){
+			$tables = getRoute($id);
+			echo json_encode($tables);
+		}else echo "ERROR: Dbapi: Session not set";
 		break;
 	case 'getAllRoutes':
 		$tables = getAllRoutes();
