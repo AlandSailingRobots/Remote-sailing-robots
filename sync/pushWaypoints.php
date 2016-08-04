@@ -32,16 +32,15 @@
       $waypoint->execute();
 	  $waypoint->prepare("ALTER TABLE waypoints AUTO_INCREMENT = 0;");
       $waypoint->execute();
-      $waypoint->prepare("INSERT INTO waypoints VALUES(NULL,?,?,?,?,?,NULL);");
+      $waypoint->prepare("INSERT INTO waypoints VALUES(NULL,?,?,?,?,NULL);");
       for($i=1; $i <= $size; $i++) {
         $waypoints = "waypoint_".$i;
         foreach($data[$waypoints] as $row) {
-            $waypoint->bind_param("ddiii",
+            $waypoint->bind_param("ddii",
               $row["latitude"],
               $row["longitude"],
 			  $row["declination"],
-              $row["radius"],
-			  $row["stay_time"]
+              $row["radius"]
             );
               $waypoint->execute();
             }
