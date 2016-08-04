@@ -68,7 +68,7 @@
 						break;
 				}
 			} catch(Exception $e) {
-				print_r("ERROR: ".$e->getMessage());
+				print_r("ERROR: S_POST NOT SET ".$e->getMessage());
 			}
 		}
 	} else {
