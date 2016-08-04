@@ -190,7 +190,7 @@
                 'action': "getAllRoutes"
             },
             success: function(data) {
-                console.log("Trying to parse route data";
+                console.log("Trying to parse route data");
                 //console.log(data);
                 u_routeDataObj = jQuery.parseJSON(data);
             },
