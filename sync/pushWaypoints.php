@@ -21,16 +21,8 @@
 		}
     function pushWaypoint($data){
 
-		$bom = pack("CCC", 0xef, 0xbb, 0xbf);
-		if (0 == strncmp($data, $bom, 3)) {
-			echo "BOM detected - file is UTF-8\n";
-			$data = substr($data, 3);
-		}
-
-	$data = $data . "[";
-	$data = $data + "]";
-
 		$result = $data;
+		return $result;
       $data = json_decode($data,true);
 
       $size = count($data);
@@ -55,7 +47,7 @@
             }
           }
         $waypoint->close();
-        return $data;
+
     }
   }
     //when in non-wsdl mode the uri option must be specified
