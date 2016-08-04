@@ -68,7 +68,7 @@
 						break;
 				}
 			} catch(Exception $e) {
-				print_r("ERROR: S_POST NOT SET ".$e->getMessage());
+				print_r("ERROR: (exception thrown in sync/index.php): ".$e->getMessage());
 			}
 		}
 	} else {
