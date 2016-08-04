@@ -27,6 +27,9 @@
 			$data = substr($data, 3);
 		}
 
+	$data = $data . "[";
+	$data = $data + "]";
+
       $data = json_decode($data,true);
 
       $size = count($data);
