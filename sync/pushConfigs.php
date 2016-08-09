@@ -20,6 +20,7 @@
 		}
     function pushConfigs($data) {
         $data = json_decode($data,true);
+	$id = 1;
 
         $course_calculationStmt = $this->db->stmt_init();
         $maestro_controllerStmt = $this->db->stmt_init();
@@ -35,19 +36,19 @@
         $HttpsyncStmt = $this->db->stmt_init();
 				$BufferStmt = $this->db->stmt_init();
 
-        $course_calculationStmt->prepare("UPDATE course_calculation_config SET sector_angle=?,tack_angle=?,tack_max_angle=?,tack_min_speed=? WHERE id=1;");
-        $maestro_controllerStmt->prepare("UPDATE  maestro_controller_config SET port=? WHERE id=1;");
-        $rudder_commandStmt->prepare("UPDATE rudder_command_config SET extreme_command=?,midship_command=? WHERE id=1;");
-        $rudder_servoStmt->prepare("UPDATE rudder_servo_config SET acceleration=?, channel=?, speed=? WHERE id=1;");
-        $sailing_robotStmt->prepare("UPDATE sailing_robot_config SET flag_heading_compass=?, loop_time=?, scanning=? WHERE id=1;");
-        $sail_commandStmt->prepare("UPDATE sail_command_config SET close_reach_command=?, run_command=? WHERE id=1;");
-        $sail_servoStmt->prepare("UPDATE sail_servo_config SET acceleration=?,channel=?, speed=? WHERE id=1;");
-        $waypoint_routingStmt->prepare("UPDATE waypoint_routing_config SET adjust_degree_limit=?, max_command_angle=?,radius_ratio=?, rudder_speed_min=?, sail_adjust_time=? WHERE id=1;");
-        $windsensorStmt->prepare("UPDATE windsensor_config SET baud_rate=?, port=? WHERE id=1");
-        $wind_vaneStmt->prepare("UPDATE wind_vane_config SET use_self_steering=?, wind_sensor_self_steering=?, self_steering_interval=? WHERE id=1;");
-        $XbeeStmt->prepare("UPDATE xbee_config SET send=?, recieve=?, send_logs=?, delay=? WHERE id=1;");
-        $HttpsyncStmt->prepare("UPDATE httpsync_config SET delay=? WHERE id=1;");
-				$BufferStmt->prepare("UPDATE buffer_config SET compass=?, true_wind=?, windsensor=? WHERE id=1;");
+        $course_calculationStmt->prepare("UPDATE course_calculation_config SET sector_angle=?,tack_angle=?,tack_max_angle=?,tack_min_speed=? WHERE id=$id;");
+        $maestro_controllerStmt->prepare("UPDATE  maestro_controller_config SET port=? WHERE id=$id;");
+        $rudder_commandStmt->prepare("UPDATE rudder_command_config SET extreme_command=?,midship_command=? WHERE id=$id;");
+        $rudder_servoStmt->prepare("UPDATE rudder_servo_config SET acceleration=?, channel=?, speed=? WHERE id=$id;");
+        $sailing_robotStmt->prepare("UPDATE sailing_robot_config SET flag_heading_compass=?, loop_time=?, scanning=?, line_follow=?, require_network=? WHERE id=$id;");
+        $sail_commandStmt->prepare("UPDATE sail_command_config SET close_reach_command=?, run_command=? WHERE id=$id;");
+        $sail_servoStmt->prepare("UPDATE sail_servo_config SET acceleration=?,channel=?, speed=? WHERE id=$id;");
+        $waypoint_routingStmt->prepare("UPDATE waypoint_routing_config SET adjust_degree_limit=?, max_command_angle=?,radius_ratio=?, rudder_speed_min=?, sail_adjust_time=? WHERE id=$id;");
+        $windsensorStmt->prepare("UPDATE windsensor_config SET baud_rate=?, port=? WHERE id=$id");
+        $wind_vaneStmt->prepare("UPDATE wind_vane_config SET use_self_steering=?, wind_sensor_self_steering=?, self_steering_interval=? WHERE id=$id;");
+        $XbeeStmt->prepare("UPDATE xbee_config SET send=?, recieve=?, send_logs=?, delay=? WHERE id=$id;");
+        $HttpsyncStmt->prepare("UPDATE httpsync_config SET delay=? WHERE id=$id;");
+				$BufferStmt->prepare("UPDATE buffer_config SET compass=?, true_wind=?, windsensor=? WHERE id=$id;");
 
         $course_calculationStmt->bind_param("dddd",$data["course_calculation_config"]["sector_angle"],
         $data["course_calculation_config"]["tack_angle"],
@@ -67,9 +68,11 @@
         $data["rudder_servo_config"]["speed"]);
         $rudder_servoStmt->execute();
 
-        $sailing_robotStmt->bind_param("iii", $data["sailing_robot_config"]["flag_heading_compass"],
+        $sailing_robotStmt->bind_param("idiii", $data["sailing_robot_config"]["flag_heading_compass"],
         $data["sailing_robot_config"]["loop_time"],
-        $data["sailing_robot_config"]["scanning"]);
+        $data["sailing_robot_config"]["scanning"],
+	$data["sailing_robot_config"]["line_follow"],
+	$data["sailing_robot_config"]["require_network"]);
         $sailing_robotStmt->execute();
 
         $sail_commandStmt->bind_param("ii", $data["sail_command_config"]["close_reach_command"],
@@ -111,14 +114,6 @@
         $data["buffer_config"]["windsensor"]);
         $BufferStmt->execute();
 
-        foreach($data["wind_vane_config"] as $row) {
-          $wind_vaneStmt->bind_param("iid",
-            $row["self_steering_interval"],
-            $row["use_self_steering"],
-            $row["wind_sensor_self_steering"]
-          );
-            $wind_vaneStmt->execute();
-        }
 
         $course_calculationStmt->close();
         $maestro_controllerStmt->close();
