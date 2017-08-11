@@ -38,6 +38,11 @@ class ASRService
 		$windSensorStmt->prepare("INSERT INTO windsensor_dataLogs VALUES(NULL,?,?,?,NULL);");
 		$arduinoStmt->prepare("INSERT INTO arduino_dataLogs VALUES(NULL,?,?,?,?);");
 
+////////////////////
+		$marineStmt = $this->db->stmt_init();
+		$marineStmt->prepare("INSERT INTO dataLogs_marine_sensors VALUES (?,?,?,?,?);");
+//////////////////////
+
 		foreach($data["gps_datalogs"] as $row) 
 		{
 			$gpsStmt->bind_param("sdddidi",
@@ -95,6 +100,19 @@ class ASRService
 			$arduinoStmt->execute();
 		}
 
+/////////////////////////
+		foreach($data["marine_sensors_dataLogs"] as $row) 
+		{
+			$marineStmt->bind_param("iiii",
+				$row["temperature"],
+				$row["conductivity"],
+				$row["ph"],
+				$row["time_stamp"]
+				);
+			$arduinoStmt->execute();
+		}
+///////////////////////////
+
 		foreach($data["system_datalogs"] as $row) 
 		{
 			$systemStmt->bind_param("siiiiid",
@@ -118,13 +136,18 @@ class ASRService
 				$foreignKey[$row["id"]] = NULL;
 			}
 		}
-		
+
 		$systemStmt->close();
 		$windSensorStmt->close();
 		$compassStmt->close();
 		$courseCalculationStmt->close();
 		$gpsStmt->close();
 		$arduinoStmt->close();
+
+//////////////
+		$marineStmt->close();
+/////////////
+
 		return json_encode($result);
 	}
 }
