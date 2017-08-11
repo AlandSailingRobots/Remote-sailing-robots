@@ -1,40 +1,46 @@
 <?php
-	class ASRService {
-		private $db;
-		function __construct() {
-			require_once('../globalsettings.php');
+class ASRService 
+{
+    private $db;
+    function __construct() 
+    {
+        require_once('../globalsettings.php');
 
-			$servername = "localhost";
-			$username = $GLOBALS['username'];
-			$password = $GLOBALS['password'];
-			$dbname = "ithaax_testdata";
-			// username = ithaax_testdata , pass = test123data
-			// Local: username = root, pass = ""
-			$this->db = new mysqli($servername, $username, $password, $dbname);
+        $servername = "localhost";
+        $username = $GLOBALS['username'];
+        $password = $GLOBALS['password'];
+        $dbname = "ithaax_testdata";
+        // username = ithaax_testdata , pass = test123data
+        // Local: username = root, pass = ""
+        $this->db = new mysqli($servername, $username, $password, $dbname);
 
-			//$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
-			//$this->db = new mysqli("localhost","root","","ithaax_testdata");
-		}
-		function __destruct() {
-			$this->db->close();
-		}
-    function pushConfigs($data) {
+        //$this->db = new mysqli("localhost","ithaax_testdata","test123data","ithaax_testdata");
+        //$this->db = new mysqli("localhost","root","","ithaax_testdata");
+    }
+    
+    function __destruct() 
+    {
+        $this->db->close();
+    }
+    
+    function pushConfigs($data) 
+    {
         $data = json_decode($data,true);
-	$id = 1;
+        $id = 1;
 
         $course_calculationStmt = $this->db->stmt_init();
         $maestro_controllerStmt = $this->db->stmt_init();
-        $rudder_commandStmt = $this->db->stmt_init();
-        $rudder_servoStmt = $this->db->stmt_init();
-        $sailing_robotStmt = $this->db->stmt_init();
-        $sail_commandStmt = $this->db->stmt_init();
-        $sail_servoStmt = $this->db->stmt_init();
-        $waypoint_routingStmt = $this->db->stmt_init();
-        $windsensorStmt = $this->db->stmt_init();
-        $wind_vaneStmt = $this->db->stmt_init();
-        $XbeeStmt = $this->db->stmt_init();
-        $HttpsyncStmt = $this->db->stmt_init();
-				$BufferStmt = $this->db->stmt_init();
+        $rudder_commandStmt     = $this->db->stmt_init();
+        $rudder_servoStmt       = $this->db->stmt_init();
+        $sailing_robotStmt      = $this->db->stmt_init();
+        $sail_commandStmt       = $this->db->stmt_init();
+        $sail_servoStmt         = $this->db->stmt_init();
+        $waypoint_routingStmt   = $this->db->stmt_init();
+        $windsensorStmt         = $this->db->stmt_init();
+        $wind_vaneStmt          = $this->db->stmt_init();
+        $XbeeStmt               = $this->db->stmt_init();
+        $HttpsyncStmt           = $this->db->stmt_init();
+        $BufferStmt             = $this->db->stmt_init();
 
         $course_calculationStmt->prepare("UPDATE course_calculation_config SET sector_angle=?,tack_angle=?,tack_max_angle=?,tack_min_speed=? WHERE id=$id;");
         $maestro_controllerStmt->prepare("UPDATE  maestro_controller_config SET port=? WHERE id=$id;");
@@ -48,7 +54,7 @@
         $wind_vaneStmt->prepare("UPDATE wind_vane_config SET use_self_steering=?, wind_sensor_self_steering=?, self_steering_interval=? WHERE id=$id;");
         $XbeeStmt->prepare("UPDATE xbee_config SET send=?, recieve=?, send_logs=?, delay=? WHERE id=$id;");
         $HttpsyncStmt->prepare("UPDATE httpsync_config SET delay=? WHERE id=$id;");
-				$BufferStmt->prepare("UPDATE buffer_config SET compass=?, true_wind=?, windsensor=? WHERE id=$id;");
+                $BufferStmt->prepare("UPDATE buffer_config SET compass=?, true_wind=?, windsensor=? WHERE id=$id;");
 
         $course_calculationStmt->bind_param("dddd",$data["course_calculation_config"]["sector_angle"],
         $data["course_calculation_config"]["tack_angle"],
@@ -71,8 +77,8 @@
         $sailing_robotStmt->bind_param("idiii", $data["sailing_robot_config"]["flag_heading_compass"],
         $data["sailing_robot_config"]["loop_time"],
         $data["sailing_robot_config"]["scanning"],
-	$data["sailing_robot_config"]["line_follow"],
-	$data["sailing_robot_config"]["require_network"]);
+        $data["sailing_robot_config"]["line_follow"],
+        $data["sailing_robot_config"]["require_network"]);
         $sailing_robotStmt->execute();
 
         $sail_commandStmt->bind_param("ii", $data["sail_command_config"]["close_reach_command"],
@@ -109,7 +115,7 @@
         $HttpsyncStmt->bind_param("i", $data["httpsync_config"]["delay"]);
         $HttpsyncStmt->execute();
 
-				$BufferStmt->bind_param("iii",$data["buffer_config"]["compass"],
+                $BufferStmt->bind_param("iii",$data["buffer_config"]["compass"],
         $data["buffer_config"]["true_wind"],
         $data["buffer_config"]["windsensor"]);
         $BufferStmt->execute();
@@ -127,17 +133,17 @@
         $wind_vaneStmt->close();
         $XbeeStmt->close();
         $HttpsyncStmt->close();
-				$BufferStmt->close();
+        $BufferStmt->close();
 
         return $data["wind_vane_config"]["wind_sensor_self_steering"].$data["wind_vane_config"]["use_self_steering"];
-      }
-  }
-    //when in non-wsdl mode the uri option must be specified
-    $options=array('uri'=>'http://localhost/');
-    //create a new SOAP server
-    $server = new SoapServer(NULL,$options);
-    //attach the API class to the SOAP Server
-    $server->setClass('ASRService');
-    //start the SOAP requests handler
-    $server->handle();
-  ?>
+        }
+    }
+//when in non-wsdl mode the uri option must be specified
+$options=array('uri'=>'http://localhost/');
+//create a new SOAP server
+$server = new SoapServer(NULL,$options);
+//attach the API class to the SOAP Server
+$server->setClass('ASRService');
+//start the SOAP requests handler
+$server->handle();
+?>

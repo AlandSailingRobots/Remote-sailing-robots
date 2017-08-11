@@ -7,16 +7,16 @@
 	*/
 	if(isset($_POST["id"]) && isset($_POST["pwd"])) {
 
-		$optionsPushlogs = array('location' => $GLOBALS['server'].'/sync/pushDatalogs.php', 'uri' => 'http://localhost/');
-		$optionsGetConfigs = array('location' => $GLOBALS['server'].'/sync/getConfigs.php', 'uri' => 'http://localhost/');
-		$optionsPushConfigs = array('location' => $GLOBALS['server'].'/sync/pushConfigs.php', 'uri' => 'http://localhost/');
-		$optionsPushwaypoints = array('location' => $GLOBALS['server'].'/sync/pushWaypoints.php', 'uri' => 'http://localhost/');
-		$optionsGetWaypoints = array('location' => $GLOBALS['server'].'/sync/getWaypoints.php', 'uri' => 'http://localhost/');
+		$optionsPushlogs      = array('location' = > $GLOBALS['server'].'/sync/pushDatalogs.php', 'uri'  = > 'http://localhost/');
+		$optionsGetConfigs    = array('location' = > $GLOBALS['server'].'/sync/getConfigs.php', 'uri'    = > 'http://localhost/');
+		$optionsPushConfigs   = array('location' = > $GLOBALS['server'].'/sync/pushConfigs.php', 'uri'   = > 'http://localhost/');
+		$optionsPushwaypoints = array('location' = > $GLOBALS['server'].'/sync/pushWaypoints.php', 'uri' = > 'http://localhost/');
+		$optionsGetWaypoints  = array('location' = > $GLOBALS['server'].'/sync/getWaypoints.php', 'uri'  = > 'http://localhost/');
 		//create an instante of the SOAPClient (the API will be available)
-		$pushLogsService = new SoapClient(NULL, $optionsPushlogs);
-		$getConfigsService = new SoapClient(NULL, $optionsGetConfigs);
-		$pushConfigsService = new SoapClient(NULL, $optionsPushConfigs);
-		$pushPushWaypoints = new SoapClient(NULL, $optionsPushwaypoints);
+		$pushLogsService     = new SoapClient(NULL, $optionsPushlogs);
+		$getConfigsService   = new SoapClient(NULL, $optionsGetConfigs);
+		$pushConfigsService  = new SoapClient(NULL, $optionsPushConfigs);
+		$pushPushWaypoints   = new SoapClient(NULL, $optionsPushwaypoints);
 		$getWaypointsService = new SoapClient(NULL, $optionsGetWaypoints);
 
 		if(isset($_POST["serv"])) {
