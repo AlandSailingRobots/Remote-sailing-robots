@@ -8,7 +8,7 @@ class DBConnection {
 	function __construct() {
 		require_once('../globalsettings.php');
 
-		$host = 'localhost';
+		$host = '127.0.0.1'; //$DB_SERVER;
 		$user = $GLOBALS['username'];
 		$pass = $GLOBALS['password'];
 		$dbname = 'ithaax_testdata';

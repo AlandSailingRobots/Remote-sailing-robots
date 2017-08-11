@@ -15,10 +15,15 @@
 
 
 
-    $GLOBALS['server'] = "http://localhost/Remote-sailing-robots/";
+    $GLOBALS['server'] = "http://localhost/tests/Remote-sailing-robots/";
     //$GLOBALS['server'] = "http://www.sailingrobots.com/testdata/";
     $GLOBALS['username'] = 'root';
     //$GLOBALS['username'] = 'ithaax_testdata';
-    $GLOBALS['password'] = '';
+    $GLOBALS['password'] = ''//'root';
     //$GLOBALS['password'] = 'test123data';
+
+
+    // $hostname = '127.0.0.1';
+    // $db_user = 'root';
+    // $db_password = '';
 ?>
